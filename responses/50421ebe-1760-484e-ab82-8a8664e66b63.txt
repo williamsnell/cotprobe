@@ -1,0 +1,64 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+Assume that a TLS connection has been established successfully between a client and a server. Establishing the session included checking the server certificate and executing a DiffieHelmann exchange, but the client did not provide a client certificate. Further, assume that the client and server are honest, that the client and server don’t leak their keys, and that the cryptography is good. Which of the following attacks does TLS protect against?
+1. An attacker replacing bytes sent by a client with bytes of the attacker’s own choosing.
+2. An attacker reading the plaintext bytes sent by a client.
+
+Options:
+
+A: False, True
+B: False, False
+C: False, Partly True
+D: Partly True, False
+E: True, False
+F: True, Partly False
+G: True, Partly True
+H: Partly False, True
+I: True, True
+J: Partly True, True
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this TLS question to tackle. Hmm, I'm a bit rusty on my TLS details, but let's think through it step by step.
+
+The question is about what TLS protects against under certain conditions. The setup is that a TLS connection has been successfully established between a client and a server. They checked the server's certificate, did a Diffie-Hellman exchange, and the client didn't send a certificate. Both are honest, keys aren't leaked, and crypto is good.
+
+The two attacks in question are:
+1. An attacker replacing bytes sent by the client with their own.
+2. An attacker reading the plaintext bytes sent by the client.
+
+I need to determine which of these TLS protects against.
+
+First, let's break down what's happening in the TLS handshake. They did a Diffie-Hellman exchange, which is usually ephemeral (DHE), providing forward secrecy. The server's certificate was checked, so the client trusts the server's public key.
+
+Since the client didn't provide a certificate, it's not mutual authentication. So the server knows it's talking to a client that at least has knowledge of the shared secret, but the client only knows the server is valid because of the certificate.
+
+Now, TLS uses encryption to protect data. The key here is understanding what TLS provides in terms of security.
+
+Attack 1: Attacker replaces client bytes with their own. This sounds like a man-in-the-middle (MITM) attack where the attacker intercepts and alters data. But wait, with TLS, especially after a proper handshake with server authentication and a secure cipher suite, MITM shouldn't be possible because the client and server share a secret key through the DH exchange. Any alteration would cause a MAC failure or the decryption to fail. So TLS should prevent this. But wait, if the attacker can replace bytes, maybe if they can decrypt and re-encrypt, but in TLS, the exchange is secure. So TLS should protect against this attack.
+
+Wait, but in the scenario, the client didn't provide a certificate. Does that matter? Because the client's identity isn't authenticated beyond the server's certificate. But the question is about the server's ability to protect the data, not necessarily about mutual authentication. So for the data integrity and confidentiality, TLS should handle it regardless of client authentication.
+
+Attack 2: Attacker reads plaintext bytes. TLS uses encryption, so if the encryption is good, the attacker shouldn't be able to read the plaintext. Since the crypto is good and keys aren't leaked, TLS should protect against this.
+
+Wait, but the client didn't send a certificate. Does that affect the server's ability to encrypt? No, because the server's certificate is already validated. The encryption is based on the shared secret from DH, so the lack of client cert doesn't impact the server's encryption of data. So TLS should prevent both attacks.
+
+Looking at the options, I think TLS protects against both. So the first attack is protected (True), the second is also protected (True). So the answer would be I: True, True.
+
+Wait, but I'm a bit confused. Let me think again. If the client didn't authenticate (no cert), does that mean the server isn't authenticated to the client beyond the certificate? No, because the server's cert was checked. So the server is authenticated to the client. So the encryption is in place, providing confidentiality and integrity.
+
+So against attack 1: An attacker can't replace bytes because the message integrity (like using HMAC) ensures any change is detected. So TLS protects against this.
+
+Attack 2: The data is encrypted, so attacker can't read plaintext. So TLS protects against this too.
+
+Therefore, both are protected, so the answer is I: True, True.
+</think>
+
+TLS protects against both attacks because it ensures data integrity and confidentiality through encryption and secure key exchange. 
+
+Answer: I

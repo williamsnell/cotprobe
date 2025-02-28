@@ -1,0 +1,161 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+5.8-5. If the distribution of $Y$ is $b(n, 0.25)$, give a lower bound for $P(|Y / n-0.25|<0.05)$ when
+(c) $n=1000$.
+
+Options:
+
+A: $0.980$
+B: $0.850$
+C: $0.950$
+D: $0.860$
+E: $0.875$
+F: $0.800$
+G:  $0.925$
+H: $0.900$
+I: $0.890$
+J: $0.940$
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this probability question here. Let me try to figure it out step by step. The question is about finding a lower bound for the probability P(|Y/n - 0.25| < 0.05) when n=1000, and Y follows a binomial distribution with parameters n and p=0.25.
+
+First, I remember that Y is a binomial random variable, which means Y ~ Bin(n, p). Here, p is 0.25, and n is 1000. The expression Y/n is essentially the sample proportion, which we're comparing to the true proportion p=0.25. We're looking for the probability that this sample proportion is within 0.05 of the true proportion.
+
+So the probability we're interested in is P(|Y/n - 0.25| < 0.05). This can be rewritten as P(-0.05 < Y/n - 0.25 < 0.05), which simplifies to P(0.20 < Y/n < 0.30). Since Y is binomial, Y/n is the sample proportion, and we can model this using the normal approximation for large n because n is 1000, which is quite large.
+
+Wait, but the question is asking for a lower bound. So maybe I don't need to calculate the exact probability but rather use some inequality to find a lower bound. The options given are all specific numbers, so perhaps using a known inequality like Chebyshev's or Chernoff's would give me a lower bound without needing the exact distribution.
+
+Chebyshev's inequality relates the variance and the probability that a random variable deviates from its mean. The formula is P(|X - μ| ≥ kσ) ≤ 1/k². But since we're looking for a lower bound on the probability that we're within a certain range, maybe we can use this to find an upper bound on the probability outside the range and subtract it from 1.
+
+Let me think. The probability we want is P(|Y/n - p| < ε), where ε is 0.05, p=0.25. Rearranging, this is 1 - P(|Y/n - p| ≥ ε). Using Chebyshev's inequality, P(|Y/n - p| ≥ ε) ≤ Var(Y/n)/(ε²). So P(|Y/n - p| < ε) ≥ 1 - Var(Y/n)/(ε²).
+
+First, I need to find Var(Y/n). Since Y is binomial, Var(Y) = n p (1-p). So Var(Y/n) = Var(Y)/n² = [n p (1-p)] / n² = p(1-p)/n.
+
+Plugging in the numbers: p=0.25, so 1-p=0.75. Var(Y/n) = (0.25 * 0.75)/1000 = (0.1875)/1000 = 0.0001875.
+
+Now, ε is 0.05, so ε² is 0.0025.
+
+Using Chebyshev's inequality: P(|Y/n - p| ≥ 0.05) ≤ 0.0001875 / 0.0025 = 0.075.
+
+So the probability that we're within 0.05 of p is at least 1 - 0.075 = 0.925. Looking at the options, G is 0.925. So that would be the lower bound using Chebyshev.
+
+Wait, but Chebyshev provides a lower bound, right? So P(...) ≥ 0.925. That would make 0.925 the lower bound, so the answer should be G. But I'm a bit confused because sometimes people use the Central Limit Theorem (CLT) for such problems, which gives a better approximation, but the question specifically asks for a lower bound, so Chebyshev is appropriate here.
+
+Alternatively, if I were to use the CLT, I could compute a normal approximation. Let's see: the mean of Y/n is p=0.25, and the variance is p(1-p)/n=0.0001875, so the standard deviation σ is sqrt(0.0001875) ≈ 0.013693.
+
+Then, the Z-scores for the bounds 0.20 and 0.30 would be (0.20 - 0.25)/0.013693 ≈ -3.64 and (0.30 - 0.25)/0.013693 ≈ 3.64. Looking up these Z-scores in the standard normal table, the area between -3.64 and 3.64 is practically 1, since 3 standard deviations usually cover 99.7% of the data, and 3.64 is even further out. So the exact probability is very close to 1, but the question is about the lower bound, so Chebyshev gives 0.925, which is a conservative estimate.
+
+Wait a minute, but Chebyshev's inequality gives a lower bound, but maybe there's a better way. Alternatively, perhaps using the De Moivre-Laplace theorem, which is the normal approximation to the binomial. But again, that would give an approximate value, not a lower bound.
+
+Alternatively, maybe applying Hoeffding's inequality, which is another concentration inequality. Hoeffding's inequality states that for a sum of independent bounded random variables, the probability that the sum deviates from its mean is bounded. For a binomial distribution, each trial can be thought of as an independent Bernoulli random variable taking values 0 or 1. The Hoeffding bound for the sum Y is P(Y/n ≥ p + t) ≤ exp(-2n² t² / (p(1-p)(1)^2)) ). Wait, but Hoeffding is for bounded variables, and Bernoulli variables are bounded between 0 and 1, so it applies.
+
+But I'm trying to find P(|Y/n - p| < 0.05), which is the same as 1 - P(|Y/n - p| ≥ 0.05). Using Hoeffding's inequality for the upper tail, we can write P(Y/n ≥ p + t) ≤ exp(-2n² t² / (p(1-p)) ), and similarly for the lower tail. So for t=0.05, the probability that Y/n is at least p + 0.05 or at most p - 0.05 is bounded by 2 exp(-2n² t² / (p(1-p)) ).
+
+Let's compute that. n=1000, t=0.05, p=0.25, 1-p=0.75.
+
+So the exponent is -2*(1000)^2*(0.05)^2 / (0.25*0.75) = -2*1,000,000*0.0025 / 0.1875.
+
+Calculating numerator: 1,000,000 * 0.0025 = 2500. Multiply by 2: 5000.
+
+Denominator: 0.25*0.75 = 0.1875.
+
+So exponent is -5000 / 0.1875 ≈ -26666.6667.
+
+So exp(-26666.6667) is practically zero. Therefore, P(|Y/n - p| ≥ 0.05) ≤ 2 * 0 ≈ 0. So P(|Y/n - p| < 0.05) ≥ 1 - 0 = 1. But this can't be right because the exact probability is less than 1, so Hoeffding's inequality is giving a trivial bound here, which is not useful. So maybe Chebyshev is better in this case.
+
+Alternatively, perhaps I made a mistake in applying Hoeffding. Let me check the formula again. Hoeffding's inequality for the sum S of n independent variables X_i, each in [a_i, b_i], is P(S - E[S] ≥ t) ≤ exp(-2t² / (Σ (b_i - a_i)^2 )).
+
+In our case, each X_i is Bernoulli, so a_i=0, b_i=1. So the sum Y has E[Y] = np. Then, the probability that Y/n - p ≥ t is P(Y ≥ np + nt) ≤ exp(-2 (nt)^2 / (n*(1)^2)) ) = exp(-2n t²).
+
+Wait, that's a simpler form. So P(Y/n ≥ p + t) ≤ exp(-2n t²). Similarly for the lower tail. So the two-tailed probability is bounded by 2 exp(-2n t²).
+
+In our case, t=0.05, n=1000.
+
+So 2 exp(-2 * 1000 * (0.05)^2) = 2 exp(-2*1000*0.0025) = 2 exp(-5). Since exp(-5) ≈ 0.006737947, so 2 * 0.006737947 ≈ 0.013475894. So the probability that Y/n is outside [0.20, 0.30] is at most 0.0135, so the probability inside is at least 1 - 0.0135 = 0.9865. Wait, that's a much better lower bound than Chebyshev's 0.925. So why the discrepancy?
+
+Ah, because Hoeffding's inequality is more suitable for bounded variables and gives a tighter bound. So perhaps the correct lower bound using Hoeffding is approximately 0.9865, which is about 0.987, but the options don't have that. The closest option is A: 0.980, but wait, 0.9865 is higher than 0.980. Alternatively, maybe I made a mistake in applying Hoeffding.
+
+Wait, maybe I should check the exact calculation again. Let me compute 2 * exp(-2 * 1000 * 0.05^2).
+
+0.05^2 = 0.0025. Multiply by 1000: 2.5. Multiply by 2: 5. So exponent is -5.
+
+exp(-5) ≈ 0.006737947. Multiply by 2: ≈0.013475894.
+
+So the upper bound on P(|Y/n - p| ≥ 0.05) is 0.013475894, so the lower bound on P(|Y/n - p| < 0.05) is 1 - 0.013475894 ≈ 0.986524106. So approximately 0.9865. But the options don't have 0.9865. The closest option is A: 0.980, but that's lower than our calculated lower bound. So that can't be right because 0.9865 is higher than 0.980, meaning the lower bound is higher than 0.980, so 0.980 is a lower lower bound, but we have a better lower bound. So perhaps the answer isn't A.
+
+But wait, the question asks for a lower bound, so 0.9865 is a lower bound, but maybe the options don't include that, so perhaps I made a mistake in applying Hoeffding. Alternatively, perhaps I should stick with Chebyshev's inequality, which gave 0.925, which is option G.
+
+But wait, using Hoeffding's inequality, the bound is 0.9865, which is a better lower bound than Chebyshev. So why is the option G (0.925) present? Maybe the question expects the use of Chebyshev's inequality. Alternatively, perhaps I'm overcomplicating it and the correct approach is to use the Central Limit Theorem to approximate the probability and then find a lower bound based on that.
+
+Wait, but the question is about a lower bound, not an approximation. So using Chebyshev's gives a lower bound of 0.925, which is option G. Alternatively, using Hoeffding gives a better lower bound, but since the options don't include that, perhaps the intended approach is to use Chebyshev.
+
+Alternatively, perhaps the problem expects using the normal approximation without considering it as a bound. Let me try that approach.
+
+Using the normal approximation: Y ~ N(np, np(1-p)) = N(250, 187.5). Then Y/n ~ N(0.25, 0.0001875). So the standard deviation is sqrt(0.0001875) ≈ 0.013693.
+
+We want P(0.20 < Y/n < 0.30) = P( (0.20 - 0.25)/0.013693 < Z < (0.30 - 0.25)/0.013693 ).
+
+Calculating the Z-scores:
+
+Lower bound: (0.20 - 0.25)/0.013693 ≈ (-0.05)/0.013693 ≈ -3.64.
+
+Upper bound: (0.30 - 0.25)/0.013693 ≈ 0.05/0.013693 ≈ 3.64.
+
+Looking up these Z-scores in the standard normal table, the area between -3.64 and 3.64 is practically 1, because the probability beyond 3 standard deviations is about 0.15%, so beyond 3.64 would be even less. So the probability is approximately 1, but the question is about a lower bound. So perhaps using the normal approximation, the lower bound is very close to 1, but again, the options don't include that.
+
+Alternatively, maybe I should compute the exact binomial probability, but for n=1000, that's not feasible manually. However, given that n is large, the normal approximation should be quite accurate, suggesting that the probability is very close to 1, but the options don't have a 0.99 or anything like that. So perhaps the question is expecting the use of Chebyshev's inequality, giving a lower bound of 0.925, which is option G.
+
+Alternatively, perhaps I made a mistake in the Hoeffding calculation. Let me check again: Hoeffding's for the sum Y, P(Y ≥ np + nt) ≤ exp(-2 (nt)^2 / (n * 1^2)) ) = exp(-2n t^2). So for t=0.05, n=1000, it's exp(-2 * 1000 * 0.0025) = exp(-5) ≈ 0.006737947. Multiply by 2 for both tails: ≈0.013475894. So 1 - 0.013475894 ≈ 0.986524106. So the lower bound is approximately 0.9865, which is higher than option A (0.980). But the options don't have 0.9865, so maybe the intended answer is A: 0.980. But wait, 0.9865 is higher than 0.980, so 0.980 is a valid lower bound, but it's not the tightest possible. Since the question asks for a lower bound, any value less than or equal to the actual probability is acceptable, but the answer options likely expect the best possible lower bound from the given choices.
+
+Alternatively, perhaps the question expects using the Central Limit Theorem with a continuity correction. Let me try that.
+
+In the normal approximation, sometimes a continuity correction is applied. The binomial variable Y is discrete, so when approximating P(a ≤ Y ≤ b), we can use P(a - 0.5 ≤ Y/n ≤ b + 0.5). But in this case, we're dealing with Y/n, so it's a bit different. Alternatively, perhaps the continuity correction would adjust the bounds.
+
+Wait, no, the continuity correction is applied to the discrete variable Y, so for Y, the event Y/n ≥ 0.20 is equivalent to Y ≥ 0.20n. So applying continuity correction, we'd use Y ≥ 0.20n + 0.5. Similarly, Y ≤ 0.30n - 0.5.
+
+But in our case, since we're dealing with Y/n, perhaps the correction would adjust the bounds slightly. Let me see: the original event is Y/n ≥ 0.20, which is Y ≥ 0.20n. Applying continuity correction, this becomes Y ≥ 0.20n + 0.5. Similarly, Y/n ≤ 0.30 becomes Y ≤ 0.30n - 0.5.
+
+So the corrected probability is P(0.20n + 0.5 ≤ Y ≤ 0.30n - 0.5). Then, Y/n would be in [0.20, 0.30], but adjusted by 0.5/n. For n=1000, 0.5/n=0.0005, which is negligible, so the Z-scores would be almost the same as before.
+
+Calculating the corrected Z-scores:
+
+Lower bound: (0.20*1000 + 0.5 - 250)/sqrt(187.5) = (200 + 0.5 - 250)/13.693 ≈ (-49.5)/13.693 ≈ -3.61.
+
+Upper bound: (0.30*1000 - 0.5 - 250)/13.693 ≈ (300 - 0.5 -250)/13.693 ≈ 49.5/13.693 ≈ 3.61.
+
+So the Z-scores are approximately ±3.61. The area between these Z-scores is almost 1, as before. So using continuity correction doesn't change the conclusion much; the probability is still very close to 1.
+
+But again, the options don't include a value as high as 0.9865, so perhaps the intended approach is to use Chebyshev's inequality, which gives a lower bound of 0.925, option G.
+
+Wait, but earlier using Hoeffding's gave a better lower bound, but perhaps the question expects Chebyshev. Let me think again.
+
+Chebyshev's inequality: P(|Y/n - p| ≥ ε) ≤ Var(Y/n)/(ε²) = (p(1-p)/n)/ε².
+
+So for p=0.25, 1-p=0.75, n=1000, ε=0.05.
+
+Var(Y/n) = (0.25 * 0.75)/1000 = 0.1875/1000 = 0.0001875.
+
+ε² = 0.0025.
+
+So 0.0001875 / 0.0025 = 0.075.
+
+Thus, P(|Y/n - p| ≥ 0.05) ≤ 0.075, so P(|Y/n - p| < 0.05) ≥ 1 - 0.075 = 0.925. So the lower bound is 0.925, which is option G.
+
+Therefore, the answer should be G: 0.925.
+</think>
+
+The problem involves finding a lower bound for the probability \( P\left(\left|\frac{Y}{n} - 0.25\right| < 0.05\right) \) where \( Y \) follows a binomial distribution \( b(n, 0.25) \) and \( n = 1000 \). 
+
+To determine the lower bound, Chebyshev's inequality is applied. Chebyshev's inequality states that for any random variable \( X \) with mean \( \mu \) and variance \( \sigma^2 \), the probability of deviating from the mean by more than \( k \) standard deviations is bounded by \( \frac{1}{k^2} \). Rearranging this, the probability of being within \( k \) standard deviations is at least \( 1 - \frac{1}{k^2} \).
+
+For \( Y \sim b(n, p) \), the mean \( \mu = np \) and the variance \( \sigma^2 = np(1-p) \). The variance of \( \frac{Y}{n} \) is \( \frac{p(1-p)}{n} \). Plugging in the values \( n = 1000 \), \( p = 0.25 \), and \( \epsilon = 0.05 \), the variance of \( \frac{Y}{n} \) is calculated as \( 0.0001875 \). Using Chebyshev's inequality, the probability of deviating by more than \( \epsilon = 0.05 \) is bounded by \( \frac{0.0001875}{0.0025} = 0.075 \). Thus, the probability of being within \( \epsilon \) is at least \( 1 - 0.075 = 0.925 \).
+
+Therefore, the lower bound for \( P\left(\left|\frac{Y}{n} - 0.25\right| < 0.05\right) \) when \( n = 1000 \) is **0.925**, corresponding to option G.
+
+Answer: G

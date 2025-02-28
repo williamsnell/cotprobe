@@ -1,0 +1,258 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+Suppose that feedback is used on a binary symmetric channel with parameter $p=0.5$. Each time a $Y$ is received, it becomes the next transmission. Thus $X_1$ is Bern(1/2), $X_2=Y_1$, $X_3=Y_2$, \ldots, X_n=Y_{n-1}. Find $\lim_{n\to\infty} \frac{1}{n} I(X_n;Y_n)$ in bits.
+
+Options:
+
+A: 1.25
+B: 1.0
+C: 2.0
+D: 1.5
+E: 0.5
+F: 0.75
+G: 0.9
+H: 0.0
+I: 0.25
+J: 0.1
+
+Answer:
+    <think>
+<think>
+Okay, so I have this problem about information theory involving a binary symmetric channel with feedback. The parameter p is 0.5, which I think means the probability of flipping the bit is 0.5. The setup is that each time a Y (the received bit) is used as the next transmission, so X1 is Bernoulli(1/2), and then X2 is Y1, X3 is Y2, and so on. I need to find the limit as n approaches infinity of (1/n) times the mutual information I(Xn; Yn). The options are from A to J.
+
+Hmm, let's break this down. First, mutual information I(X;Y) measures the information obtained about X from Y. In a binary symmetric channel, each bit is flipped with probability p. Since p=0.5 here, it's a particularly noisy channel because each bit is equally likely to be flipped or not.
+
+But wait, there's feedback involved. So each received bit Y is fed back as the next transmitted bit. That means X2 = Y1, X3 = Y2, etc. This seems like a feedback loop, which might affect the mutual information over time.
+
+Wait, mutual information I(Xn; Yn) is for each individual pair (Xn, Yn). But since the system is using feedback, the state of Xn depends on the previous Y's. So as n grows, the dependencies might build up, but I'm not sure how that affects the mutual information per symbol.
+
+Let me think about the channel. The channel is binary symmetric with p=0.5, so without feedback, the mutual information I(X;Y) would be H(Y) - H(Y|X). Since p=0.5, Y is Bernoulli(0.5) regardless of X because Y is equally likely to be 0 or 1. So H(Y) would be 1 bit. H(Y|X) is the entropy of Y given X. Since Y is a flipped version of X with p=0.5, H(Y|X) is H(Bernoulli(0.5)) which is 1 bit. So I(X;Y) = 1 - 1 = 0 bits. Wait, that can't be right because that would mean no information is conveyed, which seems off.
+
+Wait, no, wait. Wait, if p=0.5, the channel is completely symmetric, so the output is independent of the input. Because if X is 0, Y is 1 with probability 0.5, and if X is 1, Y is 0 with probability 0.5. So Y is always Bernoulli(0.5), no matter what X is. So I(X;Y) is zero because knowing X gives no information about Y, since Y is independent of X.
+
+But wait, that's without feedback. But with feedback, maybe the situation changes. Because each Xn is Yn-1. So Xn is dependent on Yn-1, which in turn depends on Xn-1 and the noise. But since the channel is symmetric, maybe the feedback doesn't help in the long run.
+
+Wait, but mutual information I(Xn; Yn) is about the specific pair. Since Xn is Yn-1, which is a function of Xn-1 and the noise. But Yn is the output of the channel when Xn is sent. So Yn depends on Xn, which is Yn-1. But since the channel is symmetric with p=0.5, Yn will be a flipped version of Xn with 50% chance. But Xn is Yn-1, which is already a noisy version of Xn-1. Hmm, this is getting a bit tangled.
+
+Wait, perhaps I should model this as a Markov chain. Since each Xn = Yn-1, and each Yn is a function of Xn and the noise. But since the channel is symmetric, the transition probabilities are the same for each step.
+
+Wait, let's think about the joint distribution of Xn and Yn. Since Xn is Yn-1, and Yn is a noisy version of Xn, so Yn is a flipped version of Yn-1 with probability 0.5. So the joint distribution P(Xn, Yn) can be considered.
+
+But mutual information is I(Xn; Yn) = H(Yn) - H(Yn|Xn). Since Yn is the output of a binary symmetric channel with p=0.5 given Xn, H(Yn|Xn) is 1 bit. So H(Yn) is the entropy of Yn, which is still 1 bit because Yn is Bernoulli(0.5) regardless of Xn. So I(Xn; Yn) = 1 - 1 = 0 bits. Wait, that's the same as before. So for each n, I(Xn; Yn) is zero. But that can't be right because the limit would be zero, but one of the options is H: 0.0.
+
+But wait, that feels contradictory because if I'm using feedback, maybe the mutual information isn't zero in the limit. Maybe I'm making a mistake here.
+
+Wait, perhaps I'm confusing the mutual information over time versus at each step. Because the system is using feedback, the variables are dependent across time, but each individual I(Xn; Yn) is still zero because Yn is independent of Xn given the channel's noise.
+
+Alternatively, perhaps the mutual information isn't zero because of the feedback. Let me think again. Since Xn is Yn-1, which is a function of Xn-1 and the noise. So Xn and Yn-1 are the same. Then Yn is the output when Xn is sent, which is Yn-1 with a flip of 50% chance. So Yn is a flipped version of Yn-1 with 50% chance. So Yn is Bernoulli(0.5), same as before. So the mutual information I(Xn; Yn) is zero because Yn is independent of Xn. Because Yn is a function of Xn through the channel, but since the channel is symmetric, Yn is independent of Xn.
+
+Wait, but if Xn is Yn-1, which is a function of Xn-1 and noise, and Yn is a function of Xn and noise, but since each is independent of the other given Xn, perhaps the mutual information is zero.
+
+Alternatively, perhaps the feedback makes the process non-stationary, and the mutual information approaches a certain value as n increases. Maybe over time, the system reaches a steady state where the mutual information per symbol is some value.
+
+Wait, I'm getting confused. Let me try to model this.
+
+Let me consider the process. X1 is Bernoulli(0.5). Then Y1 is X1 flipped with probability 0.5. So Y1 is also Bernoulli(0.5), independent of X1. Then X2 = Y1, which is Bernoulli(0.5). Then Y2 is X2 flipped with probability 0.5, so Y2 is Bernoulli(0.5). So each Xn is Bernoulli(0.5), and each Yn is Bernoulli(0.5). So for each n, Xn and Yn are independent, because Yn is a function of Xn with p=0.5, making Yn independent of Xn.
+
+Wait, no. Wait, Xn is Yn-1, which is a function of Xn-1 and the noise. So Xn is dependent on Yn-1, which is a function of Xn-1 and the channel noise. But the channel noise is independent across time. So each Yn is a function of Xn and a new Bernoulli(0.5) flip. So Yn is independent of Yn-1 except for the dependence through Xn.
+
+Wait, perhaps it's better to model the joint distribution of Xn and Yn. Since Xn is Yn-1, and Yn is a noisy version of Xn, perhaps the mutual information isn't zero.
+
+Wait, let's think of the channel as Xn -> Yn with p=0.5. So Yn = Xn + Zn mod 2, where Zn is Bernoulli(0.5). So Xn is Yn-1, which is Xn-1 + Zn-1 mod 2. So Xn = Yn-1 = Xn-1 + Zn-1.
+
+So Xn = Xn-1 + Zn-1.
+
+Then Yn = Xn + Zn = (Xn-1 + Zn-1) + Zn.
+
+But Zn and Zn-1 are independent and each is Bernoulli(0.5).
+
+So Yn = Xn-1 + Zn-1 + Zn.
+
+But since addition mod 2, this is Xn-1 + (Zn-1 + Zn).
+
+But since Zn-1 and Zn are independent, their sum mod 2 is Bernoulli(0.5), because the probability that Zn-1 + Zn is 0 is 0.5*0.5 + 0.5*0.5 = 0.5, and 1 is 0.5 as well.
+
+So Yn = Xn-1 + W, where W is Bernoulli(0.5), since Zn-1 + Zn is Bernoulli(0.5).
+
+So now, Yn is Xn-1 plus a Bernoulli(0.5) noise.
+
+But Xn is Yn-1, which is Xn-2 + W', where W' is Bernoulli(0.5).
+
+Wait, perhaps this is getting too complicated. Let me try to find I(Xn; Yn).
+
+I(Xn; Yn) = H(Yn) - H(Yn|Xn).
+
+Since Yn is a function of Xn and a Bernoulli(0.5) flip, H(Yn|Xn) = 1 bit, as Yn is Bernoulli(0.5) given Xn.
+
+H(Yn) is the entropy of Yn, which is also 1 bit because Yn is Bernoulli(0.5). So I(Xn; Yn) = 1 - 1 = 0 bits.
+
+Wait, but that would mean that for each n, the mutual information is zero, and so the limit is zero. But that seems counterintuitive because with feedback, perhaps we can do something.
+
+Wait, maybe I'm missing something. Because Xn is Yn-1, which is dependent on Yn-2, etc., but for each individual n, the mutual information between Xn and Yn is zero because Yn is independent of Xn given the channel's noise.
+
+Wait, but wait, maybe the mutual information isn't zero because of the feedback. Let me think differently. Since Xn is Yn-1, and Yn is a function of Xn, perhaps Xn and Yn are not independent. Wait, but Yn is Xn + Zn, where Zn is Bernoulli(0.5). So if Xn is Bernoulli(0.5), then Yn is also Bernoulli(0.5), independent of Xn. Because flipping a fair bit with a fair coin results in another fair bit that's independent of the original.
+
+Wait, that makes sense. So if Xn is Bernoulli(0.5), then Yn is Xn flipped with p=0.5, which makes Yn also Bernoulli(0.5), independent of Xn. So I(Xn; Yn) = 0.
+
+But that's for each n. So the limit as n approaches infinity would be zero. So the answer would be H: 0.0.
+
+But wait, another way to look at it: since the channel is used with feedback, perhaps the process becomes a Markov chain where each state depends on the previous, and the mutual information per symbol might approach a certain value.
+
+Alternatively, perhaps the system reaches a stationary distribution where Xn is dependent on Yn in a way that the mutual information isn't zero.
+
+Wait, let's model the process as a Markov chain. The state at time n is Xn, which is Yn-1. Yn is Xn flipped with p=0.5. So the next state Xn+1 is Yn, which is Xn flipped with p=0.5. So the transition from Xn to Xn+1 is flipping with p=0.5.
+
+So the state transitions are X_{n+1} = Xn + Zn, where Zn is Bernoulli(0.5). So the state is a Markov chain with transition matrix:
+
+From 0: to 0 with probability 0.5, to 1 with 0.5.
+
+From 1: same, to 0 with 0.5, to 1 with 0.5.
+
+So the stationary distribution is uniform, π0=π1=0.5.
+
+Now, considering that, what is I(Xn; Yn)?
+
+Since Yn is Xn + Zn, and Zn is independent across time, Yn is a function of Xn and Zn. But since Xn is in the stationary distribution, perhaps the mutual information can be calculated as follows.
+
+I(Xn; Yn) = H(Yn) - H(Yn|Xn).
+
+H(Yn) is 1 bit because Yn is Bernoulli(0.5).
+
+H(Yn|Xn) is the entropy of Yn given Xn. Since Yn is Xn flipped with p=0.5, H(Yn|Xn=0) = H(Bern(0.5))=1, same for Xn=1. So H(Yn|Xn)=1.
+
+Thus I(Xn; Yn)=1-1=0.
+
+So for each n, the mutual information is zero, so the limit is zero.
+
+But wait, that seems to suggest that even with feedback, the mutual information per symbol is zero. But that can't be right because feedback is being used, and perhaps the system can achieve some capacity.
+
+Wait, perhaps I'm misunderstanding the problem. Let me reread it.
+
+The problem says: Each time a Y is received, it becomes the next transmission. So X1 is Bern(1/2), X2=Y1, X3=Y2, etc. So the process is that Xn = Yn-1.
+
+In this setup, Yn is the output when Xn is sent through the channel. So Yn = Xn + Zn, Zn ~ Bern(0.5).
+
+But since Xn = Yn-1, which is Xn-1 + Zn-1.
+
+So Yn = (Xn-1 + Zn-1) + Zn = Xn-1 + (Zn-1 + Zn).
+
+But since Zn-1 and Zn are independent, their sum is Bern(0.5). So Yn = Xn-1 + Wn, where Wn is Bern(0.5).
+
+So Yn is dependent on Xn-1, not Xn. So I'm trying to find I(Xn; Yn). But Yn is dependent on Xn-1, not Xn. Because Yn = Xn-1 + Wn.
+
+But Xn is Yn-1, which is Xn-2 + Wn-1.
+
+Wait, perhaps there's a confusion in the indices. Let me clarify:
+
+At time n, Xn is sent.
+
+Yn is the received bit, which is Xn + Zn.
+
+But Xn is Yn-1, which is Xn-1 + Zn-1.
+
+So Yn = (Xn-1 + Zn-1) + Zn = Xn-1 + (Zn-1 + Zn).
+
+But Zn-1 and Zn are independent, each Bern(0.5). So their sum is Bern(0.5) because Pr(Zn-1=1 and Zn=0) = 0.25, same for other combinations. So the sum is 1 with probability 0.5, 0 otherwise.
+
+So Yn = Xn-1 + Wn, where Wn is Bern(0.5).
+
+So Yn is dependent on Xn-1, but we're considering I(Xn; Yn). Since Xn = Yn-1 = Xn-2 + Wn-1.
+
+Wait, but Yn is a function of Xn-1, which is two steps before Xn. So Xn and Yn are not directly connected, except through the chain.
+
+But I'm trying to find I(Xn; Yn). Since Yn is dependent on Xn-1, which is not Xn, perhaps the mutual information is not zero.
+
+Wait, but let's think about the joint distribution P(Xn, Yn). Since Yn is Xn-1 + Wn, and Xn is Yn-1 = Xn-2 + Wn-1.
+
+So Xn and Yn are dependent because Xn depends on Xn-2, and Yn depends on Xn-1 and Wn. But perhaps over time, as n increases, the dependencies become such that Xn and Yn are independent.
+
+Wait, no, because Xn and Yn are two steps apart. So perhaps in the limit, as n approaches infinity, the mutual information I(Xn; Yn) approaches some value.
+
+Alternatively, perhaps the process is such that Xn and Yn are independent in the limit, making the mutual information zero.
+
+But wait, given that each Yn is a function of Xn-1, and Xn is a function of Yn-1, which is Xn-2 + Wn-1. So the mutual information between Xn and Yn is about how much Xn can be predicted from Yn, or vice versa.
+
+Alternatively, perhaps the system's mutual information per symbol approaches zero because each Yn is a function of Xn-1, which is independent of Xn in the stationary distribution.
+
+Wait, in the stationary distribution, since the state transitions are flipping with p=0.5, the state Xn is Bernoulli(0.5) and independent of Xn-1. Because each step is a fair coin flip, so the states are independent across time. Wait, no, because each Xn is Yn-1, which is Xn-1 + Wn-1. So Xn is dependent on Xn-1 and Wn-1. So in the stationary distribution, Xn is dependent on Xn-1, but in the limit, because the transitions are symmetric, the process is a Markov chain with stationary distribution π = [0.5, 0.5], and transitions are symmetric.
+
+Wait, but if Xn is a function of Xn-1 and a fair coin flip, then Xn is Bernoulli(0.5) and independent of Xn-1 in the stationary distribution. Because each step is a coin flip, so the next state is independent of the current state given the coin flip. So in the stationary distribution, Xn is independent of Xn-1.
+
+If that's the case, then Yn = Xn-1 + Wn, where Wn is Bernoulli(0.5). So Yn is a function of Xn-1 and Wn, and since Xn-1 is independent of Xn in the stationary distribution, perhaps Yn is independent of Xn.
+
+Thus, I(Xn; Yn) = 0 in the stationary distribution, leading to the limit being zero.
+
+But that seems to conflict with the intuition that feedback could allow for some information to be transmitted, but perhaps in this case, because the channel is so noisy (p=0.5), the feedback doesn't help, and the mutual information remains zero.
+
+Alternatively, maybe I'm making a mistake in assuming that Xn and Yn are independent. Let me try to compute I(Xn; Yn) directly.
+
+I(Xn; Yn) = H(Yn) - H(Yn|Xn).
+
+We know H(Yn) = 1 bit because Yn is Bernoulli(0.5).
+
+H(Yn|Xn) is the entropy of Yn given Xn.
+
+But Yn = Xn + Zn, where Zn is Bernoulli(0.5). So given Xn, Yn is Bernoulli(0.5), so H(Yn|Xn) = 1.
+
+Thus, I(Xn; Yn) = 1 - 1 = 0 bits.
+
+So for each n, the mutual information is zero, so the limit is zero.
+
+But wait, that can't be right because with feedback, you can sometimes do better. For example, in a binary symmetric channel with feedback, the capacity is 1 bit per channel use because you can use the feedback to correct errors.
+
+Wait, but that's for the case where you have a code with feedback, enabling you to adapt your transmission based on previous feedback. But in this problem, the setup is that each Xn is set to Yn-1, which is the previous received bit. So it's a specific strategy, not the optimal use of feedback.
+
+Ah, that's the key. The problem isn't asking about the channel's capacity, but about the mutual information when using this specific feedback strategy where each Xn is Yn-1.
+
+So in this case, the mutual information per symbol is zero because Yn is independent of Xn. Thus, the limit is zero.
+
+But wait, let me double-check. If Xn is Yn-1, then Yn is Xn + Zn. Since Xn is Yn-1 = Xn-1 + Zn-1, Yn = Xn-1 + Zn-1 + Zn.
+
+So Yn is Xn-1 + (Zn-1 + Zn). Since Zn-1 and Zn are independent, their sum is Bernoulli(0.5). So Yn = Xn-1 + Wn, where Wn is Bernoulli(0.5).
+
+Thus, Yn is a function of Xn-1 and Wn. But since Xn is Yn-1 = Xn-1 + Wn-1, Xn is dependent on Xn-1 and Wn-1.
+
+So, in the stationary distribution, what is the relationship between Xn and Yn?
+
+Since Xn is Yn-1, which is Xn-1 + Wn-1, and Yn is Xn-1 + Wn, perhaps Xn and Yn are dependent through Xn-1 and Wn-1, Wn.
+
+But in terms of mutual information, I(Xn; Yn) would be H(Yn) - H(Yn|Xn).
+
+H(Yn) is 1.
+
+H(Yn|Xn) is the entropy of Yn given Xn. Since Yn = Xn-1 + Wn, and Xn is Yn-1 = Xn-2 + Wn-1, perhaps Xn and Yn are not directly related, but given that Xn is Yn-1, which is Xn-1 + Wn-1, and Yn is Xn-1 + Wn, perhaps there's a way to express Yn in terms of Xn.
+
+Wait, let's see: Yn = Xn-1 + Wn.
+
+But Xn = Yn-1 = Xn-2 + Wn-1.
+
+So Yn = (Xn-2 + Wn-1) + Wn.
+
+But without knowing Xn-2 or Wn-1, it's unclear.
+
+Alternatively, perhaps in the stationary distribution, Xn and Yn are independent because Xn is Bernoulli(0.5), and Yn is Bernoulli(0.5), and their joint distribution is uniform.
+
+But that would mean I(Xn; Yn) = 0.
+
+So, considering all this, I think the limit is zero, so the answer is H: 0.0.
+</think>
+
+The problem involves a binary symmetric channel with feedback, where each transmitted bit $X_n$ is set to the previously received bit $Y_{n-1}$. The channel has a flip probability $p=0.5$, meaning each bit is flipped with equal probability. The goal is to find $\lim_{n\to\infty} \frac{1}{n} I(X_n; Y_n)$.
+
+### Key Analysis:
+1. **Channel Behavior**: The channel is binary symmetric with $p=0.5$, so the output $Y$ is independent of the input $X$ because flipping a fair bit with a fair coin results in another fair bit. Thus, $Y$ is always Bernoulli(0.5), regardless of $X$.
+
+2. **Feedback Mechanism**: With feedback, $X_n = Y_{n-1}$. Since $Y_{n-1}$ is a noisy version of $X_{n-1}$, $X_n$ inherits the noise from the previous step. However, the channel's symmetry ensures that $Y_n$ remains independent of $X_n$.
+
+3. **Mutual Information**: The mutual information $I(X_n; Y_n)$ measures the information gained about $X_n$ from $Y_n$. Since $Y_n$ is a function of $X_n$ and a fair coin flip, $Y_n$ is independent of $X_n$. This makes $I(X_n; Y_n) = 0$ for each $n$.
+
+4. **Stationary Distribution**: In the stationary distribution, $X_n$ and $Y_n$ are both Bernoulli(0.5), and their joint distribution is uniform. Thus, $I(X_n; Y_n) = 0$ in the limit as $n \to \infty$.
+
+### Conclusion:
+The mutual information per symbol is zero because $Y_n$ is independent of $X_n$ due to the channel's symmetry and feedback mechanism. Therefore, the limit is:
+
+**Answer: H**

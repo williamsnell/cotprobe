@@ -1,0 +1,143 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+5.8-5. If the distribution of $Y$ is $b(n, 0.25)$, give a lower bound for $P(|Y / n-0.25|<0.05)$ when
+(a) $n=100$.
+
+
+Options:
+
+A: $0.75$
+B: $0.85$
+C: $0.45$
+D: $0.35$
+E: $0.55$
+F: $0.65$
+G: $0.15$
+H:  $0.25$
+I: $0.10$
+J: $0.05$
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this problem here about probability distributions, specifically a binomial distribution. Let me try to break it down step by step. I'm a bit rusty on some of these concepts, but I'll do my best to work through it.
+
+The question is about finding a lower bound for the probability P(|Y/n - 0.25| < 0.05) when n=100. The distribution of Y is given as b(n, 0.25), which means it's a binomial distribution with parameters n trials and probability of success 0.25 per trial.
+
+First, I need to understand what exactly the question is asking. It's asking for the lower bound, which I think means the minimum possible value that this probability can take. So, I need to find a value that's guaranteed to be less than or equal to P(|Y/n - 0.25| < 0.05), but as high as possible as a lower limit.
+
+I remember that for binomial distributions, when n is large, we can approximate them using the normal distribution. Since n=100 here, which is reasonably large, maybe that's the approach to take. Alternatively, there's also Chebyshev's inequality, which provides bounds on probabilities without needing to know the exact distribution. I'm not exactly sure which method is appropriate here, but I'll consider both.
+
+Let me start by considering the normal approximation. For a binomial distribution, the mean μ is n*p, which in this case would be 100*0.25 = 25. The variance σ² is n*p*(1-p), so that's 100*0.25*0.75 = 18.75. Therefore, the standard deviation σ is sqrt(18.75) ≈ 4.3301.
+
+Now, the probability we're interested in is P(|Y/n - 0.25| < 0.05). Let's rewrite this in terms of Y:
+
+|Y/n - 0.25| < 0.05
+=> -0.05 < Y/n - 0.25 < 0.05
+=> 0.25 - 0.05 < Y/n < 0.25 + 0.05
+=> 0.20 < Y/n < 0.30
+Multiplying all parts by n=100:
+20 < Y < 30
+
+So, we're looking for P(20 < Y < 30). Using the normal approximation, I can approximate Y with a normal distribution N(μ=25, σ²=18.75). To find P(20 < Y < 30), I'll convert these bounds to Z-scores.
+
+Z = (X - μ)/σ
+
+For X=20:
+Z = (20 - 25)/4.3301 ≈ (-5)/4.3301 ≈ -1.1547
+
+For X=30:
+Z = (30 - 25)/4.3301 ≈ 5/4.3301 ≈ 1.1547
+
+Now, I need to find the probability that Z is between -1.1547 and 1.1547. Using standard normal distribution tables, the area between these two Z-scores is approximately the difference between the cumulative probabilities at 1.1547 and -1.1547.
+
+Looking up Z=1.15 in the table, the cumulative probability is about 0.8749. For Z=-1.15, it's about 0.1251. But wait, actually, the area from -Z to Z is 2*Φ(Z) - 1, where Φ(Z) is the cumulative distribution function. So for Z=1.1547, Φ(1.15) ≈ 0.8749. Therefore, the area between -1.15 and 1.15 is 2*(0.8749) - 1 = 0.7498, which is approximately 0.75.
+
+Wait, but that would give P ≈ 0.75, which is option A. But the question is asking for a lower bound, not the exact probability. So maybe the normal approximation gives an estimate, but perhaps there's a way to find a guaranteed lower bound without approximation.
+
+That's where Chebyshev's inequality might come into play. Chebyshev's inequality states that for any random variable with finite mean μ and variance σ², the probability that it deviates from the mean by more than k standard deviations is at most 1/k². In mathematical terms:
+
+P(|X - μ| ≥ kσ) ≤ 1/k²
+
+But in our case, we're dealing with the sample proportion, not the count Y. Let me think about how to apply Chebyshev here.
+
+Let me consider X = Y/n. Then, E[X] = p = 0.25, and Var(X) = p(1-p)/n = (0.25*0.75)/100 = 0.001875. So, the standard deviation σ_X is sqrt(0.001875) ≈ 0.043301.
+
+We want P(|X - 0.25| < 0.05) = P(-0.05 < X - 0.25 < 0.05) = P(|X - 0.25| < 0.05).
+
+Let me set k such that 0.05 = kσ_X. So, k = 0.05 / 0.043301 ≈ 1.1547.
+
+Chebyshev's inequality tells us that P(|X - μ| ≥ kσ) ≤ 1/k². Therefore, the probability that |X - μ| is less than kσ is 1 - 1/k².
+
+So, 1 - 1/(1.1547)^2 ≈ 1 - 1/(1.3333) ≈ 1 - 0.75 = 0.25.
+
+Wait, that gives a lower bound of 0.25, which is option H. But earlier using the normal approximation, I got 0.75. So, which one is correct?
+
+Wait, no, I think I made a mistake here. Because Chebyshev's inequality gives an upper bound on the probability of being outside the interval, so the lower bound on the probability of being inside is 1 minus that upper bound. But wait, Chebyshev's inequality gives an upper bound on the tail probability, so the lower bound on the central probability is 1 - (1/k²).
+
+Wait, let me make this clear. Chebyshev's inequality says P(|X - μ| ≥ kσ) ≤ 1/k². Therefore, P(|X - μ| < kσ) ≥ 1 - 1/k².
+
+So in our case, k ≈ 1.1547, so 1/k² ≈ 1/(1.3333) ≈ 0.75, so 1 - 0.75 = 0.25.
+
+Therefore, P(|X - μ| < kσ) ≥ 0.25. So the lower bound is 0.25, which is option H.
+
+But wait, earlier using the normal approximation, I got about 0.75. So which one is the correct answer? The question asks for a lower bound, so the Chebyshev approach gives a lower bound of 0.25, which is a guaranteed minimum, but perhaps there's a tighter lower bound using another method.
+
+Alternatively, maybe using the Central Limit Theorem, which would give a better approximation, but that's more about the distribution and not a bound. Since the question asks for a lower bound, using Chebyshev is appropriate because it's a bound, while the normal approximation is an estimate.
+
+Wait, but I'm a bit confused because the normal approximation gave a higher value, 0.75, but Chebyshev gives a lower bound of 0.25. So, the probability is at least 0.25, but it could be higher. So, the lower bound is 0.25, which is option H.
+
+But wait, let me double-check my calculation for Chebyshev. Let me recalculate:
+
+Var(X) = p(1-p)/n = 0.25*0.75/100 = 0.1875/100 = 0.001875.
+
+So σ_X = sqrt(0.001875) ≈ 0.043301.
+
+We set k such that kσ_X = 0.05.
+
+k = 0.05 / 0.043301 ≈ 1.1547.
+
+Then, 1/k² = 1/(1.1547)^2 ≈ 1/1.3333 ≈ 0.75.
+
+So, P(|X - 0.25| < 0.05) ≥ 1 - 0.75 = 0.25.
+
+Yes, that seems correct. So the lower bound is 0.25, which is option H.
+
+Wait, but in the options, H is 0.25, which would be the correct answer according to Chebyshev. But I'm a bit concerned because 0.25 seems low compared to the normal approximation. However, Chebyshev is a more conservative bound, so it's safer to go with that when looking for a lower bound.
+
+Alternatively, perhaps I should consider using the Chernoff bound, which might give a better lower bound. Chernoff bounds are more precise for sums of independent random variables, which is the case here since Y is a sum of Bernoulli trials.
+
+The Chernoff bound for the tails of a binomial distribution can be used to find a lower bound on the probability that Y is close to its mean. The exact expression might be a bit involved, but perhaps I can recall that for p = 0.25, the variance is as calculated, and using the Chernoff bound might give a better estimate.
+
+Alternatively, perhaps a simpler approach is to use the Central Limit Theorem and the normal approximation to estimate the probability, but since the question is about a lower bound, the normal approximation gives an estimate but not a bound. So, Chebyshev is the way to go for a guaranteed lower bound.
+
+Wait, but let me think again: the question is about P(|Y/n - p| < 0.05). Using Chebyshev, I found that the probability is at least 0.25. But the normal approximation suggests it's about 0.75. So, the actual probability is around 0.75, but Chebyshev gives a lower bound of 0.25, which is much lower. So, the lower bound is 0.25, but the actual probability is higher.
+
+Therefore, the correct answer must be H: 0.25.
+</think>
+
+To determine a lower bound for \( P(|Y/n - 0.25| < 0.05) \) when \( n = 100 \) and \( Y \) follows a binomial distribution \( b(n, 0.25) \), we can use Chebyshev's inequality. 
+
+First, we rewrite the probability in terms of \( Y \):
+\[
+P(|Y/n - 0.25| < 0.05) = P(20 < Y < 30).
+\]
+
+Using Chebyshev's inequality, we consider \( X = Y/n \), which has mean \( \mu = 0.25 \) and variance \( \sigma^2 = \frac{0.25 \cdot 0.75}{100} = 0.001875 \). Thus, \( \sigma \approx 0.043301 \).
+
+We set \( k \) such that \( 0.05 = k \cdot \sigma \), giving \( k \approx 1.1547 \). Chebyshev's inequality states:
+\[
+P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}.
+\]
+Thus, the probability that \( |X - \mu| < k\sigma \) is at least:
+\[
+1 - \frac{1}{k^2} = 1 - \frac{1}{(1.1547)^2} \approx 1 - 0.75 = 0.25.
+\]
+
+Therefore, the lower bound for \( P(|Y/n - 0.25| < 0.05) \) is **0.25**.
+
+Answer: H

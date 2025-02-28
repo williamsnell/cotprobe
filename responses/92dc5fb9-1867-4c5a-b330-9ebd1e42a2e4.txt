@@ -1,0 +1,294 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+9.6-111. Let $X$ and $Y$ have a bivariate normal distribution with correlation coefficient $\rho$. To test $H_0: \rho=0$ against $H_1: \rho \neq 0$, a random sample of $n$ pairs of observations is selected. Suppose that the sample correlation coefficient is $r=0.68$. Using a significance level of $\alpha=0.05$, find the smallest value of the sample size $n$ so that $H_0$ is rejected.
+
+Options:
+
+A:  $9$
+B: $7$
+C: $10$
+D: $11$
+E: $13$
+F: $20$
+G: $5$
+H: $8$
+I: $12$
+J: $15$
+
+Answer:
+    <think>
+<think>
+Okay, so I have this statistics problem here about testing the correlation coefficient. Let me try to think through it step by step. I'm a bit rusty on this, but I'll try my best.
+
+The question says that X and Y have a bivariate normal distribution with correlation coefficient ρ. We're testing H0: ρ=0 against H1: ρ≠0. We have a sample of n pairs with a sample correlation coefficient r=0.68. We need to find the smallest n such that H0 is rejected at α=0.05.
+
+I remember that for testing the correlation coefficient, we can use a t-test. The test statistic follows a t-distribution with n-2 degrees of freedom. The formula for the test statistic is t = r * sqrt((n-2)/(1 - r²)). 
+
+Wait, let me make sure. Oh right, yes, because the standard error of r is sqrt((1 - r²)/(n-2)), so the t-statistic is r divided by that standard error, which simplifies to r * sqrt((n-2)/(1 - r²)).
+
+So, the next thing is to find the critical t-value for a two-tailed test at α=0.05. Since it's two-tailed, each tail has α/2=0.025. The degrees of freedom here would be n-2, which we're trying to find. But wait, that's a bit of a problem because the critical value depends on n, which is what we're trying to find. Hmm, so maybe I need another approach.
+
+Alternatively, I remember that the test statistic can be used to find the p-value, but since we need the smallest n where we can reject H0, perhaps we can find the minimum n such that the t-statistic exceeds the critical value for the given α.
+
+Wait, another thought: The correlation coefficient test can be related to the chi-squared distribution. There's a formula that connects r² to a chi-squared test. The test statistic is (n-2) * r² / (1 - ρ0²), where ρ0 is the hypothesized correlation. Since under H0, ρ0=0, this simplifies to (n-2) * r². So the test statistic is (n-2)*r², and we compare it to a chi-squared distribution with 1 degree of freedom.
+
+Wait, but I'm a bit confused. Let me get this straight. The test statistic for the correlation coefficient when testing ρ=0 is t = r * sqrt((n-2)/(1 - r²)), which follows a t-distribution with n-2 df. Alternatively, if I square the t-statistic, I get t² = (r² (n-2))/(1 - r²), which can be written as (r² (n-2))/(1 - r²) = F-statistic in regression, but perhaps that's getting away.
+
+Alternatively, the chi-squared approach: The test statistic is (n-2) * r², which is distributed as chi-squared with 1 df under H0. So for our case, r=0.68, so r²=0.4624. The test statistic would be (n-2)*0.4624. We need this to be greater than the critical chi-squared value at α=0.05, which is χ²_{0.95,1} = 3.841.
+
+So, set up the inequality: (n-2)*0.4624 ≥ 3.841. Solving for n:
+
+n-2 ≥ 3.841 / 0.4624 ≈ 8.305.
+
+So n ≥ 8.305 + 2 ≈ 10.305. Since n has to be an integer, the smallest n is 11. Let me check that: n=11, so 11-2=9, 9*0.4624≈4.1616, which is greater than 3.841. If n=10, then 8*0.4624≈3.699, which is less than 3.841. So the critical value is 3.841, and 3.699 is less than that, so we don't reject H0 for n=10, but we do for n=11.
+
+Wait, but another approach is using the t-test. Let's try that to confirm. The critical t-value for α=0.05 two-tailed and df=n-2 is t_c = t_{0.025, n-2}. So the test statistic is t = r * sqrt((n-2)/(1 - r²)).
+
+We can set up the inequality: |t| > t_c. Since r is positive, we can drop the absolute value. So r * sqrt((n-2)/(1 - r²)) > t_c.
+
+We can square both sides to get rid of the square root: r² * (n-2)/(1 - r²) > t_c².
+
+Rearranging: (n-2) > (t_c² * (1 - r²)) / r².
+
+Let me compute this. With r=0.68, r²=0.4624. 1 - r² = 0.5376.
+
+t_c is the critical value for the t-distribution with df = n-2. But since n is what we're solving for, this seems circular. Hmm, perhaps it's easier to compute using the chi-squared approach as before.
+
+Wait, but I think both methods should give the same result. Let me try plugging in n=11. The t_c for df=9 (since n-2=9) at α=0.025 is approximately 2.262. The test statistic t is 0.68 * sqrt(9 / (1 - 0.4624)) = 0.68 * sqrt(9 / 0.5376). Let's compute that.
+
+First, 9 / 0.5376 ≈ 16.74. sqrt(16.74) ≈4.09. So t ≈ 0.68 *4.09 ≈2.777. Now, the critical t-value for df=9 and α=0.025 is around 2.262. Since 2.777 > 2.262, we reject H0 for n=11.
+
+If n=10, then df=8. The critical t_c is about 2.306. The test statistic would be 0.68 * sqrt(8 / (1 -0.4624)) = 0.68 * sqrt(8/0.5376) ≈ 0.68 * sqrt(14.88) ≈0.68 * 3.858 ≈2.628. Now, 2.628 > 2.306, so we would reject H0 for n=10 as well. Wait, that's conflicting with the chi-squared approach where n=10 gave a test statistic below the critical value.
+
+Wait, this can't be right. There must be something wrong here. Let me recheck the chi-squared approach.
+
+Wait, when I did the chi-squared approach, for n=10, (n-2)*r² = 8 * 0.4624 = 3.6992, which is less than 3.841, so it's not significant. But according to the t-test approach, for n=10, the t-statistic is approximately 2.628, which is higher than the critical t-value of 2.306, so we would reject H0. That's a contradiction. Which one is correct?
+
+Wait, perhaps I made a mistake in the chi-squared calculation. Let me double-check. The chi-squared test statistic is (n-2)*r², which for n=10 is 8 * 0.4624=3.6992. The critical value at α=0.05 for chi-squared with 1 df is 3.841. Since 3.6992 <3.841, we fail to reject H0. So according to chi-squared, n=10 is not sufficient.
+
+But according to the t-test, for n=10, the t-stat is around 2.628, which is higher than 2.306, so we would reject H0. So there's a discrepancy here. I must have made a mistake somewhere.
+
+Wait, perhaps I messed up the chi-squared approach. Let me confirm the correct formula. I think the correct test statistic for the correlation coefficient when testing ρ=0 is indeed t = r * sqrt((n-2)/(1 - r²)), which follows a t-distribution with n-2 degrees of freedom. Alternatively, the squared t-statistic is (r² (n-2))/(1 - r²) = F(1, n-2), which relates to the chi-squared distribution because F = (chi-squared/df1)/(chi-squared/df2). So perhaps the test statistic can be written as (n-2)*r² ~ chi-squared(1), but I think that's only under certain conditions.
+
+Wait, let's think about the relationship between t and chi-squared. The t-statistic squared is (r² (n-2))/(1 - r²). So t² = [r² (n-2)] / (1 - r²). Let me compute this for n=10: t² = (0.4624 *8)/(0.5376) = (3.6992)/0.5376 ≈6.875. So t²≈6.875, which is greater than the critical t² of (2.306)^2≈5.317. So for n=10, t²=6.875 >5.317, so we would reject H0 at α=0.05.
+
+But according to the chi-squared approach, (n-2)*r²=3.6992, which is less than 3.841, so we would not reject. That's conflicting.
+
+I must have made a mistake in the chi-squared approach. Let me check. The test statistic for the correlation coefficient using the chi-squared distribution is actually (n-2)*r² ~ chi-squared(1). Wait, no, that's not correct. I think the correct test statistic is (n-2)*r²/(1 - r²) which follows a chi-squared distribution with 1 degree of freedom. So perhaps I confused the formula.
+
+Wait, if that's the case, then the test statistic is (n-2)*r²/(1 - r²) = [ (n-2) * r² ] / (1 - r²). For n=10, this would be (8 * 0.4624)/0.5376 ≈ (3.6992)/0.5376≈6.875, which is the same as t². So, the test statistic is 6.875, which is compared to the critical chi-squared value of 3.841 (since 6.875 >3.841, we reject H0 at α=0.05). So that matches the t-test approach.
+
+Wait, so earlier I thought the test statistic was (n-2)*r², but that's not correct. It's actually (n-2)*r²/(1 - r²), which is equal to t². So, for n=10, the test statistic is 6.875, which is greater than 3.841, so we reject H0. So, the chi-squared approach with the correct formula aligns with the t-test approach.
+
+So, the correct inequality is (n-2)*r²/(1 - r²) > χ²_{0.95, 1}.
+
+Given that, let's set up the equation:
+
+(n-2)*r² / (1 - r²) ≥ χ²_{0.95, 1} = 3.841.
+
+Plug in r=0.68, so r²=0.4624, 1 - r²=0.5376.
+
+So:
+
+(n-2)*0.4624 / 0.5376 ≥ 3.841.
+
+Simplify 0.4624 / 0.5376 ≈0.86.
+
+So:
+
+(n-2)*0.86 ≥3.841.
+
+Thus:
+
+n-2 ≥3.841 /0.86 ≈4.466.
+
+So n ≥4.466 +2 ≈6.466. So n=7 would be the smallest integer. Wait, but when n=7, n-2=5. Let's check:
+
+Test statistic =5 *0.4624 / 0.5376 ≈5 *0.86≈4.3.
+
+Which is less than 3.841? No, 4.3>3.841. So for n=7, the test statistic is 4.3>3.841, so we reject H0. 
+
+Wait, but earlier when I thought the test statistic was (n-2)*r², I got n=11, but that was incorrect because I used the wrong formula. The correct formula is (n-2)*r²/(1 - r²).
+
+So, for n=7, the test statistic is (5)*0.4624 /0.5376≈5*(0.86)=4.3>3.841, so we reject H0.
+
+But wait, let me check n=6: n-2=4. 4*0.4624/0.5376≈4*0.86=3.44<3.841. So we don't reject for n=6, but we do for n=7.
+
+Wait, but the options include 7 (option B) and 9 (option A), etc. So according to this, the smallest n is 7.
+
+But wait, let me make sure I didn't make a mistake. Let me compute it more accurately.
+
+Compute 0.4624 /0.5376:
+
+0.4624 ÷ 0.5376 ≈0.86.
+
+So (n-2)*0.86 ≥3.841.
+
+So (n-2) ≥3.841/0.86≈4.466.
+
+So n-2=5 (n=7) gives 5*0.86=4.3>3.841.
+
+Thus, n=7 is sufficient. But wait, let me check with the t-test approach.
+
+For n=7, df=5. The critical t-value for α=0.05 two-tailed is t_c=2.571 (I think that's correct). The test statistic t=0.68*sqrt(5/(1 -0.4624)).
+
+Compute denominator:1 -0.4624=0.5376.
+
+So 5/0.5376≈9.296.
+
+sqrt(9.296)=3.049.
+
+So t=0.68*3.049≈2.07.
+
+Compare to t_c=2.571. Since 2.07<2.571, we do not reject H0 for n=7. That contradicts the chi-squared approach.
+
+Wait, that's a problem. So which one is correct? I must have made a mistake somewhere.
+
+Wait, perhaps I messed up the test statistic formula in the t-test approach.
+
+Wait, the t-test formula is t = r * sqrt((n-2)/(1 - r²)).
+
+For n=7, r=0.68.
+
+So t=0.68*sqrt(5/(1 -0.4624)) =0.68*sqrt(5/0.5376).
+
+Compute 5/0.5376≈9.296.
+
+sqrt(9.296)=3.049.
+
+t=0.68*3.049≈2.07.
+
+Compare to t_c=2.571 (for df=5, α=0.025 two-tailed). Since 2.07<2.571, we fail to reject H0.
+
+But according to the chi-squared approach, using the correct formula, for n=7, the test statistic is (n-2)*r²/(1 - r²)=5*0.4624/0.5376≈4.3, which is greater than 3.841, so we reject H0.
+
+There's a contradiction here. That can't be right. Where's the mistake?
+
+Wait, I think the error is in the chi-squared approach. Let me check again. The test statistic for the correlation coefficient when testing ρ=0 is indeed t = r * sqrt((n-2)/(1 - r²)), and the squared t is (r² (n-2))/(1 - r²) = F(1, n-2). Alternatively, that F-statistic can be related to the chi-squared distribution because F = (chi-squared/1)/(chi-squared/(n-2)), but perhaps I'm complicating things.
+
+Wait, perhaps the correct approach is to use the t-test. Because when I compute for n=7, the t-stat is 2.07, which is less than 2.571, so we don't reject H0. Thus, the smallest n where t > t_c is when t >=2.571.
+
+Let me solve for n when t = r * sqrt((n-2)/(1 - r²)) >= t_c.
+
+So, r=0.68, t_c=2.571 for df=5, but wait, that's for n=7. Wait, but as n increases, the critical t-value decreases. So perhaps I need to find the smallest n where t >= t_c, where t_c is the critical value for n-2 df.
+
+This seems a bit tricky because t_c depends on n. Let me try to approach this step by step.
+
+We can set up the inequality:
+
+r * sqrt( (n-2)/(1 - r²) ) >= t_{α/2, n-2}
+
+We can square both sides:
+
+r² * (n-2)/(1 - r²) >= t_{α/2, n-2}^2
+
+Rearranged:
+
+(n-2) >= [ t_{α/2, n-2}^2 * (1 - r²) ] / r²
+
+Since r is 0.68, r²=0.4624, 1 - r²=0.5376.
+
+So:
+
+(n-2) >= [ t_{α/2, n-2}^2 * 0.5376 ] / 0.4624
+
+(n-2) >= (t_{α/2, n-2}^2) * (0.5376/0.4624) ≈ t_{α/2, n-2}^2 * 1.162.
+
+But this equation depends on n, which is what we're solving for. This seems a bit circular.
+
+Perhaps the best approach is to try each option and see which is the smallest n where the test statistic exceeds the critical t-value.
+
+Let's go through the options:
+
+Options are A:9, B:7, C:10, D:11, E:13, F:20, G:5, H:8, I:12, J:15.
+
+We need the smallest n where t >= t_c.
+
+Let's test n=7:
+
+df=5, t_c=2.571.
+
+t=0.68*sqrt(5/0.5376)=0.68*sqrt(9.296)=0.68*3.049≈2.07<2.571 → Do not reject.
+
+n=8:
+
+df=6, t_c=2.447.
+
+t=0.68*sqrt(6/0.5376)=0.68*sqrt(11.148)=0.68*3.339≈2.266<2.447 → Do not reject.
+
+n=9:
+
+df=7, t_c=2.365.
+
+t=0.68*sqrt(7/0.5376)=0.68*sqrt(13.03)=0.68*3.611≈2.46>2.365 → Reject H0.
+
+Wait, that's interesting. So for n=9, t≈2.46>2.365, so we reject. But wait, earlier when I thought n=7 was sufficient with chi-squared, but with t-test, n=9 is the first to reject.
+
+Wait, but earlier when I thought n=7 was sufficient with chi-squared, that must have been a mistake because the correct test is via the t-test. Because when I compute for n=7, the t-stat is 2.07<2.571, so we don't reject. For n=8, t≈2.266<2.447, still don't reject. For n=9, t≈2.46>2.365, so we reject.
+
+So the smallest n is 9, which is option A.
+
+Wait, but let me confirm the t-values for each df:
+
+n=7: df=5, t_c=2.571 → t=2.07<2.571 → no reject.
+
+n=8: df=6, t_c=2.447 → t≈2.266<2.447 → no reject.
+
+n=9: df=7, t_c=2.365 → t≈2.46>2.365 → reject.
+
+So the smallest n is 9, which is option A.
+
+But wait, earlier when I computed using the correct chi-squared formula, I thought n=7 would suffice, but that must have been a miscalculation.
+
+Alternatively, perhaps the correct way is to use the t-test approach because the chi-squared approach gave conflicting results due to a miscalculation earlier.
+
+Wait, let me double-check the chi-squared approach with the correct formula. The test statistic is (n-2)*r²/(1 - r²) which should be compared to chi-squared(1) critical value.
+
+So for n=9, (9-2)=7. 7*r²/(1 - r²)=7*0.4624/0.5376≈7*0.86≈6.02. The critical chi-squared value is 3.841. So 6.02>3.841 → reject.
+
+For n=8: 6*0.4624/0.5376≈6*0.86≈5.16>3.841 → reject. Wait, but earlier with t-test, n=8 didn't reject. So there's a discrepancy again.
+
+Wait, that can't be. There's a mistake here. Let me compute more accurately.
+
+Compute (n-2)*r²/(1 - r²) for n=8:
+
+(6)*0.4624 /0.5376 =6 * (0.4624/0.5376).
+
+0.4624/0.5376 = approx 0.86.
+
+So 6 *0.86=5.16.
+
+Which is greater than 3.841, so chi-squared approach says reject for n=8, but t-test approach says not to reject.
+
+This is confusing. I must be making a mistake somewhere.
+
+Wait, perhaps I'm mixing up the one-tailed and two-tailed tests in the chi-squared approach. Because the chi-squared test is typically for one-tailed tests, but the t-test is two-tailed.
+
+Wait, no, the correlation test is two-tailed, so perhaps the chi-squared approach should be adjusted for two tails. Alternatively, maybe the chi-squared approach is only for one-tailed tests, and I'm applying it incorrectly for two-tailed.
+
+I think the correct way is to use the t-test approach because it's designed for two-tailed tests. So for n=8, t≈2.266, and the critical t-value is 2.447, so we don't reject. For n=9, t≈2.46>2.365, so we do reject.
+
+Therefore, the smallest n is 9, which is option A.
+</think>
+
+To determine the smallest sample size \( n \) for which \( H_0: \rho = 0 \) is rejected at \( \alpha = 0.05 \) with a sample correlation coefficient \( r = 0.68 \), we use the t-test for the correlation coefficient. The test statistic is:
+
+\[
+t = r \cdot \sqrt{\frac{n-2}{1 - r^2}}
+\]
+
+This statistic follows a t-distribution with \( n-2 \) degrees of freedom. The critical t-value for a two-tailed test at \( \alpha = 0.05 \) is \( t_{\alpha/2, n-2} \). We need \( t > t_{\alpha/2, n-2} \).
+
+For each \( n \), we calculate \( t \) and compare it to the critical value:
+
+- **\( n = 7 \):** \( df = 5 \), \( t_c = 2.571 \). \( t \approx 2.07 < 2.571 \) → Do not reject \( H_0 \).
+- **\( n = 8 \):** \( df = 6 \), \( t_c = 2.447 \). \( t \approx 2.266 < 2.447 \) → Do not reject \( H_0 \).
+- **\( n = 9 \):** \( df = 7 \), \( t_c = 2.365 \). \( t \approx 2.46 > 2.365 \) → Reject \( H_0 \).
+
+Thus, the smallest \( n \) that leads to rejecting \( H_0 \) is \( n = 9 \).
+
+**Answer: A**

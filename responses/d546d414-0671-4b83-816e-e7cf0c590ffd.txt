@@ -1,0 +1,47 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+MIT’s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?
+
+Options:
+
+A: When a client connects to a server, the server compares the ticket’s expiration time to the server’s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.
+B: The server maintains a database of all active and expired tickets, and refuses to authenticate the user if the ticket is found in the expired list.
+C: When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket’s maximum lifetime.
+D: The client's system automatically disconnects from the server once the ticket lifetime is over.
+E: The client needs to manually disconnect from the server after the ticket's maximum lifetime is reached.
+F: The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.
+G: The Kerberos server (KDC) sends an alert to the client and server to terminate the connection once the ticket is expired.
+
+Answer:
+    <think>
+<think>
+Okay, so I'm trying to answer this multiple-choice question about Kerberos and its ticket expiration mechanism. Let me think through this step by step.
+
+The question is asking what ensures that an expired Kerberos ticket can't be used after its maximum lifetime of 24 hours. The options are A through J, but looking at the given options, it's A to G.
+
+First, I remember that Kerberos uses tickets to authenticate users. These tickets have an expiration time, so after 24 hours, the ticket should no longer be valid. But how does the system enforce this?
+
+Option A says the server checks the ticket's expiration time against its own clock and refuses authentication if expired. That makes sense because each server would independently verify the ticket's validity based on its own time. This seems like a standard way to handle expiration without needing a central database.
+
+Option B suggests the server has a database of active and expired tickets. That sounds a bit off because maintaining such a database for every ticket would be resource-intensive. Kerberos is designed to be scalable, so this method is probably not used.
+
+Option C talks about setting a timer on the server to terminate connections. I'm not sure about this. While it might work, it doesn't align with how Kerberos typically handles tickets. Each service connection would need to reset the timer, which isn't efficient.
+
+Option D says the client disconnects automatically. But the client doesn't know when the ticket expires unless the server tells it. So this seems unlikely because the client relies on the server's time, which might not always be accurate.
+
+Option E implies manual disconnection, which is clearly not practical or secure. So E is probably incorrect.
+
+Option F states the KDC refuses new connections for expired tickets. Wait, the KDC is the Key Distribution Center, which handles ticket granting, not the authentication between clients and servers after the ticket is issued. So the KDC isn't involved in each authentication instance; it's more about issuing the initial ticket and renewals.
+
+Option G suggests the KDC sends alerts to terminate connections. Again, the KDC isn't monitoring active connections; it's more about ticket issuance. So this seems incorrect.
+
+Putting it all together, the most logical method is that each server checks the ticket's expiration time against its own clock when a client connects. This ensures that even if the client's clock is off, the server's accurate clock is the source of truth. So option A seems correct.
+</think>
+
+The correct answer is A: When a client connects to a server, the server compares the ticket’s expiration time to the server’s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.
+
+Answer: A

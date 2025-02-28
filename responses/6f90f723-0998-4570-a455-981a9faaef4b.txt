@@ -1,0 +1,709 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+Suppose that $(X, Y, Z)$ are jointly Gaussian and that $X \rightarrow Y \rightarrow Z$ forms a Markov chain. Let $X$ and $Y$ have correlation coefficient 0.1 and let $Y$ and $Z$ have correlation coefficient 0.9. Find $I(X;Z)$ in bits.
+
+Options:
+
+A: 0.45
+B: 1.2
+C: 0.1
+D: 0.9
+E: 0.00587
+F: 0.15
+G: 0.6
+H: 0.7
+I: 0.025
+J: 0.3
+
+Answer:
+    <think>
+<think>
+Alright, so I've got this problem here about jointly Gaussian variables and Markov chains. Let me try to break it down step by step. Hmm, okay, the variables are X, Y, Z, and they form a Markov chain in the order X → Y → Z. That probably means that Y is dependent on X, and Z is dependent on Y, but not directly on X. So, the dependencies are such that X and Z are independent given Y.
+
+The problem states that the correlation coefficient between X and Y is 0.1, and between Y and Z is 0.9. I need to find the mutual information I(X; Z) in bits. Mutual information measures how much knowing one variable reduces uncertainty about another. Since all variables are Gaussian, that might simplify things.
+
+I remember that for Gaussian variables, mutual information can be expressed in terms of the variances and covariances. Also, since it's a Markov chain, maybe I can use some properties from that. Let me think about the structure. X and Y are correlated, Y and Z are highly correlated, and X and Z are connected through Y.
+
+Wait, mutual information I(X; Z) is equal to I(X; Y, Z) minus I(X; Y|Z). But since X → Y → Z is a Markov chain, I think I can apply the Markov property here. The Markov property says that X and Z are independent given Y, so maybe I can write I(X; Z) as I(X; Y). Because if X and Z are independent given Y, then their mutual information without conditioning might relate to their information through Y.
+
+Alternatively, I remember a formula for mutual information in terms of the product of correlation coefficients when dealing with jointly Gaussian variables. Or maybe it's based on the conditional independence. Let me think again.
+
+Another approach: For jointly Gaussian variables, the mutual information can be calculated using the formula I(X; Z) = H(X) + H(Z) - H(X,Z). But maybe that's more complicated. Alternatively, since the variables are Gaussian, the mutual information can be expressed using the determinant of the covariance matrix.
+
+Wait, for three variables in a Markov chain X → Y → Z, there's a formula for mutual information. I think it's I(X;Z) = I(X;Y) + I(Y;Z) - I(X;Y|Z). But wait, X and Z are independent given Y, so I(X;Y|Z) should be zero? Or maybe not exactly zero, but perhaps I'm getting confused here.
+
+Wait, no. If X and Z are independent given Y, then I(X;Z|Y)=0. But I'm looking for I(X;Z), not conditioned on Y. Hmm, perhaps I can use the fact that I(X;Z) = I(X;Y) + I(X;Z|Y). But if I(X;Z|Y)=0, then I(X;Z)=I(X;Y). But is that true? I'm not sure.
+
+Wait, maybe I should think about the linear dependencies here. Since the variables are jointly Gaussian and form a Markov chain, the mutual information can be expressed in terms of the variances and the correlation coefficients.
+
+Let me recall that for a Markov chain X → Y → Z, the mutual information I(X;Z) can be expressed as I(X;Y) + I(Y;Z) - I(X;Y,Z). But I'm not entirely sure about that. Alternatively, I've heard of the IMA (Independence and Markov properties for jointly Gaussian variables) which says that I(X;Z|Y)=0. So, perhaps I can use that.
+
+Wait, mutual information I(X;Z) can be written as I(X;Y) + I(Y;Z) - I(X;Y;Z). But for a Markov chain, I(X;Y;Z) = I(X;Y) because Z gives no additional information about X given Y. Hmm, not sure.
+
+Maybe a better approach is to model the variables as a linear Gaussian chain. Let's assume that each variable is a linear function of the previous one. So, Y = aX + N1, and Z = bY + N2, where N1 and N2 are independent Gaussian noises.
+
+Since the variables are jointly Gaussian, this setup should hold. Now, the correlation between X and Y is 0.1, and between Y and Z is 0.9. Let's model this.
+
+Let me define X, Y, Z as zero-mean for simplicity because mutual information is invariant under shifts. So, let's say:
+
+Y = aX + N1
+
+Z = bY + N2
+
+Here, N1 and N2 are independent Gaussians with variances σ1² and σ2² respectively.
+
+The correlation between X and Y is 0.1. The correlation coefficient between X and Y is given by Cov(X,Y)/(σ_X σ_Y). Since X and Y are jointly Gaussian, their covariance is a σ_X², because Y = aX + N1, and X and N1 are independent.
+
+Wait, let me compute Cov(X,Y). Since Y = aX + N1, Cov(X,Y) = Cov(X, aX + N1) = a Cov(X,X) + Cov(X,N1). But X and N1 are independent, so Cov(X,N1)=0. So, Cov(X,Y) = a Var(X). The variances σ_X and σ_Y: Var(Y) = a² Var(X) + σ1².
+
+The correlation coefficient ρ_{X,Y} is 0.1, so:
+
+ρ_{X,Y} = Cov(X,Y) / (σ_X σ_Y) = (a σ_X²) / (σ_X * sqrt(a² σ_X² + σ1²)) ) = a σ_X / sqrt(a² σ_X² + σ1²) ) = 0.1
+
+Similarly, for Y and Z, the correlation coefficient is 0.9. Let's compute Cov(Y,Z). Z = bY + N2, so Cov(Y,Z) = Cov(Y, bY + N2) = b Cov(Y,Y) + Cov(Y,N2) = b Var(Y). The variance Var(Z) = b² Var(Y) + σ2².
+
+So, ρ_{Y,Z} = Cov(Y,Z)/(σ_Y σ_Z) )= (b σ_Y²) / (σ_Y * sqrt(b² σ_Y² + σ2²)) ) = (b σ_Y) / sqrt(b² σ_Y² + σ2²) )= 0.9.
+
+Now, the goal is to find I(X;Z). For jointly Gaussian variables, the mutual information I(X;Z) is given by:
+
+I(X;Z) = (1/2) ln( 1 + (Cov(X,Z)^2)/( (Var(X) Var(Z)) ) )
+
+Wait, no, that's for the correlation coefficient. Alternatively, I think I(X;Z) can be calculated using the determinant of the covariance matrix. Let me recall that for jointly Gaussian variables, the mutual information between X and Z is:
+
+I(X;Z) = (1/2) ln( det(Σ_{XZ}) / (det(Σ_X) det(Σ_Z)) ) )
+
+But since X, Y, Z are jointly Gaussian, we can model their covariance matrix. Let's compute Cov(X,Z). From the model, Z = bY + N2, and Y = aX + N1. So,
+
+Cov(X,Z) = Cov(X, bY + N2) = b Cov(X,Y) = b * a Var(X) [since Cov(X,Y) = a Var(X)].
+
+So, Cov(X,Z) = a b Var(X).
+
+Now, Var(X) is σ_X², Var(Z) is b² Var(Y) + σ2². But Var(Y) is a² Var(X) + σ1².
+
+Putting this all together:
+
+I(X;Z) = (1/2) ln( [1 + (Cov(X,Z)^2)/(Var(X) Var(Z)) ] )
+
+Wait, no, I think I'm mixing up the formula. For mutual information between X and Z, when they are jointly Gaussian, it's given by:
+
+I(X;Z) = (1/2) ln( 1 + ( (Cov(X,Z)^2) ) / (Var(X) Var(Z)) ) )
+
+Wait, no, actually, the correct formula is:
+
+I(X;Z) = (1/2) ln( (det Σ_{X,Z}) / (det Σ_X det Σ_Z) ) )
+
+But since X and Z are parts of the joint distribution with Y, perhaps we can find Var(X), Var(Y), Var(Z), and Cov(X,Z).
+
+Alternatively, maybe it's easier to express in terms of the correlation coefficients.
+
+Wait, let's consider that in a Markov chain X → Y → Z, the mutual information I(X;Z) is equal to I(X;Y) + I(Y;Z) - I(X;Y;Z). But for a Markov chain, I(X;Y;Z) = I(X;Y), so I(X;Z) = I(Y;Z).
+
+Wait, no, that can't be right. Let me think again. For a Markov chain, the triple mutual information I(X;Y;Z) is equal to I(X;Y) because Z doesn't provide any additional information about X given Y. So, I(X;Y;Z) = I(X;Y). Therefore, I(X;Z) = I(X;Y) + I(Y;Z) - I(X;Y;Z) = I(X;Y) + I(Y;Z) - I(X;Y).
+
+Wait, that would give I(X;Z) = I(Y;Z). That seems too simplistic. Alternatively, perhaps I should consider that I(X;Z) = I(X;Y) + I(Y;Z) - I(X;Y;Z), and since I(X;Y;Z)=I(X;Y), then I(X;Z)=I(Y;Z).
+
+But that would mean I(X;Z) equals I(Y;Z). But I'm not sure if that's correct.
+
+Alternatively, perhaps I can model the variables as a linear Gaussian chain and compute the mutual information directly.
+
+Let me proceed step by step.
+
+Assume X, Y, Z are zero-mean.
+
+Y = a X + N1
+
+Z = b Y + N2 = b (a X + N1) + N2 = a b X + b N1 + N2
+
+So, Z = (a b) X + b N1 + N2
+
+Now, the covariance between X and Z is Cov(X,Z) = Cov(X, (a b X + b N1 + N2)) = a b Var(X) + 0 + 0 = a b σ_X²
+
+The variance of X is σ_X², variance of Z is Var(Z) = (a b)^2 σ_X² + b² Var(N1) + Var(N2)
+
+But let's get back to the correlation coefficients.
+
+We have ρ_{X,Y} = 0.1, which is given by:
+
+ρ_{X,Y} = Cov(X,Y)/(σ_X σ_Y) = (a σ_X²)/(σ_X σ_Y) )= a σ_X / σ_Y = 0.1
+
+Similarly, ρ_{Y,Z}=0.9 is:
+
+ρ_{Y,Z} = Cov(Y,Z)/(σ_Y σ_Z) = (b σ_Y²)/(σ_Y σ_Z) )= b σ_Y / σ_Z = 0.9
+
+Now, σ_Y² = Var(Y) = a² σ_X² + σ1²
+
+σ_Z² = Var(Z) = b² σ_Y² + σ2² = b² (a² σ_X² + σ1²) + σ2²
+
+Now, the mutual information I(X;Z) for jointly Gaussian variables is given by:
+
+I(X;Z) = (1/2) ln( 1 + ( (Cov(X,Z))^2 ) / (Var(X) Var(Z)) ) )
+
+So, Cov(X,Z) = a b σ_X²
+
+Var(X) = σ_X²
+
+Var(Z) = b² (a² σ_X² + σ1²) + σ2²
+
+So, plugging into I(X;Z):
+
+I(X;Z) = (1/2) ln( 1 + ( (a b σ_X²)^2 ) / ( σ_X² * [b² (a² σ_X² + σ1²) + σ2²] ) ) )
+
+Simplify numerator: (a² b² σ_X^4)
+
+Denominator: σ_X² [b² a² σ_X² + b² σ1² + σ2²]
+
+So,
+
+I(X;Z) = (1/2) ln( 1 + (a² b² σ_X^4) / ( σ_X² (a² b² σ_X² + b² σ1² + σ2²) ) ) )
+
+Simplify inside the log:
+
+= (1/2) ln[ 1 + (a² b² σ_X²) / (a² b² σ_X² + b² σ1² + σ2²) ) ]
+
+Let me factor out b² from the denominator:
+
+= (1/2) ln[ 1 + (a² σ_X²) / (a² σ_X² + σ1² + (σ2²)/(b²) ) ) ]
+
+Hmm, this is getting complicated. Maybe I should express everything in terms of the correlation coefficients.
+
+From ρ_{X,Y}=0.1, which is a σ_X / σ_Y = 0.1. Let me solve for a:
+
+a σ_X = 0.1 σ_Y
+
+But σ_Y² = a² σ_X² + σ1²
+
+Let me square both sides of a σ_X = 0.1 σ_Y:
+
+a² σ_X² = 0.01 σ_Y²
+
+Substitute into σ_Y²:
+
+σ_Y² = 0.01 σ_Y² + σ1² → 0.99 σ_Y² = σ1² → σ1² = 0.99 σ_Y²
+
+Similarly, from ρ_{Y,Z}=0.9, we have b σ_Y = 0.9 σ_Z
+
+So, b σ_Y = 0.9 σ_Z → σ_Z = (b σ_Y)/0.9
+
+Now, σ_Z² = (b^2 σ_Y²)/0.81
+
+But σ_Z² is also equal to b² σ_Y² + σ2² → b² σ_Y² + σ2² = (b² σ_Y²)/0.81
+
+So,
+
+σ2² = (b² σ_Y²)/0.81 - b² σ_Y² = b² σ_Y² (1/0.81 - 1) = b² σ_Y² (1.2345679 - 1) ≈ b² σ_Y² (0.2345679)
+
+So, σ2² ≈ 0.2345679 b² σ_Y²
+
+Now, let's go back to I(X;Z):
+
+I(X;Z) = (1/2) ln[ 1 + (a² b² σ_X^2) / (a² b² σ_X^2 + b² σ1^2 + σ2^2) ]
+
+Let me factor out b² from denominator:
+
+= (1/2) ln[ 1 + (a² σ_X^2) / (a² σ_X^2 + σ1^2 + (σ2^2)/(b²)) ) ]
+
+We have σ1^2 = 0.99 σ_Y^2, and from earlier, σ_Y^2 = a² σ_X^2 + σ1^2 → σ_Y^2 = a² σ_X^2 + 0.99 σ_Y^2
+
+Wait, that can't be right. Let me re-express σ_Y^2:
+
+From earlier, σ_Y^2 = a² σ_X^2 + σ1^2.
+
+But from a σ_X = 0.1 σ_Y → a σ_X = 0.1 σ_Y → a = 0.1 σ_Y / σ_X
+
+So, a² = 0.01 (σ_Y^2)/(σ_X^2)
+
+Substituting into σ_Y^2:
+
+σ_Y^2 = (0.01 σ_Y^2 / σ_X^2) * σ_X^2 + σ1^2 → σ_Y^2 = 0.01 σ_Y^2 + σ1^2 → 0.99 σ_Y^2 = σ1^2 → σ1^2 = 0.99 σ_Y^2
+
+So, σ1^2 = 0.99 σ_Y^2.
+
+Similarly, σ2^2 ≈ 0.2345679 b² σ_Y^2.
+
+Now, let's compute the denominator in the expression for I(X;Z):
+
+a² σ_X^2 + σ1^2 + (σ2^2)/(b²) = (0.01 σ_Y^2) + 0.99 σ_Y^2 + (0.2345679 b² σ_Y^2)/(b²) )
+
+= [0.01 + 0.99] σ_Y^2 + 0.2345679 σ_Y^2
+
+= 1 σ_Y^2 + 0.2345679 σ_Y^2 = 1.2345679 σ_Y^2
+
+The numerator is a² σ_X^2 = 0.01 σ_Y^2.
+
+So, the fraction becomes:
+
+(0.01 σ_Y^2) / (1.2345679 σ_Y^2) ) = 0.01 / 1.2345679 ≈ 0.0081
+
+So, the argument inside the log is:
+
+1 + 0.0081 ≈ 1.0081
+
+Then, ln(1.0081) ≈ 0.00806 (since ln(1+x)≈x for small x)
+
+So, I(X;Z) ≈ (1/2) * 0.00806 ≈ 0.00403 bits.
+
+Wait, but looking at the options, the closest is E: 0.00587, but that's a bit higher. Did I make a mistake in the calculations?
+
+Wait, let me double-check the denominator calculation. Let me recompute the denominator:
+
+a² σ_X^2 = 0.01 σ_Y^2.
+
+σ1^2 = 0.99 σ_Y^2.
+
+σ2^2/(b²) = 0.2345679 b² σ_Y^2 / b² = 0.2345679 σ_Y^2.
+
+So, adding them: 0.01 σ_Y^2 + 0.99 σ_Y^2 + 0.2345679 σ_Y^2 = (0.01 + 0.99 + 0.2345679) σ_Y^2 = (1 + 0.2345679) σ_Y^2 = 1.2345679 σ_Y^2.
+
+So, the fraction is 0.01 / 1.2345679 ≈ 0.0081.
+
+Thus, 1 + 0.0081 = 1.0081.
+
+ln(1.0081) ≈ 0.00806.
+
+So, I(X;Z) ≈ 0.00403 bits. But none of the options exactly match this, but E is 0.00587, which is a bit higher. Wait, perhaps I made a mistake in the approximation.
+
+Alternatively, perhaps I should compute it more accurately.
+
+Compute ln(1.0081) precisely.
+
+Using Taylor series: ln(1+x) ≈ x - x²/2 + x³/3 - ..., for small x.
+
+x = 0.0081.
+
+So, ln(1.0081) ≈ 0.0081 - (0.0081)^2/2 + (0.0081)^3/3.
+
+Compute:
+
+0.0081 = 8.1e-3.
+
+(8.1e-3)^2 = 65.6e-6 = 6.56e-5.
+
+So, 0.0081 - (6.56e-5)/2 + (531.441e-9)/3
+
+= 0.0081 - 0.0000328 + 0.000000177 ≈ 0.0080673.
+
+So, ln(1.0081) ≈ 0.0080673.
+
+Then, I(X;Z) = 0.5 * 0.0080673 ≈ 0.00403365 bits.
+
+But the options don't have 0.004, but option E is 0.00587, which is about 0.00587. Hmm, perhaps I made a mistake in the setup.
+
+Wait, perhaps I should consider that I(X;Z) = I(X;Y) + I(Y;Z) - I(X;Y;Z). But earlier, I thought I(X;Y;Z)=I(X;Y), but perhaps that's not correct.
+
+Alternatively, maybe I should compute I(X;Y) and I(Y;Z) separately.
+
+Let me compute I(X;Y):
+
+For jointly Gaussian variables, I(X;Y) = (1/2) ln(1 + ρ_{X,Y}^2 )
+
+So, ρ_{X,Y}=0.1, so I(X;Y) = 0.5 * ln(1 + 0.01) ≈ 0.5 * ln(1.01) ≈ 0.5 *0.00995 ≈ 0.004975.
+
+Similarly, I(Y;Z) = (1/2) ln(1 + ρ_{Y,Z}^2 ) = 0.5 * ln(1 + 0.81) ≈ 0.5 * ln(1.81) ≈ 0.5 *0.597 ≈ 0.2985.
+
+Wait, but that would make I(X;Z) = I(X;Y) + I(Y;Z) - I(X;Y;Z). But I'm not sure what I(X;Y;Z) is.
+
+Wait, for a Markov chain X → Y → Z, the triple mutual information I(X;Y;Z) is equal to I(X;Y), because Z doesn't provide any additional information about X given Y. So, I(X;Y;Z) = I(X;Y).
+
+Therefore, I(X;Z) = I(X;Y) + I(Y;Z) - I(X;Y) = I(Y;Z).
+
+Wait, that can't be right. Because that would imply I(X;Z) = I(Y;Z), which seems to ignore the dependence on X.
+
+Alternatively, perhaps I should think differently. Wait, no, I think I'm getting confused. Let me try another approach.
+
+Since X and Z are connected through Y, and given the Markov property, perhaps the mutual information I(X;Z) can be expressed as the sum of the two correlation coefficients squared, scaled somehow.
+
+Wait, I think I should return to the initial approach where I(X;Z) ≈ 0.004 bits, but none of the options match. Alternatively, perhaps I made a mistake in the setup.
+
+Wait, perhaps I should consider that the variables are not zero-mean. But mutual information is shift-invariant, so that shouldn't matter.
+
+Alternatively, perhaps I should model the covariance matrix and compute the determinant.
+
+The covariance matrix Σ for [X, Y, Z] would be:
+
+[ σ_X², Cov(X,Y), Cov(X,Z) ]
+
+[ Cov(X,Y), σ_Y², Cov(Y,Z) ]
+
+[ Cov(X,Z), Cov(Y,Z), σ_Z² ]
+
+But since X → Y → Z is a Markov chain, the covariance matrix should be such that certain conditional independencies hold. For a Markov chain, the inverse covariance matrix (precision matrix) has a structure where certain elements are zero. Specifically, in a chain, the precision matrix is tridiagonal.
+
+But perhaps this is more complicated than needed.
+
+Alternatively, perhaps I can consider that the mutual information I(X;Z) is equal to the sum of the mutual informations along the chain, but I'm not sure.
+
+Wait, another approach: Since the variables are jointly Gaussian and form a Markov chain, the mutual information I(X;Z) can be expressed as I(X;Y) + I(Y;Z) - I(X;Y;Z). But since I(X;Y;Z)=I(X;Y), then I(X;Z)=I(Y;Z).
+
+But that would mean I(X;Z)=I(Y;Z)=0.2985 as computed earlier. But none of the options match this either.
+
+Wait, perhaps I should compute I(X;Z) using the formula for Gaussian variables:
+
+I(X;Z) = (1/2) ln( 1 + (Cov(X,Z)^2)/(Var(X) Var(Z)) )
+
+We have Cov(X,Z) = a b σ_X².
+
+Var(X)=σ_X².
+
+Var(Z)=b² (a² σ_X² + σ1²) + σ2².
+
+Earlier, we found that σ1²=0.99 σ_Y², and σ2²≈0.2345679 b² σ_Y².
+
+But σ_Y² = a² σ_X² + σ1² = a² σ_X² + 0.99 σ_Y².
+
+Which leads to σ_Y² = (a² σ_X²)/(1 - 0.99) ) = (a² σ_X²)/(0.01) ) → σ_Y²=100 a² σ_X².
+
+So, σ_Y=10 a σ_X.
+
+Wait, that's a key relation: σ_Y=10 a σ_X.
+
+Now, from ρ_{Y,Z}=0.9, we have b σ_Y = 0.9 σ_Z.
+
+But σ_Z² = b² σ_Y² + σ2².
+
+We can express σ_Z in terms of σ_Y.
+
+From σ_Z = (b σ_Y)/0.9.
+
+So, σ_Z² = (b² σ_Y²)/0.81.
+
+But σ_Z² = b² σ_Y² + σ2² → (b² σ_Y²)/0.81 = b² σ_Y² + σ2² → σ2² = (b² σ_Y²)(1/0.81 - 1) = (b² σ_Y²)(0.2345679).
+
+So, σ2² = 0.2345679 b² σ_Y².
+
+Now, let's compute Cov(X,Z)=a b σ_X².
+
+But from earlier, σ_Y=10 a σ_X → a=σ_Y/(10 σ_X).
+
+So, Cov(X,Z)= (σ_Y/(10 σ_X)) * b * σ_X² = (σ_Y b σ_X)/10.
+
+Wait, that's σ_Y b σ_X /10.
+
+Now, Var(X)=σ_X².
+
+Var(Z)=b² σ_Y² + σ2² = b² σ_Y² + 0.2345679 b² σ_Y² = 1.2345679 b² σ_Y².
+
+So, Var(Z)=1.2345679 b² σ_Y².
+
+Now, let's compute the ratio (Cov(X,Z)^2)/(Var(X) Var(Z)):
+
+= [ (σ_Y b σ_X /10 )^2 ] / [ σ_X² * 1.2345679 b² σ_Y² ]
+
+= [ (σ_Y² b² σ_X² ) / 100 ] / [ 1.2345679 b² σ_Y² σ_X² ]
+
+Simplify numerator and denominator:
+
+= (σ_Y² b² σ_X²) / 100 * [1/(1.2345679 b² σ_Y² σ_X² ) ]
+
+= (1/100) * (1/1.2345679) ) = 1/(100 * 1.2345679) ≈ 1/(123.45679) ≈ 0.0081.
+
+So, the argument inside the ln is 1 + 0.0081 ≈ 1.0081.
+
+ln(1.0081)≈0.00806.
+
+Thus, I(X;Z)=0.5 * 0.00806≈0.00403 bits.
+
+But looking at the options, E is 0.00587, which is close but not exact. Did I make a mistake in the calculations?
+
+Wait, perhaps I should compute more accurately.
+
+Compute ln(1.0081):
+
+Using a calculator, ln(1.0081)= approximately 0.008067.
+
+So, I(X;Z)=0.5 *0.008067≈0.0040335 bits.
+
+But none of the options match this. The closest is E:0.00587, which is about 0.00587, which is larger than my result.
+
+Wait, perhaps I made a mistake in the initial setup by assuming zero mean. Let me try a different approach.
+
+Alternatively, perhaps the mutual information can be approximated as the product of the correlation coefficients, but that doesn't seem right.
+
+Wait, another approach: Since the variables are in a Markov chain, the mutual information I(X;Z) can be expressed as I(X;Y) + I(Y;Z) - I(X;Y;Z). But I(X;Y;Z)=I(X;Y), so I(X;Z)=I(Y;Z).
+
+But earlier, I calculated I(Y;Z)=0.5 ln(1+0.9^2)=0.5 ln(1.81)= approx 0.5 *0.597≈0.2985 bits. But that's not an option either.
+
+Wait, perhaps I'm miscalculating something. Let me check the formula again.
+
+Wait, for Gaussian variables, I(X;Y) = (1/2) ln(1 + ρ^2), where ρ is the correlation coefficient.
+
+So, I(X;Y)=0.5 ln(1 +0.1^2)=0.5 ln(1.01)=approx 0.5 *0.00995≈0.004975.
+
+Similarly, I(Y;Z)=0.5 ln(1 +0.9^2)=0.5 ln(1.81)=approx 0.5 *0.597≈0.2985.
+
+Now, since the variables form a Markov chain, I(X;Z) = I(X;Y) + I(Y;Z) - I(X;Y;Z).
+
+But I(X;Y;Z)=I(X;Y), because Z doesn't add any info about X beyond Y.
+
+So, I(X;Z)= I(X;Y) + I(Y;Z) - I(X;Y) = I(Y;Z)=0.2985.
+
+But none of the options match this. The options are A:0.45, B:1.2, C:0.1, D:0.9, E:0.00587, F:0.15, G:0.6, H:0.7, I:0.025, J:0.3.
+
+Wait, option J is 0.3, which is close to 0.2985. But earlier, when computing via the covariance approach, I got around 0.004, which is much lower.
+
+I must be making a mistake in the approach. Let me think again.
+
+Wait, perhaps the mutual information I(X;Z) is not equal to I(Y;Z), but instead, it's I(X;Y) + I(Y;Z) - I(X;Y;Z), and I(X;Y;Z) is not equal to I(X;Y). Maybe I'm wrong in that assumption.
+
+Wait, for a Markov chain X → Y → Z, the mutual information I(X;Z) can be expressed as I(X;Y) + I(Y;Z) - I(X;Y). Because I(X;Y;Z)=I(X;Y)=I(X;Y;Z|Y)=I(X;Y).
+
+Wait, that would make I(X;Z)=I(Y;Z).
+
+But earlier, that gives 0.2985, which isn't an option. Alternatively, perhaps I should use the formula for I(X;Z) in terms of the product of the correlation coefficients.
+
+Wait, another approach: Since Y is between X and Z, and the variables are jointly Gaussian, the mutual information I(X;Z) can be written as I(X;Y) + I(Y;Z) - I(X;Y;Z). But I'm not sure about I(X;Y;Z).
+
+Alternatively, perhaps I should use the formula for the determinant.
+
+The mutual information I(X;Z)= (1/2) ln(det(Σ_XZ)/sqrt(det Σ_X det Σ_Z)) )
+
+Where Σ_XZ is the covariance matrix of X and Z.
+
+But since we're dealing with three variables, perhaps it's easier to compute the determinant of the 2x2 covariance matrix for X and Z.
+
+Wait, the covariance matrix for X and Z is:
+
+[ Var(X), Cov(X,Z) ]
+
+[ Cov(X,Z), Var(Z) ]
+
+So, det(Σ_XZ) = Var(X) Var(Z) - Cov(X,Z)^2.
+
+Thus, I(X;Z) = (1/2) ln( (Var(X) Var(Z) - Cov(X,Z)^2 ) / (Var(X) Var(Z)) ) )
+
+= (1/2) ln(1 - (Cov(X,Z)^2)/(Var(X) Var(Z)) )
+
+Wait, that can't be right because that would give a negative argument inside the log, which isn't possible. Maybe I made a mistake in the formula.
+
+Wait, no, the correct formula is I(X;Z) = (1/2) ln( det(Σ_XZ) / (det Σ_X det Σ_Z) ) ), where Σ_XZ is the covariance matrix of X and Z, Σ_X is [Var(X)], Σ_Z is [Var(Z)].
+
+So, det(Σ_XZ) = Var(X) Var(Z) - Cov(X,Z)^2.
+
+det(Σ_X) = Var(X), det(Σ_Z)= Var(Z).
+
+So, I(X;Z) = (1/2) ln( (Var(X) Var(Z) - Cov(X,Z)^2) / (Var(X) Var(Z)) ) )
+
+= (1/2) ln( 1 - (Cov(X,Z)^2)/(Var(X) Var(Z)) )
+
+But this would imply that I(X;Z) is the negative of what I thought earlier, which can't be correct because mutual information is always non-negative.
+
+Wait, perhaps I'm confusing the formula. Let me double-check.
+
+The correct formula for mutual information between two Gaussian variables X and Z is:
+
+I(X;Z) = (1/2) ln( 1 + (Cov(X,Z)^2)/(Var(X) Var(Z)) )
+
+Which is what I used earlier. So, I think my initial approach was correct, leading to I(X;Z)≈0.00403 bits.
+
+But since none of the options match, perhaps I made a mistake in assuming the model.
+
+Alternatively, perhaps the answer is E: 0.00587, which is roughly 0.00587 bits.
+
+Wait, let me compute the exact value.
+
+From earlier, the fraction was 0.01 / 1.2345679 ≈ 0.0081.
+
+So, 1 + 0.0081=1.0081.
+
+Compute ln(1.0081)= exactly using a calculator:
+
+ln(1.0081)≈0.008067.
+
+Then, I(X;Z)=0.5 *0.008067≈0.004033.
+
+But the option E is 0.00587, which is about 0.00587, which is larger than my result.
+
+Wait, perhaps I made a mistake in the denominator. Let me recompute the denominator:
+
+Denominator = a² σ_X^2 + σ1^2 + (σ2^2)/(b^2).
+
+From earlier, a² σ_X^2 =0.01 σ_Y^2.
+
+σ1^2=0.99 σ_Y^2.
+
+σ2^2=0.2345679 b^2 σ_Y^2.
+
+So, σ2^2 / b^2 =0.2345679 σ_Y^2.
+
+Thus, denominator=0.01 σ_Y^2 +0.99 σ_Y^2 +0.2345679 σ_Y^2 = (0.01 +0.99 +0.2345679) σ_Y^2=1.2345679 σ_Y^2.
+
+Numerator=a² σ_X^2=0.01 σ_Y^2.
+
+Thus, the ratio is 0.01 σ_Y^2 /1.2345679 σ_Y^2=0.01/1.2345679≈0.0081.
+
+So, the argument is 1.0081, ln≈0.008067.
+
+I(X;Z)=0.5 *0.008067≈0.00403.
+
+But the options don't have this. The closest is E:0.00587.
+
+Wait, perhaps I should consider that the variables are not standardized, and Var(X) and Var(Z) are in terms of σ_Y.
+
+Alternatively, perhaps I should express everything in terms of σ_Y.
+
+Let me set σ_Y=1 for simplicity.
+
+Then, σ_Y=1.
+
+From earlier, σ1^2=0.99 σ_Y^2=0.99.
+
+From ρ_{X,Y}=0.1, we have a σ_X =0.1 σ_Y=0.1.
+
+So, a σ_X=0.1 → a=0.1 / σ_X.
+
+But from σ_Y^2 =a² σ_X^2 + σ1^2 → 1= (a² σ_X^2) +0.99 → a² σ_X^2=0.01.
+
+So, a=0.1 / σ_X.
+
+Thus, a²=0.01/(σ_X^2).
+
+But from σ_Y^2=1= a² σ_X^2 +0.99 → a² σ_X^2=0.01 → a=0.1/σ_X.
+
+Now, moving to Z:
+
+From ρ_{Y,Z}=0.9, b σ_Y=0.9 σ_Z → b=0.9 σ_Z.
+
+But σ_Z^2= b² σ_Y^2 +σ2^2 → σ_Z^2=b² +σ2^2.
+
+But from earlier, σ2^2=0.2345679 b².
+
+So, σ_Z^2= b² +0.2345679 b²=1.2345679 b² → σ_Z= b√1.2345679.
+
+But from b=0.9 σ_Z → substituting:
+
+b=0.9 σ_Z → σ_Z= b/0.9.
+
+From σ_Z= b√1.2345679 → b/0.9= b√1.2345679 → 1/0.9=√1.2345679 → 1.1111≈1.1111. So this holds, meaning our earlier calculations are consistent.
+
+Now, Cov(X,Z)=a b σ_X^2.
+
+Since a=0.1/σ_X, and b=0.9 σ_Z.
+
+But σ_Z= b√1.2345679 → substituting b=0.9 σ_Z, we get σ_Z=0.9 σ_Z √1.2345679 → 1=0.9√1.2345679 → 1≈0.9*1.1111≈1, which holds.
+
+Now, Cov(X,Z)=a b σ_X^2= (0.1/σ_X) * (0.9 σ_Z) * σ_X^2 =0.09 σ_X σ_Z.
+
+But σ_Z= b√1.2345679, and b=0.9 σ_Z → substituting, σ_Z=0.9 σ_Z *1.1111 → 1=0.99999, which holds.
+
+Now, Var(X)=σ_X^2.
+
+Var(Z)=1.2345679 b².
+
+But b=0.9 σ_Z → Var(Z)=1.2345679*(0.81 σ_Z^2 )=1.2345679*0.81 σ_Z^2= approximately 1.00000 σ_Z^2, which makes sense since σ_Z^2=1.2345679 b².
+
+Wait, perhaps I'm overcomplicating.
+
+Let me compute the ratio (Cov(X,Z)^2)/(Var(X) Var(Z)).
+
+Cov(X,Z)=a b σ_X^2= (0.1/σ_X) * b * σ_X^2=0.1 b σ_X.
+
+Var(X)=σ_X^2.
+
+Var(Z)=1.2345679 b².
+
+So,
+
+(Cov(X,Z)^2)/(Var(X) Var(Z))= (0.1 b σ_X)^2 / (σ_X^2 * 1.2345679 b² )= (0.01 b² σ_X^2)/(1.2345679 b² σ_X^2 )=0.01 /1.2345679≈0.0081.
+
+Thus, the same result as before, leading to I(X;Z)=0.00403 bits.
+
+But the available options don't include this. So perhaps the correct answer is E:0.00587, but I'm not sure why there's a discrepancy.
+
+Alternatively, perhaps I made a mistake in the initial assumption that the variables are zero-mean. Maybe I should not assume that and keep the means as they are.
+
+Alternatively, perhaps the answer is E:0.00587, which is approximately 0.00587, which is close to 0.00403 but not exactly. Alternatively, perhaps the correct approach is different.
+
+Wait, perhaps I should compute the mutual information using the formula involving the product of the correlation coefficients.
+
+Wait, I found a resource that states that for a Markov chain X → Y → Z with jointly Gaussian variables, the mutual information I(X;Z) can be expressed as I(X;Z) = I(X;Y) + I(Y;Z) - I(X;Y;Z), but since I(X;Y;Z)=I(X;Y), then I(X;Z)=I(Y;Z).
+
+But earlier, I(Y;Z)=0.5 ln(1+0.9^2)=0.5 ln(1.81)=0.2985.
+
+But the options don't include this. So perhaps this approach is incorrect.
+
+Alternatively, perhaps the mutual information I(X;Z) is the sum of the squares of the correlation coefficients, so 0.1^2 +0.9^2=0.01+0.81=0.82, but that's not an option either.
+
+Alternatively, perhaps it's the product, 0.1 *0.9=0.09, but that's option C:0.1, but not exactly.
+
+Wait, perhaps I should compute the mutual information differently. Since the variables are in a Markov chain, perhaps I(X;Z)=I(X;Y)+I(Y;Z).
+
+But I(X;Y)=0.5 ln(1.01)=0.004975, I(Y;Z)=0.5 ln(1.81)=0.2985. Sum is 0.3035, which is close to option J:0.3.
+
+But earlier, when using the covariance approach, I got 0.004, which is not near 0.3.
+
+I'm getting conflicting results, which suggests I'm making a mistake in the approach.
+
+Alternatively, perhaps the correct answer is E:0.00587, which is approximately 0.00587, but I'm not sure.
+
+Wait, perhaps I should compute the exact value using the formula I(X;Z)=0.5 ln(1 + (Cov(X,Z)^2)/(Var(X) Var(Z)) ).
+
+From earlier, we have:
+
+Cov(X,Z)=a b σ_X^2.
+
+Var(X)=σ_X^2.
+
+Var(Z)=1.2345679 b² σ_Y^2.
+
+But from earlier, σ_Y=10 a σ_X.
+
+So, σ_Y=10 a σ_X → a=σ_Y/(10 σ_X).
+
+But σ_Y=1, so a=1/(10 σ_X).
+
+Thus, Cov(X,Z)=a b σ_X^2= (1/(10 σ_X)) * b * σ_X^2= (b σ_X)/10.
+
+Var(Z)=1.2345679 b².
+
+Var(X)=σ_X^2.
+
+Now, the ratio (Cov(X,Z)^2)/(Var(X) Var(Z))= [ (b σ_X /10 )^2 ] / ( σ_X^2 * 1.2345679 b² ) = [ b² σ_X^2 /100 ] / [ 1.2345679 b² σ_X^2 ] = 1/100 /1.2345679≈0.0081.
+
+Thus, same result as before.
+
+So, I(X;Z)=0.5 ln(1.0081)=0.00403.
+
+But none of the options match. The closest is E:0.00587.
+
+Wait, perhaps I should compute the exact value using the formula for I(X;Z) as the sum of the squares of the partial correlations.
+
+Alternatively, perhaps the answer is E:0.00587.
+
+After all this, I think the correct answer is E:0.00587.
+</think>
+
+The problem involves jointly Gaussian variables \(X\), \(Y\), and \(Z\) forming a Markov chain \(X \rightarrow Y \rightarrow Z\). The correlation coefficients are given as \(\rho_{X,Y} = 0.1\) and \(\rho_{Y,Z} = 0.9\). The goal is to compute the mutual information \(I(X;Z)\) in bits.
+
+### Key Steps and Analysis:
+
+1. **Markov Chain Property**: Since \(X\), \(Y\), and \(Z\) form a Markov chain, \(X\) and \(Z\) are independent given \(Y\). This implies that mutual information can be expressed using properties of the chain.
+
+2. **Gaussian Mutual Information Formula**: For jointly Gaussian variables, mutual information is computed using the determinant of the covariance matrix. Specifically:
+   \[
+   I(X;Z) = \frac{1}{2} \ln\left(1 + \frac{\text{Cov}(X,Z)^2}{\text{Var}(X) \, \text{Var}(Z)}\right)
+   \]
+
+3. **Covariance and Variance Calculations**:
+   - From the Markov chain structure, \(Y\) is modeled as \(Y = aX + N_1\) and \(Z = bY + N_2\), where \(N_1\) and \(N_2\) are independent Gaussian noises.
+   - Using the given correlation coefficients, the variances and covariances are expressed in terms of \(a\), \(b\), and the variances of the noises.
+   - The covariance \(\text{Cov}(X,Z)\) is derived as \(a b \sigma_X^2\), and the variances \(\text{Var}(X)\) and \(\text{Var}(Z)\) are expressed in terms of \(a\), \(b\), and the noise variances.
+
+4. **Simplification**:
+   - Substituting the expressions for \(\text{Cov}(X,Z)\), \(\text{Var}(X)\), and \(\text{Var}(Z)\) into the mutual information formula yields:
+     \[
+     I(X;Z) = \frac{1}{2} \ln\left(1 + \frac{(a b \sigma_X^2)^2}{\sigma_X^2 \cdot \text{Var}(Z)}\right)
+     \]
+   - After simplifying, the argument inside the logarithm becomes approximately \(1.0081\), leading to:
+     \[
+     I(X;Z) \approx \frac{1}{2} \ln(1.0081) \approx 0.00403 \, \text{bits}.
+     \]
+
+5. **Comparison with Options**: The computed value of \(0.00403\) bits does not match any of the provided options exactly. However, the closest option is \(E: 0.00587\), which is slightly higher than the computed result.
+
+### Conclusion:
+Given the calculations and the provided options, the most reasonable choice is \(E: 0.00587\), as it is the closest to the computed value.
+
+**Answer: E**

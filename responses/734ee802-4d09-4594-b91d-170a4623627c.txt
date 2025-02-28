@@ -1,0 +1,348 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+Let $X \sim N(0,1)$ and let the distortion measure be squared error. Here we do not allow block descriptions. Compute the minimum expected distortion for one bit quantization of $X$ using a squared error distortion measure.
+
+Options:
+
+A: 0.625
+B: 0.212
+C: 0.411
+D: 0.363
+E: 0.1
+F: 0.75
+G: 0.498
+H: 0.333
+I: 0.256
+J: 0.125
+
+Answer:
+    <think>
+<think>
+Alright, so I'm trying to solve this problem about finding the minimum expected distortion for one-bit quantization of a standard normal variable X using squared error. Hmm, okay. Let me think through this step by step.
+
+First, I remember that when you quantize a continuous random variable like X, which is normally distributed with mean 0 and variance 1 (since it's N(0,1)), you're essentially mapping it into a discrete set of values. In this case, since it's one-bit quantization, there are only two possible output values. I think those are usually the two intervals split by a threshold point.
+
+So, for a one-bit quantizer, you probably split the real line into two intervals: one where X is less than or equal to some threshold 't', and the other where it's greater than 't'. Then, each interval is mapped to a representative value, which I think are usually the midpoints of the intervals. Wait, no, maybe the midpoints aren't the right approach here. Alternatively, perhaps you just assign 0 and 1 as the output symbols, but I'm not sure if that's correct.
+
+Wait, no, that's not right. Because the quantization is about reconstructing the value as closely as possible. So for one bit, you have two possible output values. Let's say the two intervals are (-∞, t] mapped to a, and (t, ∞) mapped to b. But wait, since we're using one bit, the output can be binary, but for distortion, we need to find the values a and b that minimize the expected squared error.
+
+But wait, actually, in quantization, the output is the reconstructed value. So the quantization process maps X into one of two levels, say y0 and y1. The expected distortion is E[(X - Y)^2], where Y is the quantized output. To minimize this, we need to choose y0 and y1 such that the expected value is minimized, given the probability distribution of X.
+
+But X is a continuous variable, so the probability is determined by the standard normal distribution. Also, since we have one bit, the quantization regions are split at some point t. So the regions are (-∞, t] and (t, ∞), and each is mapped to y0 and y1 respectively.
+
+But wait, I think in one-bit quantization, the optimal quantizer is symmetric because the distribution is symmetric around 0. So the threshold t would be at 0, right? Because the normal distribution is symmetric, so the optimal point to split would be the mean, which is zero.
+
+Wait, but that might not necessarily be the case for quantization. Wait, no, I think for a symmetric distribution like N(0,1), the optimal threshold t would indeed be at 0. So then the two regions are (-∞, 0] mapped to y0, and (0, ∞) mapped to y1.
+
+Now, what should y0 and y1 be? I think they should be chosen to minimize the expected distortion within each interval. So for the interval (-∞,0], the optimal y0 is the mean of X in that region. Similarly, for (0, ∞), the optimal y1 is the mean of X in that region.
+
+Wait, but perhaps more accurately, the optimal reconstruction point for each interval is the conditional mean of X given that it's in that interval. So y0 is E[X | X ≤ t], and y1 is E[X | X > t]. Since t is 0 here, that would be E[X | X ≤ 0] and E[X | X > 0].
+
+So let me compute those expected values.
+
+First, E[X | X ≤ 0]: Since the normal distribution is symmetric around 0, the expected value for X given X ≤ 0 is actually -E[X | X > 0]. But wait, E[X | X > 0] would be the same as the expected value for the right half, which is a known quantity.
+
+Alternatively, I remember that for a standard normal distribution, the expected value of X given that X > 0 is equal to the mean of the distribution of X truncated at 0. The formula for E[X | X > a] for a normal distribution N(μ, σ²) is (σ * φ(a)) / (1 - Φ(a))), where φ is the PDF and Φ is the CDF.
+
+In our case, a is 0, μ=0, σ=1. So E[X | X > 0] = (1 * φ(0)) / (1 - Φ(0)).
+
+But φ(0) is 1/√(2π), and Φ(0) is 0.5. So 1 - Φ(0) is 0.5.
+
+So E[X | X > 0] = (1 * (1/√(2π))) / 0.5 = (2 / √(2π)) = √(2/π) ≈ 0.79788.
+
+Similarly, E[X | X ≤ 0] would be the negative of that, so -√(2/π).
+
+So the two reconstruction levels y0 and y1 are y0 = -√(2/π) and y1 = √(2/π).
+
+Now, the expected distortion is the expected value of (X - Y)^2, where Y is the quantized version. So we can compute this as the sum over both regions of the expected squared error in each region.
+
+So for X ≤ 0, Y = y0 = -√(2/π), and for X > 0, Y = y1 = √(2/π).
+
+So the expected distortion E[(X - Y)^2] is the integral from -∞ to 0 of (x - y0)^2 * f(x) dx plus the integral from 0 to ∞ of (x - y1)^2 * f(x) dx, where f(x) is the standard normal PDF.
+
+Alternatively, since the distribution is symmetric, we can compute the expected distortion for X ≤ 0 and double it, but I think it's better to compute each integral separately.
+
+Let me compute the first integral: ∫_{-∞}^0 (x - y0)^2 * (1/√(2π)) e^{-x²/2} dx.
+
+Similarly, the second integral is ∫_{0}^∞ (x - y1)^2 * (1/√(2π)) e^{-x²/2} dx.
+
+Let me note that y0 = -√(2/π), y1 = √(2/π).
+
+Let me compute the first integral I1 = ∫_{-∞}^0 (x + √(2/π))^2 * (1/√(2π)) e^{-x²/2} dx.
+
+Expanding the square:
+
+(x + a)^2 = x² + 2 a x + a², where a = √(2/π).
+
+So I1 = ∫_{-∞}^0 [x² + 2 a x + a²] * (1/√(2π)) e^{-x²/2} dx.
+
+We can split this into three terms:
+
+I1 = (1/√(2π)) [∫_{-∞}^0 x² e^{-x²/2} dx + 2 a ∫_{-∞}^0 x e^{-x²/2} dx + a² ∫_{-∞}^0 e^{-x²/2} dx ].
+
+Similarly, let's compute each integral.
+
+First term: ∫_{-∞}^0 x² e^{-x²/2} dx.
+
+Since the integral from -∞ to ∞ of x² e^{-x²/2} dx is known. For a standard normal distribution, ∫_{-∞}^∞ x² f(x) dx = 1, because the variance is 1. So ∫_{-∞}^∞ x² e^{-x²/2}/√(2π) dx = 1. But the integral without the normalization is ∫ x² e^{-x²/2} dx from -∞ to ∞ is √(2π) * 1 = √(2π).
+
+Wait, no. Let me correct that. The integral ∫_{-∞}^∞ x² e^{-x²/2} dx = √(2π) * Var(X) * σ²? Wait, no, more accurately, for a standard normal variable, the variance is 1, and the integral ∫ x² f(x) dx = 1. So f(x) = (1/√(2π)) e^{-x²/2}, so ∫ x² f(x) dx = 1.
+
+Therefore, ∫ x² e^{-x²/2} dx from -∞ to ∞ is √(2π) * 1 = √(2π). So ∫_{-∞}^0 x² e^{-x²/2} dx is half of that, because the function x² is even. So it's (√(2π))/2.
+
+Wait, no, that's not correct because x² is an even function, so the integral from -∞ to 0 is the same as from 0 to ∞. So each is (√(2π)/2).
+
+Wait, but √(2π) is the integral from -∞ to ∞ of e^{-x²/2} dx. For x² e^{-x²/2}, the integral from -∞ to ∞ is √(2π) * 1 = √(2π), because E[X²] = 1.
+
+Wait, perhaps it's better to compute it as:
+
+∫_{-∞}^0 x² e^{-x²/2} dx = (1/2) ∫_{-∞}^∞ x² e^{-x²/2} dx = (1/2) * √(2π) * 1 = (√(2π))/2.
+
+Similarly, the second term: 2a ∫_{-∞}^0 x e^{-x²/2} dx.
+
+The integral ∫ x e^{-x²/2} dx from -∞ to 0.
+
+Let me make a substitution u = -x²/2. Then du = -x dx. Hmm, perhaps better to note that the function x e^{-x²/2} is odd, because x is odd and e^{-x²/2} is even. So the integral from -∞ to 0 of an odd function is equal to the negative of the integral from 0 to ∞. But let's compute it.
+
+Let me consider ∫ x e^{-x²/2} dx from -∞ to 0.
+
+Let u = x²/2 → du = x dx. So ∫ x e^{-x²/2} dx = ∫ e^{-u} du from u=∞ to u=0. But when x approaches -∞, u approaches ∞, and when x=0, u=0.
+
+So ∫ x e^{-x²/2} dx from -∞ to 0 is [ -e^{-u} ] from ∞ to 0 = [ -e^{0} + e^{-∞} ] = -1 + 0 = -1.
+
+But wait, I think I might have made a mistake. Let's check.
+
+Wait, when x is negative, say x = -y, y>0, then the integral becomes ∫_{y=∞}^0 (-y) e^{-y²/2} (-dy) → ∫_{0}^∞ y e^{-y²/2} dy.
+
+Which is the same as ∫ y e^{-y²/2} dy from 0 to ∞, which is 1. Because the integral of y e^{-y²/2} dy from 0 to ∞ is [ -e^{-y²/2} ] from 0 to ∞ → [0 - (-1)] = 1.
+
+Wait, perhaps I'm getting confused. Let me think again.
+
+The integral ∫ x e^{-x²/2} dx from -∞ to 0.
+
+Let me compute it as ∫_{-∞}^0 x e^{-x²/2} dx.
+
+Let me let u = x²/2 → du = x dx. So when x approaches -∞, u approaches ∞, and when x=0, u=0.
+
+So the integral becomes ∫_{u=∞}^{0} e^{-u} (-du) → ∫_{∞}^0 e^{-u} (-du) = ∫_{0}^{∞} e^{-u} du = 1.
+
+Wait, but wait, because x is negative here, and when x is negative, dx is negative. So perhaps I should make a substitution like x = -y, y>0. So when x approaches -infty, y approaches infty, and x=0, y=0.
+
+Then the integral becomes ∫_{y=∞}^0 (-y) e^{-y²/2} (-dy) → ∫_{∞}^0 (-y) e^{-y²/2} (-dy) → ∫_{∞}^0 y e^{-y²/2} (-dy) → ∫_{0}^{∞} y e^{-y²/2} dy, which is 1, as I thought.
+
+So ∫_{-∞}^0 x e^{-x²/2} dx = 1.
+
+Wait, but wait, if I take x e^{-x²/2} and integrate from -infty to 0, the function is x e^{-x²/2}, which is an odd function. So the integral from -infty to 0 should be the negative of the integral from 0 to infty of the same function. Because ∫_{-a}^a f(x) dx = 0 for odd functions. So ∫_{-infty}^0 x e^{-x²/2} dx = - ∫_{0}^infty x e^{-x²/2} dx.
+
+But we know that ∫_{0}^infty x e^{-x²/2} dx = [ -e^{-x²/2} ] evaluated from 0 to ∞ → (0 - (-1)) = 1. So ∫_{-infty}^0 x e^{-x²/2} dx = -1.
+
+Wait, that's conflicting with what I thought earlier. Hmm, perhaps I made a mistake in substitution.
+
+Let me recheck. Let me compute ∫ x e^{-x²/2} dx from -infty to 0.
+
+Let me note that the integral of x e^{-x²/2} dx is -e^{-x²/2} + C.
+
+So evaluating from a to 0: [ -e^{0} ] - [ -e^{-a²/2} ] → (-1) - (-e^{-a²/2}) → -1 + e^{-a²/2}.
+
+As a approaches -infty (since our lower limit is -infty), e^{-a²/2} approaches 0, because a² is positive and very large. So the integral becomes (-1) - (-0) → -1.
+
+So ∫_{-infty}^0 x e^{-x²/2} dx = -1.
+
+Wait, that makes sense because the function is odd, so the area from -infty to 0 is the negative of the area from 0 to infty, which is 1. So the integral from -infty to 0 is -1.
+
+So coming back to the second term in I1: 2a ∫_{-infty}^0 x e^{-x²/2} dx = 2a * (-1) = -2a.
+
+Now the third term: a² ∫_{-infty}^0 e^{-x²/2} dx.
+
+The integral ∫_{-infty}^0 e^{-x²/2} dx is equal to √(2π)/2, because the integral from -infty to infty is √(2π), and it's symmetric.
+
+So a² * √(2π)/2.
+
+Putting it all together, I1 = (1/√(2π)) [ ( (√(2π)/2) ) + (-2a) + (a² * √(2π)/2) ) ].
+
+Wait, let me compute each term step by step.
+
+First term: ∫ x² e^{-x²/2} dx from -infty to 0 = √(2π)/2 * (1/2) ?
+
+Wait, earlier I thought that ∫ x² e^{-x²/2} dx from -infty to 0 is (√(2π))/2, because the total integral is √(2π), and it's even function, so each side is half.
+
+Wait, but E[X²] = 1, which is ∫ x² f(x) dx = 1, where f(x) is (1/√(2π)) e^{-x²/2}.
+
+So ∫ x² e^{-x²/2} dx from -infty to infty is √(2π) * 1 = √(2π).
+
+Therefore, ∫ x² e^{-x²/2} dx from -infty to 0 is (√(2π))/2.
+
+So the first term in I1 is (1/√(2π)) * (√(2π)/2) ) = (1/√(2π)) * (√(2π)/2) ) = 1/2.
+
+Second term: 2a ∫ x e^{-x²/2} dx from -infty to 0 = 2a * (-1) = -2a.
+
+Third term: a² ∫ e^{-x²/2} dx from -infty to 0 = a² * (√(2π)/2).
+
+So putting all together:
+
+I1 = (1/√(2π)) [ (1/2) * √(2π) ) + (-2a) + (a² * √(2π)/2) ) ]
+
+Wait, no, I think I made a mistake in the application. Let me re-express I1.
+
+I1 = (1/√(2π)) [ ∫ x² e^{-x²/2} dx + 2a ∫ x e^{-x²/2} dx + a² ∫ e^{-x²/2} dx ]
+
+Which is:
+
+I1 = (1/√(2π)) [ (√(2π)/2) + (-2a) + (a² * √(2π)/2) ) ]
+
+Wait, but that can't be right because the units don't match. Let me think again.
+
+Wait, no, the first integral ∫ x² e^{-x²/2} dx from -infty to 0 is (√(2π)/2), and the second term is 2a times (-1), and the third term is a² times (√(2π)/2).
+
+So I1 becomes (1/√(2π)) [ (√(2π)/2) + (-2a) + (a² * √(2π)/2) ) ]
+
+Simplify each term:
+
+- First term: (√(2π)/2) * (1/√(2π)) ) = 1/2.
+
+- Second term: (-2a) * (1/√(2π)) ) = (-2a) / √(2π).
+
+- Third term: (a² * √(2π)/2) * (1/√(2π)) ) = a² / 2.
+
+So I1 = 1/2 - (2a)/√(2π) + a²/2.
+
+Similarly, let's compute I2, the integral from 0 to ∞ of (x - y1)^2 * f(x) dx.
+
+Since y1 = a = √(2/π), the integral is similar but with a positive a.
+
+Expanding (x - a)^2 = x² - 2 a x + a².
+
+So I2 = ∫_{0}^∞ (x² - 2 a x + a²) * (1/√(2π)) e^{-x²/2} dx.
+
+Again, split into three terms:
+
+I2 = (1/√(2π)) [ ∫_{0}^∞ x² e^{-x²/2} dx - 2 a ∫_{0}^∞ x e^{-x²/2} dx + a² ∫_{0}^∞ e^{-x²/2} dx ]
+
+We already know:
+
+∫_{0}^∞ x² e^{-x²/2} dx = √(2π)/2.
+
+∫_{0}^∞ x e^{-x²/2} dx = 1.
+
+∫_{0}^∞ e^{-x²/2} dx = √(2π)/2.
+
+So substituting:
+
+I2 = (1/√(2π)) [ (√(2π)/2) - 2a(1) + a² (√(2π)/2) ) ]
+
+Again, simplifying each term:
+
+- First term: (√(2π)/2) * (1/√(2π)) ) = 1/2.
+
+- Second term: (-2a) * (1/√(2π)) ) = (-2a)/√(2π).
+
+- Third term: (a² √(2π)/2) * (1/√(2π)) ) = a²/2.
+
+So I2 = 1/2 - (2a)/√(2π) + a²/2.
+
+Wait a minute, that's the same as I1. That can't be right because the regions are different. Or is it because of the symmetry?
+
+Wait, but in I1, we're integrating from -infty to 0, and in I2 from 0 to infty, but due to the symmetric choice of y0 and y1, perhaps the expected distortion in both regions is the same. Hmm.
+
+Wait, but the expected distortion should be the same in both regions because of symmetry. So the total expected distortion is I1 + I2 = 2 * I1.
+
+Wait, but let's compute I1 and I2 correctly. Wait, I1 is the integral over (-infty,0], and I2 over [0, infty). So the total distortion is I1 + I2.
+
+But from the calculations, I1 and I2 are each equal to 1/2 - (2a)/√(2π) + a²/2.
+
+So the total expected distortion is 2*(1/2 - (2a)/√(2π) + a²/2) ) = 1 - (4a)/√(2π) + a².
+
+Wait, but let me check that. Alternatively, perhaps I made a mistake because I didn't account for the fact that in I1, the term 2a ∫ x e^{-x²/2} dx from -infty to 0 was -2a, and in I2, it's -2a * 1, which would be -2a. So adding them together would give -4a.
+
+Wait, but no, because in I1, the term was -2a * (1/√(2π)), and in I2, it's -2a * 1/√(2π). So when adding I1 and I2, the terms become:
+
+(1/2 - (2a)/√(2π) + a²/2) + (1/2 - (2a)/√(2π) + a²/2) ) = 1 - (4a)/√(2π) + a².
+
+Wait, but maybe I should compute this more carefully.
+
+Wait, perhaps I made an error in the signs. Let me recast the problem. Since y0 = -a and y1 = a, where a = √(2/π).
+
+So for the first integral, I1 = ∫_{-infty}^0 (x + a)^2 * (1/√(2π)) e^{-x²/2} dx.
+
+Expanding (x + a)^2 = x² + 2a x + a².
+
+So I1 = (1/√(2π)) [ ∫ x² e^{-x²/2} dx + 2a ∫ x e^{-x²/2} dx + a² ∫ e^{-x²/2} dx ] from -infty to 0.
+
+As before, the three integrals are √(2π)/2, -1, and √(2π)/2.
+
+So I1 = (1/√(2π)) [ (√(2π)/2) + 2a*(-1) + a²*(√(2π)/2) ) ]
+
+= (1/√(2π)) [ (√(2π)/2) - 2a + (a² √(2π)/2) ) ]
+
+= (1/√(2π)) * √(2π)/2 + (1/√(2π)) * (-2a) + (1/√(2π)) * (a² √(2π)/2 )
+
+= (1/2) - (2a)/√(2π) + (a² / 2).
+
+Similarly, for I2 = ∫_{0}^infty (x - a)^2 * (1/√(2π)) e^{-x²/2} dx.
+
+Expanding (x - a)^2 = x² - 2a x + a².
+
+So I2 = (1/√(2π)) [ ∫ x² e^{-x²/2} dx - 2a ∫ x e^{-x²/2} dx + a² ∫ e^{-x²/2} dx ] from 0 to infty.
+
+The integrals here are √(2π)/2, 1, and √(2π)/2.
+
+So I2 = (1/√(2π)) [ (√(2π)/2) - 2a*(1) + a²*(√(2π)/2) ) ]
+
+= (1/√(2π)) [ √(2π)/2 - 2a + (a² √(2π)/2) ]
+
+= (1/2) - (2a)/√(2π) + (a² / 2).
+
+So I1 and I2 are each equal to (1/2) - (2a)/√(2π) + (a² / 2).
+
+Thus, the total expected distortion D = I1 + I2 = [ (1/2) - (2a)/√(2π) + (a²/2) ] + [ (1/2) - (2a)/√(2π) + (a²/2) ] = 1 - (4a)/√(2π) + a².
+
+Now, plugging in a = √(2/π).
+
+First, compute each term:
+
+a = √(2/π) ≈ 0.79788.
+
+Compute 4a / √(2π):
+
+4a = 4 * √(2/π) = 4 * (√2 / √π).
+
+√(2π) = √2 * √π.
+
+So 4a / √(2π) = [4 * √2 / √π ] / [√2 * √pi] ) = [4 √2 ] / [√pi * √2 * √pi ] = 4 / (pi).
+
+Because √pi * √pi = pi, and √2 / √2 = 1.
+
+So 4a / √(2π) = 4/pi ≈ 1.2732.
+
+And a² = (2/π) ≈ 0.6366.
+
+So putting it all together:
+
+D = 1 - (4/pi) + (2/pi) = 1 - (2/pi).
+
+Because 4/pi - 2/pi = 2/pi, but wait, wait, let's compute correctly.
+
+Wait, D = 1 - (4a)/√(2π) + a².
+
+Which is 1 - (4/pi) + (2/pi).
+
+So 1 + [ -4/pi + 2/pi ] = 1 - 2/pi.
+
+Because (-4 + 2)/pi = -2/pi.
+
+So D = 1 - 2/pi.
+
+Compute 2/pi ≈ 0.6366.
+
+So 1 - 0.6366 ≈ 0.3634.
+
+Looking at the options, option D is 0.363, which is approximately 0.3634. So the answer should be D.
+</think>
+
+The minimum expected distortion for one-bit quantization of a standard normal variable \( X \sim N(0,1) \) with squared error distortion is computed by splitting the real line into two intervals at the mean (0) and reconstructing each interval with the conditional mean of \( X \) within that interval. The reconstruction levels are \( y_0 = -\sqrt{\frac{2}{\pi}} \) and \( y_1 = \sqrt{\frac{2}{\pi}} \). The expected distortion is calculated as the sum of the expected squared errors in both intervals, leading to the result \( 1 - \frac{2}{\pi} \approx 0.363 \).
+
+Answer: D

@@ -1,0 +1,65 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+5.3-19. Two components operate in parallel in a device, so the device fails when and only when both components fail. The lifetimes, $X_1$ and $X_2$, of the respective components are independent and identically distributed with an exponential distribution with $\theta=2$. The cost of operating the device is $Z=2 Y_1+Y_2$, where $Y_1=\min \left(X_1, X_2\right)$ and $Y_2=\max \left(X_1, X_2\right)$. Compute $E(Z)$.
+
+
+Options:
+
+A: $9$
+B: $8$
+C: $4$
+D:  $5$
+E: $12$
+F: $3$
+G: $10$
+H: $4.5$
+I: $7$
+J: $6$
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this problem here about two components operating in parallel. The device fails only when both components fail. Each component has a lifetime modeled by an exponential distribution with parameter θ=2. The cost is given by Z=2Y₁ + Y₂, where Y₁ is the minimum of the two lifetimes and Y₂ is the maximum. I need to find the expected value of Z, E(Z). 
+
+Hmm, let's break this down. First, since the components are operating in parallel, the device fails when both fail. So, the device's lifetime is actually the minimum of X₁ and X₂ because the device can't operate once either component fails. Wait, but the problem defines Y₁ as the min and Y₂ as the max. So Y₁ is the time until the first failure, which would cause the device to stop. But then, what's Y₂? It's the maximum of the two, which would be the lifetime of the component that didn't fail first. 
+
+The cost function is Z=2Y₁ + Y₂. I need to compute E(Z) = E(2Y₁ + Y₂) = 2E(Y₁) + E(Y₂). So if I can find E(Y₁) and E(Y₂), I can compute E(Z).
+
+Now, Y₁ and Y₂ are the minimum and maximum of two independent exponential variables. Exponential distributions are memoryless, which might help here. Let me recall some properties. For two independent exponential variables X₁ and X₂ with parameter θ, the minimum Y₁ has a distribution with parameter 2θ, because the probability that the minimum is greater than t is the probability that both X₁ and X₂ are greater than t, which is (e^{-θ t})² = e^{-2θ t}. So Y₁ ~ Exp(2θ).
+
+Wait, but θ is given as 2 in the problem. So θ=2, so Y₁ ~ Exp(4) because 2θ=4. The expectation of Y₁ is 1/(2θ) = 1/4? Wait no, wait. Wait, the expectation of an exponential distribution with rate λ is 1/λ. So if Y₁ ~ Exp(4), then E(Y₁)=1/4. But wait, is that correct? Because Y₁ is the min of two exponentials with rate θ=2 each. So the rate for Y₁ is 2θ=4, so E(Y₁)=1/4. Hmm, but I'm a bit confused because sometimes people use θ as the mean, not the rate. Let me check.
+
+The exponential distribution can be parameterized in two ways: either by the rate λ, where the pdf is λ e^{-λ t}, or by the mean θ, where the pdf is (1/θ) e^{-t/θ}. In this problem, it says θ=2, so I think θ is the mean. So the rate λ would be 1/θ = 1/2. Therefore, the pdf of X₁ and X₂ is (1/2) e^{-t/(2)} for t ≥ 0.
+
+So, Y₁ is the minimum of X₁ and X₂. The pdf of Y₁ is then 2*(1/2) e^{-t/2} = e^{-t/2} for t ≥ 0, which is exponential with rate 1/2, but wait, no. Wait, if X₁ and X₂ are independent exponentials with rate λ=1/2, then the min Y₁ has rate 2λ = 1. Because the CDF of Y₁ is P(Y₁ ≤ t) = 1 - P(X₁ > t and X₂ > t) = 1 - (e^{-λ t})² = 1 - e^{-2λ t}, so the PDF is the derivative, which is 2λ e^{-2λ t}. So if λ=1/2, then 2λ=1, so Y₁ ~ Exp(1), meaning E(Y₁)=1.
+
+Wait, that contradicts my earlier thought. So I need to get this straight. Let me clarify. The problem states that X₁ and X₂ are exponential with θ=2. If θ is the mean, then the rate λ is 1/θ = 1/2. So each X has pdf (1/2) e^{-t/(2)}. Then, the minimum Y₁ will have a rate of 2*(1/2)=1. So Y₁ ~ Exp(1), which means E(Y₁)=1.
+
+Similarly, Y₂ is the max of X₁ and X₂. The expectation of the max of two independent exponentials can be found using the formula E(max(X₁,X₂)) = (2 λ)/(λ₁ + λ₂) when X₁ and X₂ have rates λ₁ and λ₂. But since both are the same, λ₁=λ₂=1/2. So E(Y₂) = (2*(1/2))/( (1/2)+(1/2) ) )= (1)/1 =1. Wait, that can't be right because the max should be larger than the min. Alternatively, perhaps I should derive E(Y₂) directly.
+
+Alternatively, I know that for two independent variables, E(max(X,Y)) = E(X) + E(Y) - E(min(X,Y)). Since both X and Y have mean θ=2, E(X)=E(Y)=2. So E(max(X,Y))=2+2 - E(min(X,Y))=4 - E(Y₁). We already found E(Y₁)=1, so E(Y₂)=4-1=3. Therefore, E(Y₂)=3.
+
+Wait, but earlier when I thought Y₁ had E=1, but if θ=2, and Y₁ is min of two such variables, shouldn't that be different? Let's check again. 
+
+If X and Y are exponential with mean θ=2, so rate λ=1/2. Then min(X,Y) has rate 2λ=1, so E(Y₁)=1/(2λ)=1/(1)=1? Wait no, wait. No, wait, the expectation of an exponential distribution with rate λ is 1/λ. So if Y₁ has rate 1, then E(Y₁)=1/1=1. So that part is correct.
+
+So E(Y₁)=1, E(Y₂)=3. Then, E(Z)=2*1 +3=5. So the answer would be D:5.
+
+Wait, but let me make sure I didn't make a mistake in calculating E(Y₂). Another approach: the expectation of the maximum of two independent exponentials. The formula for E(max(X,Y)) when X and Y are independent exponentials with means a and b is (a b)/(a + b) + max(a,b). But in this case, a = b =2. So E(max)= (2*2)/(2+2) +2= (4/4)+2=1+2=3. So yes, that matches the earlier result.
+
+So putting it together, E(Z)=2*1 +3=5. So the correct option is D:5.
+</think>
+
+To compute \( E(Z) \) where \( Z = 2Y_1 + Y_2 \), we first determine \( E(Y_1) \) and \( E(Y_2) \). 
+
+Given \( X_1 \) and \( X_2 \) are independent exponential variables with \( \theta = 2 \) (mean), the rate \( \lambda = 1/2 \). The minimum \( Y_1 = \min(X_1, X_2) \) has a rate of \( 2\lambda = 1 \), so \( E(Y_1) = 1 \).
+
+For the maximum \( Y_2 = \max(X_1, X_2) \), we use the relationship \( E(\max(X,Y)) = E(X) + E(Y) - E(\min(X,Y)) \). Substituting \( E(X) = E(Y) = 2 \) and \( E(Y_1) = 1 \), we find \( E(Y_2) = 2 + 2 - 1 = 3 \).
+
+Thus, \( E(Z) = 2E(Y_1) + E(Y_2) = 2(1) + 3 = 5 \).
+
+Answer: D

@@ -1,0 +1,380 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+Let {X_n: n \geq 1} be independent, identically distributed random variables taking integer values {1,-1}. Let S_0=0, S_n=\sum_{i=1}^n X_i. Let P(X_i=1)=0.8 and P(X_i=-1)=0.2. The range R_n of S_0,S_1,...,S_n is the number of distinct values taken by the sequence. Then what is the limit of n^{-1}E[R_n] as n goes to infinity? Here E[R_n] is the expectation over the random variable R_n.
+
+Options:
+
+A: 1.0
+B: 0.5
+C: 1.2
+D: 1.6
+E: 0.8
+F: 0.9
+G: 1.4
+H: 0.2
+I: 0.6
+J: 0.4
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this probability problem here, and I'm trying to figure out how to solve it. Let me read it again.
+
+We have a sequence of independent and identically distributed random variables {X_n : n ≥ 1}, each taking integer values 1 and -1. The probabilities are given as P(X_i = 1) = 0.8 and P(X_i = -1) = 0.2. We define S_0 = 0, and S_n as the sum from i=1 to n of X_i. 
+
+The question is about the range R_n, which is the number of distinct values taken by the sequence S_0, S_1, ..., S_n. We need to find the limit of (1/n) * E[R_n] as n approaches infinity. The options are given from A to J.
+
+Hmm, okay. So R_n is the number of distinct values that the partial sums S_0, S_1, ..., S_n take. Each S_k is the sum of the first k X_i's. Since each X_i is either +1 or -1, each step either adds 1 or subtracts 1 from the previous sum. So this is like a one-dimensional random walk starting at 0.
+
+The range R_n is essentially the number of unique positions visited in this walk up to time n. We're to compute the expected number of unique positions divided by n as n becomes large.
+
+I remember that for symmetric random walks (where the probabilities are equal, like 0.5 each), there's a known result about the expected range. But in this case, the walk is biased because the probability of going right (X_i=1) is 0.8, and left (X_i=-1) is 0.2. So this is a biased random walk.
+
+Wait, so for a symmetric random walk on the integers, starting at 0, the expected range grows linearly with n. But with a bias, does the growth rate change? Or is it similar?
+
+Let me think. In a symmetric case, the expected range E[R_n] is approximately (2n+1)/3. Or was it n/2? Maybe I'm mixing things up. Wait, I think for a symmetric random walk, the expected number of distinct sites visited after n steps is about (2n)/3. Let me check my reasoning. 
+
+Alternatively, I've heard that for a symmetric random walk, the expected range is of order n, but perhaps with a coefficient less than 1. For example, maybe 2/3 n. But I'm not sure. 
+
+But in our case, the walk is biased. The bias might affect the growth rate. Because with a positive bias (since p=0.8>0.5), the walk is more likely to go to the right. So perhaps the number of distinct positions grows linearly, but the coefficient might be different.
+
+Wait, but I think the key is to model this as a Markov chain and compute the expected number of unique states visited. Alternatively, perhaps there's a formula for the expected range in a biased random walk.
+
+Alternatively, maybe I can model the expected number of times the walk visits each position, but that might complicate things.
+
+Another approach: For each integer k, compute the probability that the walk reaches k in n steps. The range R_n is the sum over all k that are actually visited. So E[R_n] is the sum over all integers k of the probability that k is in the range {S_0, S_1, ..., S_n}.
+
+That is, E[R_n] = sum_{k} P(k is visited by S_0, S_1, ..., S_n).
+
+But since S_0=0, we can write E[R_n] = 1 + sum_{k≠0} P(S_t = k for some t ≤ n).
+
+Wait, that makes sense. Because R_n counts the number of distinct S_t's, which includes 0 and all other k that are ever reached by S_t for some t ≤ n. So the expectation is 1 (for S_0=0) plus the sum over all k≠0 of the probability that the walk reaches k at least once in the first n steps.
+
+So, E[R_n] = 1 + sum_{k=1}^∞ [P(hit k in n steps) + P(hit -k in n steps)].
+
+Wait, but since the walk is symmetric in terms of steps (each step is ±1), the probability of hitting k is the same as hitting -k, but considering the bias, maybe not. Wait, no, because the bias affects the probabilities asymmetrically. So hitting +k might be more probable than hitting -k, but maybe not. Wait, actually, since the walk is biased to the right, the probability of hitting k is higher than hitting -k. But in our case, k can be positive or negative, but the walk starts at 0.
+
+Wait, but let me think about it. The walk is biased to the right, so it's more likely to go to positive k than to negative k. So the probabilities P(hit k in n steps) for positive k may be higher than for negative k, but since the walk can go both ways, perhaps the probabilities for negative k are non-zero but lower.
+
+But perhaps for large n, the walk would have a drift towards the right. So, as n increases, the expected maximum position will increase, and similarly, the expected minimum might decrease, but perhaps the number of distinct positions is still growing.
+
+Wait, but for a biased random walk, does the walk tend to infinity with probability 1? Yes, because the drift is positive (since p=0.8>0.5). So as n→infty, the walk will tend to +infty. So the range R_n would include all integers from some negative number up to some large positive number.
+
+Wait, but perhaps for finite n, the walk can reach both positive and negative positions, but the positive ones are more likely.
+
+But maybe for the purpose of this problem, as n becomes large, the number of distinct positions grows linearly with n, but the coefficient depends on the bias.
+
+Wait, but I'm not sure about the exact expression for E[R_n]. Maybe I can model it using the expected maximum and minimum positions.
+
+Wait, another approach: for each k, the probability that the walk reaches k at least once in n steps is equal to the probability that the maximum of S_1, S_2, ..., S_n is at least k, or the minimum is at most -k. But perhaps that's complicating.
+
+Alternatively, perhaps I can model the expected number of positions visited as the sum over k of the probability that the walk ever visits k in the first n steps. But that seems similar to what I thought before.
+
+Wait, perhaps I can use the reflection principle or some generating function approach, but I'm not sure.
+
+Alternatively, maybe I can approximate the walk using a biased random walk on the integers and model the expected number of distinct positions.
+
+Wait, I think there's a formula for the expected range of a biased random walk. Let me try to recall.
+
+I remember that for a symmetric random walk, the expected number of distinct positions visited after n steps is approximately (2n)/3. But for a biased walk, perhaps the coefficient changes.
+
+Wait, alternatively, perhaps the expected range R_n grows linearly with n, so the limit is some constant c where c = lim_{n→infty} (1/n) E[R_n].
+
+So the question is, what is c?
+
+Given that the walk is biased to the right, perhaps the expected range is higher than in the symmetric case.
+
+Alternatively, maybe the expected range is proportional to the variance of the walk. Wait, but no, because variance is about the spread squared.
+
+Wait, let's think about the variance. The variance of S_n is n * Var(X_i). Since each X_i is 1 with probability 0.8 and -1 with probability 0.2, the variance of X_i is E[X_i^2] - (E[X_i])^2 = (1^2)*0.8 + (-1)^2*0.2 - (0.8*(-1)+0.2*1)^2. Wait, no, let's compute it correctly.
+
+E[X_i] = (1)(0.8) + (-1)(0.2) = 0.8 - 0.2 = 0.6.
+
+E[X_i^2] = (1)^2 * 0.8 + (-1)^2 * 0.2 = 0.8 + 0.2 = 1.
+
+So Var(X_i) = E[X_i^2] - (E[X_i})^2 = 1 - (0.6)^2 = 1 - 0.36 = 0.64.
+
+Thus, Var(S_n) = n * 0.64.
+
+The standard deviation is sqrt(0.64 n) = 0.8 sqrt(n).
+
+In a symmetric random walk, the expected range is about (2n)/3, so the coefficient is 2/3. But in a biased walk, perhaps the coefficient is higher or lower?
+
+Wait, but in a biased walk, the expected maximum position might grow linearly with n, but the number of distinct positions might also grow linearly.
+
+Alternatively, perhaps the expected number of distinct positions is related to the expected maximum and minimum positions.
+
+Wait, perhaps I can model the expected maximum M_n and the expected minimum m_n, and then the range R_n would be approximately M_n - m_n + 1, but that might not be exact, especially for large n.
+
+Wait, but that's an approximation. So E[R_n] ≈ E[M_n] - E[m_n] + 1.
+
+So if I can find E[M_n] and E[m_n], then I can find E[R_n].
+
+I think for a biased random walk, the expected maximum and minimum can be found, or at least approximated.
+
+Wait, let's consider the expected maximum position M_n. For a biased random walk with drift μ = E[X_i] = 0.6, I think the expected maximum is approximately (μ / σ^2) * n + o(n), where σ^2 is the variance.
+
+Wait, no, perhaps that's for a Brownian motion approximation. Let me think.
+
+In the case of a biased random walk, the expected maximum can be approximated using a Brownian motion with drift. The expected maximum of a Brownian motion with drift μ over time n is approximately (μ / σ^2) * n + o(n). Let me check:
+
+In the case of Brownian motion, the expected maximum up to time t is (μ t) / σ^2. So for our case, t = n, μ = 0.6, σ^2 = 0.64.
+
+So E[M_n] ≈ (0.6 * n) / 0.64 ≈ (6/10 * n) / (64/100) )= (6n/10) * (100/64) )= (6n * 10) / 64 = (60n)/64 = 15n/16 ≈ 0.9375 n.
+
+Similarly, the expected minimum m_n would be negative, but since the walk is biased to the right, the minimum might be less negative than in the symmetric case.
+
+Wait, but in a biased walk with positive drift, the probability that the walk ever reaches a negative position decreases as n increases. So perhaps the expected minimum m_n approaches a finite value, rather than going to negative infinity as it would in the symmetric case.
+
+Wait, in the symmetric case, m_n tends to negative infinity, but for a positively biased walk, the walk is recurrent to the right, so the minimum might not go to negative infinity. Wait, no, actually, in a biased walk with positive drift, the walk is transient to infinity, so the minimum might tend to negative infinity, but perhaps at a slower rate than the maximum.
+
+Wait, but I'm not sure. Maybe I should look for some references, but since I can't, I'll have to reason it out.
+
+Alternatively, perhaps the expected minimum m_n is approximately -(μ / σ^2) * n, but that would be negative. But that might not be correct because the drift is positive, so the minimum might not grow as fast.
+
+Alternatively, perhaps the expected minimum is O(1), i.e., it approaches a constant as n increases. Because the walk is biased to the right, maybe it doesn't go too far to the left on average.
+
+Wait, that makes sense. Because the walk has a positive drift, it's more likely to move to the right, so the minimum position might not decrease without bound. Instead, it might approach a certain value.
+
+Wait, but I'm not sure. Maybe I should think in terms of potential theory or stopping times.
+
+Wait, perhaps I can model the expected minimum as a constant. Let me assume that E[m_n] approaches some constant c as n increases. Then, E[R_n] ≈ E[M_n] - c + 1.
+
+If E[M_n] ≈ (0.6 / 0.64) n = (15/16) n ≈ 0.9375 n, and E[m_n] approaches a constant, say, c, then E[R_n] ≈ 0.9375 n - c + 1.
+
+But then, as n increases, the dominant term is 0.9375 n, so (1/n) E[R_n] would approach 0.9375. But that's not one of the options. Wait, the options are A:1.0, B:0.5, C:1.2, D:1.6, E:0.8, F:0.9, G:1.4, H:0.2, I:0.6, J:0.4.
+
+Wait, 0.9375 is close to option F: 0.9. But I'm not sure if this approach is correct.
+
+Alternatively, maybe I'm missing something. Perhaps the range R_n is not just the difference between the maximum and minimum, but all the positions in between. So if the walk goes from m_n to M_n, then the number of distinct positions would be M_n - m_n + 1. But if both M_n and m_n grow linearly, then R_n would be proportional to n, but the coefficient would be (M_n - m_n)/n.
+
+Wait, but earlier I thought M_n grows like (0.6 / 0.64) n, which is approximately 0.9375 n. If m_n approaches a constant, say, c, then M_n - m_n ≈ 0.9375 n - c, so R_n ≈ 0.9375 n - c + 1. Therefore, (1/n) E[R_n] → 0.9375 as n→∞. So the limit would be approximately 0.9375, which is 15/16 ≈ 0.9375. But looking at the options, the closest is F: 0.9.
+
+Alternatively, perhaps my assumption that m_n approaches a constant is incorrect. Maybe m_n also grows linearly but with a smaller coefficient. Let me think.
+
+Wait, perhaps for the minimum, the expected value is more involved. Let me consider that in a biased random walk, the expected minimum might be O(1), because the walk is more likely to go right, so it doesn't go too far left on average.
+
+Wait, but I'm not entirely confident. Alternatively, maybe the expected range can be approximated as twice the expected maximum, plus 1. But that would be for symmetric walks, perhaps.
+
+Wait, let me think differently. Since each step is +1 with probability 0.8 and -1 with probability 0.2, the expected change per step is 0.6. The variance per step is 0.64, as computed earlier.
+
+In a biased random walk, the expected maximum position after n steps is approximately (μ / σ^2) * n, which would be (0.6 / 0.64) * n ≈ 0.9375 n.
+
+Similarly, the expected minimum might be approximated as -(μ / σ^2) * n, but that would be negative, which would give a range of approximately 2*(0.9375 n) = 1.875 n, but that seems too high because for a symmetric walk, the expected range is about (2/3) n, which is less than 1.875 n.
+
+Wait, that can't be right. So perhaps the approach is incorrect.
+
+Alternatively, perhaps I should model the expected number of distinct positions using a different approach. Let me think about each position k, and compute the probability that the walk reaches k at least once in n steps. Then, E[R_n] is the sum over all k of these probabilities.
+
+So E[R_n] = 1 + sum_{k=1}^\infty [P(hit +k in n steps) + P(hit -k in n steps)].
+
+But in a biased walk, P(hit +k) > P(hit -k), so the sum might diverge, but for finite n, it's a finite sum.
+
+Wait, but as n approaches infinity, the sum would include more terms, but each term for k beyond a certain point would have P(hit k) approaching zero. Hmm, but I'm not sure how to compute this sum.
+
+Alternatively, perhaps for large n, the number of distinct positions R_n is approximately proportional to n, so we can model E[R_n] ≈ c n, and find c.
+
+In the symmetric case, c is 2/3. But with a drift, perhaps c is higher.
+
+Wait, I found a paper once that discussed the expected range of a biased random walk, but I can't recall the exact formula. Alternatively, perhaps I can use generating functions or renewal theory.
+
+Alternatively, maybe I can model the walk as a Markov chain and compute the expected number of unique states visited.
+
+Wait, perhaps there's a formula for the expected range of a Markov chain. I think for an irreducible and aperiodic Markov chain, the expected number of unique states visited in n steps is roughly proportional to n, but I'm not sure about the coefficient.
+
+Wait, but in our case, the walk is transient because it has a positive drift, so it's not irreducible. So maybe that approach isn't helpful.
+
+Wait, perhaps I can model the walk as a Brownian motion with drift and use that to approximate the expected range.
+
+In the case of Brownian motion with drift μ and variance σ^2, the expected maximum position after time t is approximately (μ t)/σ^2. Similarly, the expected minimum would be more involved.
+
+Wait, but for the range, which is the difference between the maximum and minimum, perhaps we can model it as (2 μ t)/σ^2, but I'm not sure.
+
+Wait, in Brownian motion, the expected range (max - min) up to time t is approximately (2 μ t)/σ^2. But I'm not certain.
+
+Alternatively, perhaps the expected range is proportional to sqrt(t), but no, in our case, the walk has a drift, so the range should grow linearly with t.
+
+Wait, let me try to compute it for Brownian motion. Suppose we have a Brownian motion with drift μ and variance σ^2. The expected maximum M(t) up to time t is approximately (μ t)/σ^2. Similarly, the expected minimum m(t) would be more complex, but perhaps for large t, it's dominated by the maximum.
+
+Wait, but in our case, the walk is biased, so perhaps the expected range R_n is approximately (μ / σ^2) * n, which would be (0.6 / 0.64) * n ≈ 0.9375 n. So (1/n) E[R_n] would approach 0.9375, which is approximately 0.94, but the options don't include that exactly. The closest option is F: 0.9.
+
+Alternatively, perhaps I'm overcomplicating. Maybe the answer is 1.0, but I'm not sure.
+
+Wait, perhaps I should think about the expected number of times the walk returns to the origin. Wait, but that might not directly help.
+
+Alternatively, perhaps I can use the formula for the expected number of distinct sites visited in a biased random walk. I think there's a formula for this.
+
+Wait, I found a resource that says that for a biased random walk on the integers with step +1 with probability p and -1 with probability q=1-p, the expected number of distinct sites visited after n steps is approximately (2n(p - q)) / (p + q) ) ?
+
+Wait, that doesn't make sense because if p = q, it would give n, but in the symmetric case, the expected number is about (2n)/3, not n. So perhaps that's incorrect.
+
+Alternatively, perhaps the expected number of distinct positions is (n + 1) * (1 - (q/p)^{n+1}) ) when p ≠ q. But that might be for a finite state space.
+
+Wait, perhaps for a biased walk, the expected number of distinct positions visited is (n + 1) * (1 - (q/p)^{n+1}) ), but I'm not sure if that's accurate.
+
+In our case, p=0.8, q=0.2, so q/p = 0.25. Then, (1 - (0.25)^{n+1}) ) approaches 1 as n increases. So the expected number would approach (n + 1) * 1 ≈ n. But that can't be right because in the symmetric case, it's about (2n)/3.
+
+Wait, perhaps that formula is incorrect. Alternatively, perhaps the expected number of distinct positions is given by sum_{k=-n}^{n} P(hit k in n steps). But that's the same as E[R_n], which is what we're trying to compute.
+
+Alternatively, perhaps I can model the expected number of distinct positions as the sum over k of P(hit k at least once in n steps).
+
+But I'm stuck. Let me try to think differently.
+
+Wait, perhaps the expected number of distinct positions is approximately the expected maximum position plus the expected minimum position plus 1. So E[R_n] ≈ E[M_n] + (-E[m_n]) + 1.
+
+If E[M_n] ≈ (0.6 / 0.64) n ≈ 0.9375 n, and E[m_n] approaches a constant, say, -c, then E[R_n] ≈ 0.9375 n + c + 1. Therefore, (1/n) E[R_n] approaches 0.9375 + (c + 1)/n. As n→infty, the term (c+1)/n goes to zero, so the limit would be 0.9375, which is 15/16 ≈ 0.9375. The closest option is F: 0.9.
+
+But another approach: perhaps the expected range is 1.0. Because each step has a 0.8 chance to move right and 0.2 to move left, but on average, the walk moves to the right. So perhaps the expected number of distinct positions is roughly n times some constant.
+
+Wait, but I'm not confident. Alternatively, perhaps the answer is 1.0, but I'm not sure.
+
+Wait, I think I read somewhere that for a biased random walk with drift μ, the expected range grows like (2 μ / σ^2) n. So in our case, μ=0.6, σ^2=0.64, so 2*0.6 / 0.64 = 1.2 / 0.64 = 1.875. But that would give a limit of 1.875, which isn't one of the options. So maybe that's not correct.
+
+Alternatively, perhaps the formula is μ / σ^2, which would be 0.6 / 0.64 ≈ 0.9375, which is close to 0.9. So perhaps the answer is F: 0.9.
+
+Alternatively, perhaps the correct answer is 1.0, but I'm not sure.
+
+Wait, maybe I should think of it differently. Each step, the walk has a 0.8 chance to go right and 0.2 to go left. So on average, each step contributes +0.6. The variance per step is 0.64. So the standard deviation after n steps is 0.8√n.
+
+In a symmetric walk (μ=0), the expected range is about (2n)/3. For a biased walk, perhaps the range grows more because the walk is more likely to spread out in the positive direction.
+
+Wait, but in the symmetric case, the range grows linearly with n, but with a coefficient less than 1. For a biased walk, perhaps the coefficient is higher.
+
+Wait, perhaps the expected range is given by E[R_n] ≈ (n + 1) * (p - q), but that doesn't make sense because p - q = 0.6, which would give E[R_n] ≈ 0.6n, but that's not one of the options.
+
+Wait, perhaps I should think of the problem in terms of the number of times the walk returns to the origin. But that's not directly helpful.
+
+Alternatively, perhaps I can model the expected number of distinct positions as the sum over k of the probability that the walk is at k at some step up to n. So E[R_n] = sum_{k} P(reaches k in n steps).
+
+In the symmetric case, this sum is known to be approximately (2n)/3. For the biased case, perhaps it's different.
+
+Wait, I found a formula that for a biased random walk on integers, the expected number of distinct sites visited after n steps is approximately (2n(p - q))/(p + q). Wait, p + q =1, so it's 2n(p - q). But in our case, p=0.8, q=0.2, so p - q = 0.6, so E[R_n] ≈ 2n * 0.6 = 1.2n. Therefore, (1/n) E[R_n] → 1.2.
+
+But 1.2 is option C.
+
+Wait, but I'm not sure if that formula is correct. Let me check the derivation.
+
+Wait, perhaps the formula is E[R_n] = (2n(p - q))/(p + q) ) = 2n(p - q) since p + q =1. So with p=0.8, q=0.2, E[R_n] = 2n * 0.6 = 1.2n. Then, (1/n) E[R_n] approaches 1.2, which is option C.
+
+But I'm not sure where I got that formula from. Let me think if that makes sense.
+
+In the symmetric case, p = q = 0.5, so E[R_n] = 0, which can't be right because in the symmetric case, the expected range is about (2n)/3. So that formula must be wrong.
+
+Wait, that suggests that the formula I thought of isn't correct. Maybe I made a mistake.
+
+Alternatively, perhaps the correct formula for the expected range in a biased walk is something else.
+
+Wait, perhaps the expected number of distinct positions is given by (n + 1) * (1 - (q/p)^{n+1}) ). For p=0.8 and q=0.2, q/p = 0.25, so (0.25)^{n+1} becomes negligible as n increases. So E[R_n] ≈ (n + 1) * 1 ≈ n. Then, (1/n) E[R_n] → 1.0, which is option A.
+
+But I'm not sure if this formula is correct. It seems too simplistic, and in the symmetric case, it would give E[R_n] ≈ n, which contradicts what I know about symmetric walks.
+
+Wait, perhaps that formula applies to a different scenario, like a finite state space or a different kind of walk.
+
+Alternatively, perhaps the expected number of distinct positions in a biased random walk is (n + 1) * (1 - (q/p)^n ), which for large n approaches (n +1) * 1, so E[R_n] ≈ n + 1, and (1/n) E[R_n] → 1.0.
+
+But again, in the symmetric case, this would give E[R_n] ≈ n +1, which is not correct because the expected range for a symmetric walk is about (2n)/3.
+
+So perhaps that formula isn't applicable.
+
+Alternatively, perhaps I should think in terms of recurrence. Since the walk is biased to the right, it's transient, so the walk will eventually drift to +infty, but for finite n, the number of distinct positions depends on how much it can wander.
+
+Wait, perhaps the expected number of distinct positions is the sum over k of the probability that the walk ever reaches k in n steps. So E[R_n] = sum_{k} P(reach k in n steps).
+
+But for a biased walk, the probability of reaching k is positive for all k, but decreases exponentially with |k|.
+
+Wait, perhaps for each k, the probability that the walk reaches k at least once in n steps is approximately 1 - (q/p)^{k} for positive k, and similarly 1 - (p/q)^{k} for negative k, but I'm not sure.
+
+Wait, another approach: For a biased random walk, the generating function for first passage probabilities can be used to find the probability that the walk reaches a certain position k for the first time at step t. Then, the probability of ever reaching k in n steps would be the sum over t=1 to n of the first passage probabilities.
+
+But this seems complicated.
+
+Alternatively, perhaps for large n, the probability that the walk reaches k is roughly 1 - (q/p)^{k}, assuming that k is positive. So sum_{k=0}^\infty [1 - (q/p)^{k}] would diverge, but for finite n, it's a finite sum.
+
+Wait, but I'm not sure.
+
+Alternatively, perhaps I can model the expected number of distinct positions as the sum over k of [1 - (q/p)^{k}], but again, not sure.
+
+Wait, I think I'm stuck. Let me try to look for another angle.
+
+I remember that for a symmetric random walk on the integers, the expected number of distinct sites visited after n steps is approximately (2n)/3. For a biased walk, maybe the coefficient changes.
+
+In our case, the walk has a positive drift, so it's more likely to move to the right, so perhaps the expected number of distinct positions is higher than in the symmetric case.
+
+Wait, but in the symmetric case, it's (2n)/3 ≈ 0.666n. So if the coefficient increases, perhaps it's around 0.9 or 1.0.
+
+Wait, another thought: the variance of the walk is 0.64n, so the standard deviation is 0.8√n. The expected maximum is about (μ / σ^2) n = (0.6 / 0.64) n ≈ 0.9375 n. Similarly, the expected minimum might be about -(μ / σ^2) n, but that would be negative. So the range would be approximately 2*(0.9375 n) = 1.875 n, but that seems too high because in the symmetric case, the expected range is about (2n)/3 ≈ 0.666n.
+
+Wait, perhaps I'm miscalculating. Maybe the expected maximum is (μ / σ^2) n, and the expected minimum is -(μ / σ^2) n, but that would give a range of 2*(μ / σ^2) n, which for our case would be 2*(0.6/0.64) n ≈ 1.875n. But that can't be right because in the symmetric case, μ=0, so this approach would give zero, which is incorrect.
+
+So, perhaps this approach is flawed.
+
+Alternatively, perhaps the expected maximum is approximately (μ / σ^2) n, and the expected range is approximately 2*(μ / σ^2) n, but adjusted for the fact that the walk is biased.
+
+Wait, but in the symmetric case, μ=0, so that approach would fail, which suggests it's incorrect.
+
+Hmm, I'm stuck. Let me try to think differently.
+
+Perhaps I can consider that for each step, the walk has a certain probability of moving right or left, and the expected number of distinct positions is related to the expected number of times the walk changes direction.
+
+Wait, but I'm not sure.
+
+Alternatively, perhaps I can model the expected number of distinct positions as the expected number of times the walk has visited each site. But that seems complicated.
+
+Wait, perhaps I can use the linearity of expectation. For each position k, the probability that the walk has visited k at least once in n steps is P_k. Then, E[R_n] = sum_{k} P_k.
+
+But how to compute P_k?
+
+For a biased random walk, P_k is the probability that the walk ever reaches k in n steps. For k positive, this can be computed using the reflection principle or generating functions.
+
+Wait, for a simple symmetric random walk, the probability that the walk reaches +a before -a is (1 - (q/p)^a)/(1 - (q/p)^{2a}), but I'm not sure.
+
+Wait, in our case, p=0.8, q=0.2, so the probability of reaching +1 before -1 is (1 - (q/p)^1)/(1 - (q/p)^2) )= (1 - 0.25)/(1 - 0.0625) )= (0.75)/(0.9375) )= 0.8. Which makes sense, since the walk is biased to the right.
+
+Wait, but that's the probability of ever reaching +1 starting from 0. But we're considering reaching +k in n steps, so perhaps P_k is the probability that the walk reaches +k at least once in n steps.
+
+But I'm not sure how to compute that exactly.
+
+Alternatively, perhaps for large n, the probability that the walk reaches k is approximately 1 - (q/p)^k, which for p=0.8, q=0.2, q/p=0.25, so 1 - (0.25)^k.
+
+Similarly, for negative k, the probability would be 1 - (p/q)^k, but since p/q=4, which is greater than 1, (p/q)^k grows exponentially for negative k, making the probabilities approach zero rapidly.
+
+So, for positive k, P_k ≈ 1 - (0.25)^k, and for negative k, P_k ≈ 1 - 4^{|k|}.
+
+But for large k, 4^{|k|} is huge, so P_k approaches zero quickly.
+
+So, summing over all k, E[R_n] ≈ sum_{k=1}^\infty [1 - (0.25)^k] + sum_{k=1}^\infty [1 - 4^k].
+
+Wait, but that would make E[R_n] = sum_{k=1}^\infty [1 - (0.25)^k + 1 - 4^k] + 1 (for k=0).
+
+Wait, that can't be right because sum_{k=1}^\infty [1 - (0.25)^k] is already divergent. So that approach must be wrong.
+
+Alternatively, perhaps I'm miscalculating P_k. Because for finite n, the probability of reaching k in n steps is less than 1.
+
+Wait, perhaps for each k, the probability P_k that the walk reaches k at least once in n steps is approximately 1 - (q/p)^{k} for positive k and similar terms for negative k, but only for k up to some maximum value determined by n.
+
+Wait, but I'm not sure. This is getting too complicated.
+
+Alternatively, perhaps I should accept that the answer is 1.0, as in option A, because for a biased walk, the expected range might approach n as n increases, but I'm not confident.
+
+Wait, but in the symmetric case, the expected range is about (2n)/3, which is less than n, so perhaps for a biased walk, the expected range approaches a higher value, like 1.0 or higher.
+
+Wait, another thought: perhaps the expected number of distinct positions is proportional to the expected absolute value of the walk. But I'm not sure.
+
+Alternatively, perhaps the limit is 1.0, but I'm not sure.
+
+Wait, given the options and the reasoning that the expected maximum is around 0.9375 n, and the minimum might approach a constant, the expected range would be around 0.9375 n, leading to (1/n) E[R_n] approaching 0.9375, which is closest to option F: 0.9.
+
+So, I'll go with option F: 0.9.
+</think>
+
+To determine the limit of \( n^{-1}E[R_n] \) as \( n \to \infty \), we analyze the expected range \( E[R_n] \) of a biased random walk with \( P(X_i=1)=0.8 \) and \( P(X_i=-1)=0.2 \). The range \( R_n \) is the number of distinct values taken by the partial sums \( S_0, S_1, \ldots, S_n \).
+
+The walk has a positive drift (\( \mu = 0.6 \)) and variance (\( \sigma^2 = 0.64 \)). For a biased random walk, the expected maximum position \( E[M_n] \) grows linearly with \( n \) as \( (\mu / \sigma^2) n \approx 0.9375n \). The expected minimum position \( E[m_n] \) is less straightforward but likely approaches a constant due to the positive drift. Thus, the range \( R_n \) is approximately \( E[M_n] - E[m_n] + 1 \).
+
+As \( n \to \infty \), the dominant term in \( E[R_n] \) is \( 0.9375n \), leading to \( n^{-1}E[R_n] \to 0.9375 \). Among the given options, the closest value is **0.9**.
+
+**Answer: F**
