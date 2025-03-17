@@ -1,0 +1,332 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+A tank contains 100 gal of water and $50 \mathrm{oz}$ of salt. Water containing a salt concentration of $\frac{1}{4}\left(1+\frac{1}{2} \sin t\right) \mathrm{oz} / \mathrm{gal}$ flows into the tank at a rate of $2 \mathrm{gal} / \mathrm{min}$, and the mixture in the tank flows out at the same rate.
+The long-time behavior of the solution is an oscillation about a certain constant level. What is the amplitude of the oscillation?
+
+Options:
+
+A: 0.14995
+B:  0.24995
+C: 0.34995
+D: 0.29995
+E: 0.50000
+F: 0.44995
+G: 0.39995
+H: 0.19995
+I: 0.59995
+J: 0.10000
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this differential equations problem here about a tank with saltwater flowing in and out. Hmm, I remember that these are mixing problems, probably involving a differential equation to model the concentration over time. Let me try to break it down.
+
+The tank initially has 100 gallons of water and 50 ounces of salt. So, the initial concentration is 50 oz per 100 gal, which is 0.5 oz/gal. But wait, the inflow has a varying concentration. The inflow concentration is given as (1/4)(1 + (1/2) sin t) oz/gal. Oh, right, that's a function of time, so it oscillates. The flow rate is 2 gal/min for both inflow and outflow, so the volume in the tank stays constant at 100 gallons. That simplifies things because the volume isn't changing, so I don't have to worry about that term in the differential equation.
+
+I think the general form for the change in salt is the inflow rate minus the outflow rate. The inflow brings in salt at a rate of (concentration) times (flow rate). The outflow carries salt out at the same flow rate but with the tank's current concentration.
+
+Let me write the differential equation. Let S(t) be the amount of salt in the tank at time t. Then, the rate of change dS/dt should be equal to the inflow of salt minus the outflow. 
+
+Inflow: concentration is (1/4)(1 + (1/2) sin t) oz/gal, times 2 gal/min. So that's (2) * (1/4)(1 + (0.5) sin t) = (1/2)(1 + 0.5 sin t) oz per minute.
+
+Outflow: the concentration in the tank is S(t)/100 oz/gal, because volume is 100 gal. So outflow rate is 2 gal/min * (S(t)/100) oz/gal = (2 S(t))/100 = S(t)/50 oz per minute.
+
+Putting it together, the differential equation is:
+
+dS/dt = (1/2)(1 + 0.5 sin t) - (S(t)/50)
+
+Hmm, let me write that more neatly. Let's maybe multiply through by 50 to eliminate the denominator.
+
+50 dS/dt = 25 (1 + 0.5 sin t) - S(t)
+
+Wait, alternatively, I can write it as:
+
+dS/dt + (1/50) S = (1/2)(1 + 0.5 sin t)
+
+Yes, that's a linear first-order differential equation. The standard form is dy/dt + P(t) y = Q(t). So here, P(t) is 1/50, and Q(t) is (1/2)(1 + 0.5 sin t).
+
+To solve this, I need an integrating factor. The integrating factor mu(t) is exp(∫P(t) dt). Since P is constant (1/50), the integral is (1/50) t. So mu(t) = e^(t/50).
+
+Multiply both sides of the DE by e^(t/50):
+
+e^(t/50) dS/dt + (1/50) e^(t/50) S = (1/2)(1 + 0.5 sin t) e^(t/50)
+
+The left side is the derivative of [S(t) e^(t/50)] with respect to t. So integrate both sides:
+
+∫ d/dt [S e^(t/50)] dt = ∫ (1/2)(1 + 0.5 sin t) e^(t/50) dt
+
+So S(t) e^(t/50) = ∫ (1/2)(1 + 0.5 sin t) e^(t/50) dt + C
+
+To compute the integral on the right, I can split it into two parts: ∫ (1/2) e^(t/50) dt + ∫ (1/4) sin t e^(t/50) dt.
+
+Let me compute each integral separately.
+
+First integral: ∫ (1/2) e^(t/50) dt.
+
+Let u = t/50 → du = dt/50 → dt = 50 du.
+
+So ∫ (1/2) e^u * 50 du = (1/2)(50) ∫ e^u du = 25 e^u + C = 25 e^(t/50) + C.
+
+Second integral: ∫ (1/4) sin t e^(t/50) dt.
+
+This one is trickier because it's the product of sin t and an exponential. I think I need to use integration by parts twice and solve for the integral.
+
+Let me set:
+
+Let’s denote I = ∫ e^(t/50) sin t dt.
+
+Using integration by parts: Let u = sin t → du = cos t dt.
+dv = e^(t/50) dt → v = 50 e^(t/50).
+
+So I = uv - ∫ v du = sin t * 50 e^(t/50) - ∫ 50 e^(t/50) cos t dt.
+
+Now compute the integral on the right. Let me call this I2 = ∫ e^(t/50) cos t dt.
+
+Again, integration by parts. Let u = cos t → du = -sin t dt.
+dv = e^(t/50) dt → v = 50 e^(t/50).
+
+So I2 = cos t *50 e^(t/50) - ∫ (-sin t) *50 e^(t/50) dt = 50 cos t e^(t/50) + 50 ∫ sin t e^(t/50) dt.
+
+Wait, notice that the integral in I2 is ∫ sin t e^(t/50) dt, which is exactly I. So putting it together:
+
+I = 50 sin t e^(t/50) - [50 cos t e^(t/50) + 50 I]
+
+Wait, let me re-express that:
+
+I = 50 sin t e^(t/50) - 50 [cos t e^(t/50) + I ]
+
+Wait, no, because I2 = 50 cos t e^(t/50) + 50 I.
+
+So going back to I:
+
+I = 50 sin t e^(t/50) - 50 I2.
+
+But I2 is 50 cos t e^(t/50) + 50 I.
+
+So substitute I2:
+
+I = 50 sin t e^(t/50) - 50 [50 cos t e^(t/50) + 50 I ]
+
+Wait no, wait. Let me re-express:
+
+Wait no, perhaps I made a miscalculation. Let me go step by step.
+
+I = ∫ e^(t/50) sin t dt.
+
+First integration by parts:
+
+u = sin t → du = cos t dt
+dv = e^(t/50) dt → v = 50 e^(t/50)
+
+So I = uv - ∫ v du = 50 sin t e^(t/50) - ∫ 50 e^(t/50) cos t dt.
+
+The remaining integral is ∫50 e^(t/50) cos t dt. Let's call this integral I2.
+
+Compute I2:
+
+I2 = ∫50 e^(t/50) cos t dt.
+
+Integration by parts again:
+
+u = cos t → du = -sin t dt
+dv =50 e^(t/50) dt → v = 50 * (50 e^(t/50)) )= 2500 e^(t/50)? Wait wait, no.
+
+Wait, dv =50 e^(t/50) dt → v = 50 * ∫ e^(t/50) dt = 50 * (50 e^(t/50)) )= 2500 e^(t/50).
+
+Wait no: ∫ e^(t/50) dt is 50 e^(t/50), so 50 times that is 50 *50 e^(t/50)=2500 e^(t/50). So v=2500 e^(t/50).
+
+So I2 = u v - ∫ v du = cos t * 2500 e^(t/50) - ∫ (-sin t) * 2500 e^(t/50) dt.
+
+Simplify:
+
+I2 = 2500 cos t e^(t/50) + 2500 ∫ sin t e^(t/50) dt.
+
+But wait, ∫ sin t e^(t/50) dt is our original I.
+
+So I2 = 2500 cos t e^(t/50) + 2500 I.
+
+Now, go back to the expression for I:
+
+I =50 sin t e^(t/50) - I2.
+
+Substituting I2:
+
+I =50 sin t e^(t/50) - [2500 cos t e^(t/50) +2500 I ].
+
+So I =50 sin t e^(t/50) -2500 cos t e^(t/50) -2500 I.
+
+Bring the 2500 I to the left side:
+
+I +2500 I =50 sin t e^(t/50) -2500 cos t e^(t/50).
+
+So 2501 I = 50 sin t e^(t/50) -2500 cos t e^(t/50).
+
+Thus, I = [50 sin t e^(t/50) -2500 cos t e^(t/50)] / 2501.
+
+Wait, but I think I messed up some coefficients. Let me check again.
+
+Wait, I think when I did I2, the setup was with v being 50 * (integral of e^(t/50) dt), which is 50 *50 e^(t/50) =2500 e^(t/50). So that's correct.
+
+But let me recompute I:
+
+I = 50 sin t e^(t/50) - [2500 cos t e^(t/50) +2500 I ]
+
+So I =50 sin t e^(t/50) -2500 cos t e^(t/50) -2500 I.
+
+Bring 2500 I to left: I +2500 I = 50 sin t e^(t/50) -2500 cos t e^(t/50).
+
+So 2501 I = 50 sin t e^(t/50) -2500 cos t e^(t/50).
+
+Thus, I = [50 sin t -2500 cos t ] e^(t/50) / 2501.
+
+Wait, perhaps factor out 50. Let me see:
+
+I = [50 (sin t - 50 cos t) ] e^(t/50) /2501.
+
+Wait, because 2500 is 50^2, so 2500 =50*50.
+
+Wait, 50 sin t -2500 cos t =50 (sin t -50 cos t).
+
+So I = [50 (sin t -50 cos t) e^(t/50)] / (2501).
+
+Wait, but 2501 is 50^2 +1? 50^2 is 2500, so 2501=50^2+1.
+
+So, I is [50 (sin t -50 cos t) e^{t/50} ] / (50^2 +1).
+
+But let me double-check this because it's getting a bit messy.
+
+Alternatively, perhaps I should have kept track of the coefficients more carefully.
+
+Wait, perhaps when computing I2, I made an error in the integral.
+
+Wait, I2 was ∫50 e^(t/50) cos t dt.
+
+So when I did integration by parts, u = cos t, dv =50 e^(t/50) dt.
+
+So du = -sin t dt, v=50 *50 e^(t/50) =2500 e^(t/50).
+
+So I2 = u v - ∫ v du = 2500 cos t e^(t/50) - ∫ 2500 e^(t/50) (-sin t) dt.
+
+Which is I2=2500 cos t e^(t/50) +2500 ∫ sin t e^(t/50) dt.
+
+But ∫ sin t e^(t/50) dt is I. So I2=2500 cos t e^(t/50) +2500 I.
+
+So putting back into I's equation:
+
+I=50 sin t e^(t/50) - I2 =50 sin t e^(t/50) - [2500 cos t e^(t/50) +2500 I ]
+
+So I=50 sin t e^(t/50) -2500 cos t e^(t/50) -2500 I.
+
+Bring 2500 I to the left:
+
+I +2500 I =50 sin t e^(t/50) -2500 cos t e^{t/50}.
+
+So 2501 I = [50 sin t -2500 cos t] e^{t/50}.
+
+Thus, I= [50 sin t -2500 cos t] e^{t/50} /2501.
+
+Wait, but 2501 is 50^2 +1^2? Wait 50^2 is 2500. So 2501=50^2+1.
+
+So, yes, 2501=50²+1.
+
+So I = [50 sin t -2500 cos t] e^{t/50} / (50² +1).
+
+But wait, I think I can factor out 50 from numerator:
+
+Wait, 50 sin t -2500 cos t =50 (sin t -50 cos t).
+
+So I= [50 (sin t -50 cos t) e^{t/50} ] / (50² +1).
+
+Now, going back to the original integral in the DE solution.
+
+The integral in the DE solution is:
+
+∫ (1/2)(1 +0.5 sin t) e^{t/50} dt = (1/2) ∫ e^{t/50} dt + (1/4) ∫ sin t e^{t/50} dt.
+
+Which we computed as:
+
+(1/2)(25 e^{t/50}) ) + (1/4)(I).
+
+Wait, no: the first integral was (1/2) ∫ e^(t/50) dt = (1/2)(50 e^{t/50}) )=25 e^{t/50}.
+
+And the second integral (1/4) ∫ sin t e^{t/50} dt is (1/4) I.
+
+So putting it all together, the integral is:
+
+25 e^{t/50} + (1/4) * [50 (sin t -50 cos t) e^{t/50} ] / (50² +1).
+
+Wait, let me compute that:
+
+(1/4) * [50 (sin t -50 cos t) e^{t/50} ] / 2501 = [50/(4*2501)] (sin t -50 cos t) e^{t/50}.
+
+Simplify 50/(4*2501): 50/(10004)= 25/(5002) ≈ but perhaps we can leave it as is.
+
+So the integral becomes:
+
+25 e^{t/50} + [50/(4*2501)] (sin t -50 cos t) e^{t/50}.
+
+Now, putting everything together, the solution S(t) is:
+
+S(t) = e^{-t/50} [ integral result + C ].
+
+So,
+
+S(t) = e^{-t/50} [25 e^{t/50} + [50/(4*2501)] (sin t -50 cos t) e^{t/50} + C ]
+
+Simplify:
+
+= e^{-t/50} * [25 e^{t/50} ] + e^{-t/50} * [50/(4*2501) (sin t -50 cos t) e^{t/50} ] + e^{-t/50} C.
+
+The first term: e^{-t/50} *25 e^{t/50} =25.
+
+The second term: [50/(4*2501)] (sin t -50 cos t).
+
+The last term is C e^{-t/50}.
+
+So,
+
+S(t) =25 + [50/(4*2501)] (sin t -50 cos t) + C e^{-t/50}.
+
+Now, as t approaches infinity, the term C e^{-t/50} approaches zero, so the long-time behavior is S(t) approaches 25 + [50/(4*2501)] (sin t -50 cos t).
+
+Wait, but the problem says the oscillation is about a certain constant level. That suggests that the steady-state solution is a constant plus an oscillating term. The constant would be 25 oz, and the oscillating part would have a certain amplitude.
+
+But let's compute the amplitude of the oscillating term. The oscillating part is [50/(4*2501)] (sin t -50 cos t).
+
+We can write this as A sin t + B cos t, but to find the amplitude, we can combine them into a single sine function with amplitude sqrt(A^2 + B^2).
+
+Let me compute A and B.
+
+The coefficient of sin t is [50/(4*2501)] *1 =50/(10004).
+
+The coefficient of cos t is [50/(4*2501)]*(-50) = (-2500)/(10004).
+
+So, A=50/10004, B= -2500/10004.
+
+The amplitude is sqrt(A^2 + B^2) = sqrt( (50^2 + 2500^2) ) /10004.
+
+Compute numerator: 50^2=2500; 2500^2=6,250,000. So 2500 +6,250,000=6,252,500.
+
+So sqrt(6,252,500) = 2500.5 approximately? Wait, wait. Let me check:
+
+Wait, 2500^2 is 6,250,000. 2501^2 is (2500+1)^2=2500² +2*2500*1 +1=6,250,000 +5000 +1=6,255,001.
+
+But our numerator inside sqrt is 6,252,500, which is less than 6,255,001.
+
+Wait, wait, 2500.5^2 = ?
+
+Wait, perhaps it's easier to factor out 2500^2.
+
+Wait, 50^2 + (2500)^2 = (50)^2 [1 + (50)^2 ].
+
+Because 50^2=2500, and (2500)^2 = (50^2)^2=50^4.
+
+So, 50^2 +2500^2=50^2 (1 +50^2 )=50^2 (1+2500)=50^2 *2501.
+
+So sqrt(50^2 *2501) )=50 *sqrt(2501).
+
+Wait, because

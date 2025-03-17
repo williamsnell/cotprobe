@@ -1,0 +1,162 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+5.8-5. If the distribution of $Y$ is $b(n, 0.25)$, give a lower bound for $P(|Y / n-0.25|<0.05)$ when
+(a) $n=100$.
+
+
+Options:
+
+A: $0.75$
+B: $0.85$
+C: $0.45$
+D: $0.35$
+E: $0.55$
+F: $0.65$
+G: $0.15$
+H:  $0.25$
+I: $0.10$
+J: $0.05$
+
+Answer:
+    <think>
+<think>
+Okay, so I have this probability question to solve. Let me read it again and try to understand what's being asked.
+
+The question says that the distribution of Y is a binomial distribution with parameters n and 0.25, which is written as b(n, 0.25). I need to find a lower bound for the probability P(|Y/n - 0.25| < 0.05) when n is 100. The options are given from A to J.
+
+Hmm, so the problem is about finding a lower bound on the probability that the sample proportion Y/n is within 0.05 of the true probability 0.25. That is, we're looking for P(0.20 < Y/n < 0.30) because 0.25 - 0.05 is 0.20 and 0.25 + 0.05 is 0.30.
+
+Wait, but this is a binomial distribution. So Y ~ Bin(n=100, p=0.25). We're looking for P(|Y/100 - 0.25| < 0.05). Which translates to P(20 < Y < 30) since Y has to be an integer, but maybe we can approximate it as a continuous distribution for easier calculations.
+
+I remember that for large n, the binomial distribution can be approximated by a normal distribution. The mean μ of Y would be n*p = 100*0.25 = 25. The variance σ² is n*p*(1-p) = 100*0.25*0.75 = 18.75, so σ is sqrt(18.75) which is approximately 4.3301.
+
+So if Y is approximately normal with μ=25 and σ≈4.3301, then Y/100 would have a mean of 0.25 and a standard deviation of σ/n, which is 4.3301/100 = 0.043301.
+
+Wait, but the question is about Y/n, so maybe it's better to model Y/n directly. Let me think. The mean of Y/n is p = 0.25. The variance of Y/n is p(1-p)/n = (0.25*0.75)/100 = 0.001875, so the standard deviation would be sqrt(0.001875) ≈ 0.0433.
+
+So Y/n is approximately normal with mean 0.25 and standard deviation 0.0433. We're looking for P(|Y/n - 0.25| < 0.05). That's the probability that Y/n is within 0.05 of the mean, which is like a 95% confidence interval type of problem, but not exactly.
+
+Wait, actually, in the normal distribution, about 68% of the data lies within 1 standard deviation of the mean. Here, 0.05 is the margin. Let me compute how many standard deviations 0.05 is from the mean.
+
+The standard deviation of Y/n is 0.0433. So 0.05 is 0.05 / 0.0433 ≈ 1.155 standard deviations away from the mean. So the z-score is 1.155.
+
+I can use the standard normal distribution to find the probability that Z is between -1.155 and 1.155. The area between these two points would give me the probability.
+
+Using a z-table, let's look up z=1.15 first. For z=1.15, the cumulative probability is about 0.8749. For z=1.16, it's 0.8770. Since 1.155 is halfway between 1.15 and 1.16, I'll average those two values. So approximately (0.8749 + 0.8770)/2 = 0.87595. So the area from -1.155 to 1.155 is about 2*0.87595 - 1 = 0.7519. Wait, no, actually, the cumulative gives up to z, so the total area from -z to z is 2Φ(z) -1. So for z=1.155, Φ(1.155) is approximately 0.87595, so the area is 2*0.87595 -1 = 0.7519, so about 75.19%.
+
+Wait, but the options given don't go up to 0.75, but option A is 0.75, so maybe that's the intended approximation. Alternatively, perhaps I should use the exact binomial calculation, but with n=100, that might be time-consuming.
+
+Wait, but the question asks for a lower bound. So perhaps using the normal approximation gives me an approximate probability, but the exact value could be higher or lower. However, I remember that for the normal approximation, the continuity correction might be necessary, but since n is large (100), maybe it's negligible.
+
+Alternatively, maybe I can use Chebyshev's inequality to find a lower bound. Chebyshev's gives a bound on the probability of being within k standard deviations. But Chebyshev's is usually for the upper bound, not the lower. Wait, Chebyshev says that P(|X - μ| ≥ kσ) ≤ 1/k². But we want P(|X - μ| < kσ), so that would be 1 - 1/k². But that gives a lower bound, but it's usually a very loose bound.
+
+In this case, our k is 0.05 / σ. Wait, Y/n has a mean μ=0.25, and standard deviation σ=0.0433. So k = 0.05 / 0.0433 ≈ 1.155. So applying Chebyshev, the probability that |Y/n - 0.25| < 0.05 is at least 1 - 1/(1.155)^2. Let's compute that.
+
+1/(1.155)^2 = 1/(1.333) ≈ 0.75. So 1 - 0.75 = 0.25. So the lower bound would be 0.25. But looking at the options, option H is 0.25. But earlier, the normal approximation gave us about 0.75, which is much higher. So which one is correct?
+
+Wait, but Chebyshev gives a lower bound, but it's a very loose one. The normal approximation gives a point estimate, but the question asks for a lower bound. So perhaps the correct answer using Chebyshev is 0.25, option H.
+
+Wait, but let me think again. The problem is asking for a lower bound, so any method that gives a lower bound is acceptable. Chebyshev's inequality gives us that P(|Y/n - 0.25| < 0.05) ≥ 1 - 1/(k²), where k is 1.155, which gives 1 - 1/(1.333) ≈ 0.25. So the lower bound is 0.25, which is option H.
+
+But wait, another approach is to use the normal approximation to find the exact probability, but that gives us around 75%, which is option A (0.75). But since the question asks for a lower bound, and the exact probability is about 75%, then the lower bound would be at least 75%. So why would we get a lower bound of 25%? That doesn't make sense because the exact probability is higher than that.
+
+Wait, perhaps I'm confusing the direction. Chebyshev's inequality gives a lower bound on the probability of being within a certain range. Wait, no, Chebyshev's inequality is P(|X - μ| ≥ kσ) ≤ 1/k², so the probability of being within kσ is ≥ 1 - 1/k². So that's a lower bound. But in this case, k is 1.155, so 1 - 1/(1.155)^2 is about 0.25. So the lower bound is 25%. But the normal approximation gives us that the actual probability is about 75%, which is higher than the lower bound given by Chebyshev. So the lower bound must be at least 25%, but could be higher.
+
+But the question is asking for a lower bound. So using Chebyshev's, it's 0.25, but perhaps the exact value is higher. The options include 0.25 (option H) and 0.75 (option A). So if the question is asking for a lower bound, then 0.25 is a valid lower bound, but perhaps the exact answer is higher. However, the question is in the context of an exam with given options, so I need to see which is the correct approach.
+
+Alternatively, perhaps using the Central Limit Theorem (CLT) with continuity correction. Let me try that.
+
+So Y ~ Bin(n=100, p=0.25), so Y has mean 25, variance 18.75, σ≈4.330.
+
+We can approximate Y as N(25, 4.330²). Then Y/n would be approximately N(0.25, (4.330/100)^2) = N(0.25, 0.0433²).
+
+We want P(|Y/n - 0.25| < 0.05) = P(-0.05 < Y/n - 0.25 < 0.05).
+
+In terms of Y, this is P(24.5 < Y < 25.5) because 0.25*100=25, 0.20*100=20, but wait, no: wait, Y/n is between 0.20 and 0.30, so Y is between 20 and 30. Wait, no, wait: 0.25 ± 0.05 is 0.20 to 0.30, so Y is between 20 and 30.
+
+Wait, no, wait: 0.25 - 0.05 = 0.20, so 0.20 * 100 = 20. 0.25 + 0.05=0.30, so 0.30*100=30. So Y needs to be between 20 and 30.
+
+Now, applying the CLT, the distribution of Y is approximately normal with μ=25 and σ≈4.3301.
+
+So the z-scores for Y=20 and Y=30 would be:
+
+For Y=20: z = (20 -25)/4.3301 ≈ -5/4.3301 ≈ -1.1547.
+
+For Y=30: z = (30 -25)/4.3301 ≈ 5/4.3301 ≈ 1.1547.
+
+So the probability P(20 ≤ Y ≤ 30) is approximately the probability that Z is between -1.1547 and 1.1547. Looking up these z-scores in the standard normal table:
+
+z=1.15 corresponds to 0.8749, z=1.16 is 0.8770. So for 1.1547, it's approximately 0.875 (as earlier). So the area from -1.1547 to 1.1547 is 2 * 0.875 -1 = 0.75. So the approximate probability is 0.75, which is 75%. So option A is 0.75.
+
+But wait, the question is about a lower bound, not the exact probability. So using the CLT gives us an approximate probability, but perhaps we can find a lower bound using another method.
+
+Alternatively, maybe using the De Moivre-Laplace theorem, which is the normal approximation to the binomial distribution. But that's what I did above.
+
+Wait, but the problem is phrased as "give a lower bound for P(...)". So the exact probability is about 75%, but the question is asking for a lower bound, so any value less than or equal to the exact probability would be a valid lower bound. But the options include 0.75, which is the approximate value. So perhaps the correct answer is 0.75, option A.
+
+But earlier I thought Chebyshev's gives a lower bound of 0.25, which is option H. So which is correct?
+
+Wait, the question is about a lower bound, so we need a method that gives us a guaranteed lower bound, not an approximation. Chebyshev's gives a lower bound, but it's a very loose one. The CLT gives us an approximate value, which might be higher than the actual probability, but not necessarily a guaranteed lower bound.
+
+Wait, but perhaps I can compute the exact probability using the binomial distribution. With n=100 and p=0.25, computing P(20 ≤ Y ≤30) exactly would be tedious, but maybe I can estimate it more accurately.
+
+Alternatively, perhaps using the normal approximation with continuity correction. The continuity correction adjusts for the fact that we're approximating a discrete distribution with a continuous one. So for Y, the probability P(20 ≤ Y ≤30) would be approximated as P(19.5 ≤ Y ≤30.5) in the continuous normal distribution.
+
+Wait, no, when converting from Y to Y/n, I think I should consider the continuity correction in terms of Y/n. So Y ranges from 20 to 30, which in Y/n terms is 0.20 to 0.30. So applying continuity correction, we would use 0.20 - 0.005 and 0.30 + 0.005? Or perhaps I'm mixing it up.
+
+Wait, the continuity correction for Y would be adding and subtracting 0.5. So for P(20 ≤ Y ≤30), we'd use P(19.5 ≤ Y ≤30.5). Then, converting to Y/n, it's (19.5/100) to (30.5/100), which is 0.195 to 0.305.
+
+So the mean is 0.25, and the standard deviation is 0.0433. So the z-scores would be:
+
+For 0.195: z = (0.195 - 0.25) / 0.0433 ≈ (-0.055)/0.0433 ≈ -1.27.
+
+For 0.305: z = (0.305 - 0.25)/0.0433 ≈ 0.055/0.0433 ≈ 1.27.
+
+So the probability P(-1.27 < Z < 1.27) is 2Φ(1.27) -1.
+
+Looking up z=1.27 in the standard normal table:
+
+z=1.27 corresponds to approximately 0.8980. So the area is 2*0.8980 -1 = 0.796, so about 79.6%. That's higher than the previous 75% without continuity correction.
+
+So if we use the continuity correction, the approximate probability is about 80%, which is still around 0.80, but the options don't have 0.80. The closest higher option is 0.85 (option B), but 0.75 (option A) is lower.
+
+But again, the question is about a lower bound, so using the normal approximation with continuity correction gives about 80%, which is higher than the 75% without. So the exact probability is likely between 75% and 80%.
+
+Wait, but the question is to give a lower bound, so the minimal possible value that the probability could be. So which method gives a guaranteed lower bound?
+
+Chebyshev's gives a lower bound of 0.25, which is option H. But the normal approximation suggests it's much higher. So perhaps the correct answer is 0.75 or higher, but since it's a lower bound, 0.25 is technically a lower bound, but it's a very weak one.
+
+But looking back, the options given include 0.75, which is a much tighter lower bound than 0.25. So perhaps the intended approach is to use the normal approximation without worrying about it being a lower bound, and select 0.75 as the answer.
+
+Alternatively, perhaps the question is expecting the use of the normal approximation to find the approximate probability, and then that value is the lower bound. So 0.75 would be the lower bound.
+
+Wait, but the exact probability is around 75%, so the lower bound can't be higher than that unless it's exact. Hmm, perhaps I'm overcomplicating.
+
+Wait, another approach: using the Central Limit Theorem, the distribution of Y/n is approximately normal, so the probability P(|Y/n - p| < ε) approaches 2Φ(ε/(σ/p√n)) -1 as n increases, but for finite n, it's an approximation.
+
+In any case, given the options, and the normal approximation giving around 75%, which is option A, I think the intended answer is A: 0.75.
+</think>
+
+To solve the problem, we need to find a lower bound for the probability \( P\left(\left|\frac{Y}{n} - 0.25\right| < 0.05\right) \) where \( Y \sim \text{Bin}(n=100, p=0.25) \). This translates to finding \( P(0.20 < \frac{Y}{n} < 0.30) \), or equivalently, \( P(20 < Y < 30) \).
+
+### Key Steps:
+
+1. **Normal Approximation**:
+   - The binomial distribution can be approximated by a normal distribution for large \( n \). Here, \( Y \) has:
+     - Mean: \( \mu = np = 100 \cdot 0.25 = 25 \),
+     - Variance: \( \sigma^2 = np(1-p) = 100 \cdot 0.25 \cdot 0.75 = 18.75 \),
+     - Standard deviation: \( \sigma = \sqrt{18.75} \approx 4.3301 \).
+   - For \( Y/n \), the mean is \( 0.25 \), and the standard deviation is \( \sigma/n = 4.3301/100 \approx 0.0433 \).
+
+2. **Probability Calculation**:
+   - We want \( P\left(\left|\frac{Y}{n} - 0.25\right| < 0.05\right) \), which corresponds to \( P(0.20 < \frac{Y}{n} < 0.30) \).
+   - Converting to \( Y \), this is \( P(20 < Y < 30) \).
+   - Using the normal approximation, the z-scores for \( Y = 20 \) and \( Y = 30 \) are:
+     \[
+     z = \frac{20 - 25}{4.3301} \approx -1.155, \quad z = \frac{30 - 25}{4.3301} \approx 1.155.
+     \]
+   - The probability that \( Z \) lies between \( -1.155 \) and \( 1.155 \) is

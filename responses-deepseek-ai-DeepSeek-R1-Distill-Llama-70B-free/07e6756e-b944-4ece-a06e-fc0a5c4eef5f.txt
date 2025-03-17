@@ -1,0 +1,47 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+MIT’s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?
+
+Options:
+
+A: When a client connects to a server, the server compares the ticket’s expiration time to the server’s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.
+B: The server maintains a database of all active and expired tickets, and refuses to authenticate the user if the ticket is found in the expired list.
+C: When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket’s maximum lifetime.
+D: The client's system automatically disconnects from the server once the ticket lifetime is over.
+E: The client needs to manually disconnect from the server after the ticket's maximum lifetime is reached.
+F: The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.
+G: The Kerberos server (KDC) sends an alert to the client and server to terminate the connection once the ticket is expired.
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this question about Kerberos and how it handles expired tickets. Hmm, let me think. I remember that Kerberos is a network authentication protocol, right? It uses tickets to allow access to services without sending passwords each time.
+
+The question is asking what ensures that an expired ticket can't be used anymore. The KDC (Key Distribution Center) is the server here, and the maximum ticket lifetime is 24 hours. So, when a ticket expires, something must happen to prevent it from being used.
+
+Let me look at the options. Option A says the server checks the ticket's expiration against its clock. That makes sense because tickets have an expiration time. If the server's current time is past the ticket's time, it should deny access. 
+
+Option B suggests the server keeps a database of all expired tickets. I'm not so sure about this. I think tickets are usually not stored once issued because each ticket is encrypted and contains its own expiration info. Maintaining a big list might not be efficient or necessary.
+
+Option C talks about setting a timer on the server. I don't think the server sets timers for each connection. That could be resource-intensive, especially with many users. Plus, the ticket itself has the expiration, so maybe the check happens when the client presents it.
+
+Option D says the client disconnects automatically. But I'm not sure if the client tracks this. The Kerberos system is more about authentication, not managing connections. So maybe it's the server's job to check the ticket each time.
+
+Option E suggests manual disconnection, which doesn't sound right. Users wouldn't be reliable for that, so the system must handle it automatically.
+
+Option F says the KDC refuses new connections for expired tickets. Wait, but the ticket is presented when connecting to a service, not the KDC. So once the ticket is expired, the service server would reject it, not the KDC blocking new connections.
+
+Option G mentions the KDC sending alerts. I don't think the KDC actively monitors and sends alerts. It's more likely that the server where the client tries to use the ticket does the check.
+
+So putting it together, when a client tries to access a server with an expired ticket, the server checks the ticket's time against its own clock. If it's expired, access is denied. That points to option A.
+</think>
+
+The Kerberos protocol ensures that expired tickets cannot be used by having the server check the ticket's expiration time against its current clock when a client attempts to access a service. If the ticket's expiration time is in the past, the server refuses authentication. This mechanism is efficient and does not require the server to maintain a database of expired tickets or set timers for each connection. It also eliminates the need for manual intervention by the user or active monitoring by the KDC. Therefore, the correct answer is:
+
+A: When a client connects to a server, the server compares the ticket’s expiration time to the server’s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.
+
+Answer: A

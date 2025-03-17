@@ -1,0 +1,185 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+Let $X \sim N(0,1)$ and let the distortion measure be squared error. Here we do not allow block descriptions. Compute the minimum expected distortion for one bit quantization of $X$ using a squared error distortion measure.
+
+Options:
+
+A: 0.625
+B: 0.212
+C: 0.411
+D: 0.363
+E: 0.1
+F: 0.75
+G: 0.498
+H: 0.333
+I: 0.256
+J: 0.125
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this problem here about quantizing a random variable using one bit with squared error distortion. Hmm, let's think through this step by step. I've studied some information theory and quantization before, but I'm a bit rusty, so I'll try to recall.
+
+The random variable X follows a standard normal distribution, N(0,1). That means it's Gaussian with mean 0 and variance 1. The task is to find the minimum expected distortion when quantizing X into one bit. Since it's one bit, there are two possible reconstruction levels, right? So I'll need to split the real line into two intervals and assign each a reconstruction value.
+
+The distortion measure here is squared error, which I remember is the expected value of the square of the difference between the source and the reconstruction. So for each interval, I need to choose a reconstruction level such that the expected squared error is minimized, and then sum these for both intervals.
+
+First, I need to determine the optimal quantization regions. Because X is symmetric around zero, I suspect that the two regions will be symmetric as well. So the first region would be from negative infinity to some point a, and the second from a to infinity. Wait, but actually, because the distribution is symmetric, it's probably optimal to have the regions be (-∞, -a) and [-a, ∞), but I'm not entirely sure. Alternatively, maybe it's better to split at zero, but I think that might not be optimal because the squared error depends on the distance from the reconstruction point.
+
+Wait, no, the optimal split point a. Let me think. Let's assume that the two intervals are (-∞, a] and (a, ∞). But wait, actually, since the PDF is symmetric about zero, maybe the optimal a is negative of another point, but since I'm dealing with one bit, perhaps the split is at a point that partitions the distribution into two equal probabilities. But wait, for a one-bit quantizer, the two regions must have equal probabilities if we're minimizing the expected distortion, right? Because the bit is equally likely to be 0 or 1, but wait, no, the bits are just labels. The probabilities can be different, but in the optimal case, the partition should be such that each interval's reconstruction minimizes the expected error for that interval.
+
+Wait, I remember that for a Gaussian source, the optimal quantization with two levels (one bit) leads to reconstruction points that are symmetric around zero. So the split point a would be such that the integral from -infty to a of the PDF equals the integral from a to infty, but adjusted for the optimal reconstruction points. Wait, no, perhaps I should use the centroid conditions. For each region, the reconstruction level is the centroid (mean) of that region under the source distribution.
+
+So, the idea is to partition the real line into two intervals, say S1 and S2, and for each, compute the reconstruction level as the expected value of X given that X is in S1 or S2, respectively. Then, the expected distortion is the sum over each region of the expected squared error in that region multiplied by the probability of being in that region.
+
+But wait, let me break it down more clearly. Let's denote the two regions as S1 = (-infty, a] and S2 = (a, infty). The reconstruction levels would be y1 for S1 and y2 for S2. To minimize the expected distortion, each y should be the mean of X conditioned on being in its respective region.
+
+So, the distortion D is given by D = E[(X - Y)^2], where Y is the quantized value. Since Y can take two values y1 and y2, we can write this as:
+
+D = P(X in S1) * E[(X - y1)^2 | X in S1] + P(X in S2) * E[(X - y2)^2 | X in S2]
+
+Now, I need to find a, y1, and y2 that minimize D. But since the problem is symmetric, perhaps a is zero? Wait, wait, no, maybe not. Because if a is zero, then both regions would be symmetric, and perhaps y1 and y2 would be symmetric points as well. But I'm not sure yet.
+
+Wait, let's consider that the optimal quantization points for a Gaussian source with one bit should have equal probabilities in each region. Wait, is that correct? Because for a source with a PDF that's symmetric and unimodal, splitting the distribution into two equal parts would make sense. So, for a standard normal distribution, the median is zero, right? Because the distribution is symmetric around zero. So perhaps the split point a is zero, and then S1 is (-infty, 0], S2 is (0, infty). But then the reconstruction points y1 and y2 would be the centroids of each region.
+
+Wait, let me compute that. First, what's the probability that X is in S1 when a=0? That's 0.5, since the normal distribution is symmetric. Similarly for S2.
+
+Then, the reconstruction point y1 would be the mean of X given X <= 0. Since the distribution is symmetric, the mean of X given X <=0 is -mean of X given X >=0. Let me calculate E[X | X <=0]. For a standard normal distribution, this is known. I think it's -sqrt(2/π). Because in general, for X ~ N(0,1), E[X | X <= a] can be computed, but when a=0, it's symmetric.
+
+Wait, E[X | X <=0] is the expectation of X over the left half, which is the negative of E[X | X >=0]. Let me compute E[X | X >=0]. The expectation is ∫ (x * f(x)) dx from 0 to infty, divided by P(X >=0)=0.5. The f(x) is (1/sqrt(2π)) e^(-x²/2). So,
+
+E[X | X >=0] = (1/0.5) ∫ x (1/sqrt(2π)) e^(-x²/2) dx from 0 to ∞.
+
+But wait, ∫ x e^(-x²/2) dx from 0 to ∞ is sqrt(2π/2)/2? Wait, no, more accurately, ∫ x e^{-x²/2} dx from 0 to ∞ is equal to 1, because substitution u = x²/2, du = x dx. So ∫ x e^{-x²/2} dx from 0 to ∞ is ∫ e^{-u} du from 0 to ∞ = 1.
+
+Wait, but let me check that: Let u = x^2 / 2, then du = x dx. So ∫ x e^{-x²/2} dx from 0 to ∞ is ∫ e^{-u} du from 0 to ∞, which is 1.
+
+So E[X | X >=0] = (1/0.5) * [ (1/sqrt(2π)) * 1 ] = 2 / sqrt(2π) = sqrt(2/π). Therefore, E[X | X <=0] is -sqrt(2/π).
+
+So the reconstruction points y1 = -sqrt(2/π) ≈ -0.7979 and y2 = sqrt(2/π) ≈ 0.7979.
+
+Wait, but in this case, the reconstruction points are symmetric around zero, which makes sense. Now, the expected distortion D would be the sum over each region of the expected squared error.
+
+So, D = P(S1) * E[(X - y1)^2 | S1] + P(S2) * E[(X - y2)^2 | S2].
+
+Since P(S1)=P(S2)=0.5, we can compute each term and double one of them.
+
+Let's compute E[(X - y1)^2 | X <=0]. Expanding this, it's E[X^2 | X <=0] - 2 y1 E[X | X <=0] + y1^2.
+
+We know that E[X | X <=0] is -sqrt(2/π), and y1 is also -sqrt(2/π). So let's compute each term.
+
+First, compute E[X^2 | X <=0]. For a standard normal, E[X^2] = Var(X) + [E[X]]^2 = 1 + 0 =1. But E[X^2 | X <=0] is not the same as E[X^2]. Let me think. The conditional expectation E[X^2 | X <=0] can be computed as (1/P(X<=0)) ∫_{-infty}^0 x^2 f(x) dx.
+
+Since f(x) is (1/sqrt(2π)) e^{-x²/2}, the integral becomes (1/sqrt(2π)) ∫_{-infty}^0 x^2 e^{-x²/2} dx.
+
+Let me compute this integral. The integral of x^2 e^{-x²/2} dx from -infty to 0 is the same as from 0 to ∞ because x^2 is even function. So each is half of the integral from -infty to ∞.
+
+We know that ∫_{-infty}^∞ x^2 e^{-x²/2} dx = sqrt(2π) * (1) )? Wait, more accurately, for a standard normal, E[X^2] = 1, so the integral is 1. Wait, no: the integral ∫ x^2 e^{-x²/2} dx / sqrt(2π) = E[X^2] =1. So ∫ x^2 e^{-x²/2} dx = sqrt(2π) * 1 = sqrt(2π). So the integral from 0 to ∞ is half that, which is sqrt(2π)/2.
+
+Wait, no, wait: let me compute ∫ x^2 e^{-x²/2} dx from 0 to ∞. Let me make substitution u = x²/2, so du = x dx, but for x^2 e^{-x²/2}, let me see:
+
+∫ x^2 e^{-x²/2} dx from 0 to ∞.
+
+Let me use substitution: Let u = x, dv = x e^{-x²/2} dx. Wait, perhaps integration by parts. Let me set u = x, dv = x e^{-x²/2} dx.
+
+Wait, perhaps better to use gamma functions. Recall that ∫ x^{2n} e^{-x²/2} dx from 0 to ∞ is (sqrt(2))^ {2n+1} Γ(n + 1/2) ) / 2.
+
+Alternatively, perhaps using the standard result: ∫_{0}^∞ x^2 e^{-a x^2} dx = (1/(4 a^{3/2})) sqrt(π). Hmm, not sure.
+
+Alternatively, ∫ x^2 e^{-x²/2} dx from 0 to ∞: Let’s let t = x^2/2, so x = sqrt(2t), dx = sqrt(2)/ (2 sqrt(t)) dt.
+
+So the integral becomes ∫ (2t) e^{-t} * (sqrt(2)/(2 sqrt(t))) ) dt from 0 to ∞.
+
+Simplify: 2t * sqrt(2)/(2 sqrt(t)) ) = sqrt(2) * sqrt(t).
+
+So the integral is sqrt(2) ∫ sqrt(t) e^{-t} dt from 0 to ∞.
+
+We know that ∫ t^{1/2} e^{-t} dt from 0 to ∞ is Γ(3/2) = (1/2) sqrt(π).
+
+So the integral becomes sqrt(2) * (1/2) sqrt(π) ) = sqrt(2π)/2.
+
+Thus, the integral from 0 to ∞ of x^2 e^{-x²/2} dx is sqrt(2π)/2.
+
+So, the integral from -infty to 0 is the same, because the function is even. So for E[X^2 | X <=0], we have:
+
+E[X^2 | X <=0] = (1/P(X <=0)) * ∫_{-infty}^0 x^2 f(x) dx.
+
+Since P(X <=0) = 0.5, and f(x) = (1/sqrt(2π)) e^{-x²/2}.
+
+So E[X^2 | X <=0] = (1/0.5) * [ (1/sqrt(2π)) * ∫_{-infty}^0 x^2 e^{-x²/2} dx ]
+
+But ∫_{-infty}^0 x^2 e^{-x²/2} dx is same as ∫_{0}^infty x^2 e^{-x²/2} dx, which is sqrt(2π)/2.
+
+So E[X^2 | X <=0] = 2 * (1/sqrt(2π)) * (sqrt(2π)/2 ) = 2 * (1/sqrt(2π)) * (sqrt(2π)/2 ) = 2 * (1/2) ) = 1.
+
+Wait, that can't be right. Because E[X^2] is 1, and the conditional expectations should relate to that. Let me double-check.
+
+Wait, the integral ∫_{-infty}^0 x^2 e^{-x²/2} dx is same as ∫_{0}^infty x^2 e^{-x²/2} dx, which is sqrt(2π)/2. So when multiplied by (1/sqrt(2π)), it becomes (sqrt(2π)/2 ) * (1/sqrt(2π)) ) = 1/2.
+
+Then, since P(X <=0) is 0.5, E[X^2 | X <=0] is (1/0.5) * (1/2) )= 2 * (1/2) = 1.
+
+So yes, E[X^2 | X <=0] is 1, same as E[X^2 | X >=0]. That makes sense because of symmetry.
+
+Wait, that's interesting. So E[X^2 | X <=0] = E[X^2 | X >=0] = 1.
+
+But then, when I compute E[(X - y1)^2 | X <=0], it becomes E[X^2 | X <=0] - 2 y1 E[X | X <=0] + y1^2.
+
+We have E[X^2 | X<=0] =1, E[X | X<=0] = -sqrt(2/π), and y1 = -sqrt(2/π).
+
+Plugging these in:
+
+1 - 2*(-sqrt(2/π))*(-sqrt(2/π)) + (sqrt(2/π))^2.
+
+Wait, let's compute each term:
+
+- 2 y1 E[X | X<=0] = -2*(-sqrt(2/π))*(-sqrt(2/π)).
+
+Wait, that's -2*(sqrt(2/π))^2.
+
+Because (-a)*(-a) = a², so the term becomes -2*(a²), where a = sqrt(2/π).
+
+So:
+
+1 - 2*(2/π) + (2/π).
+
+Wait, because (sqrt(2/π))² = 2/π.
+
+So 1 - 2*(2/π) + (2/π) = 1 - (4/π) + (2/π) = 1 - (2/π).
+
+So the conditional distortion E[(X - y1)^2 | X <=0] is 1 - (2/π).
+
+Wait, that's interesting. Similarly, for the other region, it would be the same because of symmetry. So E[(X - y2)^2 | X >=0] is also 1 - (2/π).
+
+Thus, the total distortion D is 0.5*(1 - 2/π) + 0.5*(1 - 2/π) = 1 - 2/π.
+
+Wait, but wait, 1 - 2/pi is approximately 1 - 0.6366 = 0.3634. Let me compute that: 2 divided by pi is about 0.6366. So 1 - 0.6366 is 0.3634.
+
+Looking at the options, option D is 0.363, which matches this value.
+
+Wait, but let me make sure I didn't make a mistake in the calculation. Let me recap:
+
+Each region's conditional distortion is 1 - 2/pi. Since both regions have equal probability, the total distortion is 1 - 2/pi.
+
+But wait, 1 - 2/pi is approximately 0.363, which is option D.
+
+So the minimum expected distortion should be 0.363, which is option D.
+</think>
+
+To compute the minimum expected distortion for one-bit quantization of a standard normal random variable \( X \sim N(0,1) \) using a squared error distortion measure, we follow these steps:
+
+1. **Quantization Regions and Reconstruction Levels**:  
+   Since \( X \) is symmetric around zero, the optimal quantization regions are \( S_1 = (-\infty, a] \) and \( S_2 = (a, \infty) \). For a one-bit quantizer, the reconstruction levels \( y_1 \) and \( y_2 \) are the centroids (conditional means) of \( X \) in each region. Due to symmetry, \( a = 0 \), and the reconstruction levels are \( y_1 = -\sqrt{2/\pi} \) and \( y_2 = \sqrt{2/\pi} \).
+
+2. **Conditional Distortion in Each Region**:  
+   The distortion in each region is given by \( E[(X - y)^2 | X \in S] \), where \( y \) is the reconstruction level. Expanding this, we have:  
+   \[
+   E[(X - y)^2 | X \in S] = E[X^2 | X \in S] - 2yE[X | X \in S] + y^2.
+   \]  
+   For \( S_1 = (-\infty, 0] \), \( E[X | X \in S_1] = -\sqrt{2/\pi} \), and \( E[X^2 | X \in S_1] = 1 \). Substituting, the conditional distortion becomes:  
+   \[
+   1 - 2(-\sqrt{2/\pi})(-\sqrt{2/\pi}) + (\sqrt{2/\pi})^2 = 1 - \frac{2}{\pi}.
+   \]  

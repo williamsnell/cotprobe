@@ -1,0 +1,199 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+What is $\lim _{r \rightarrow \infty} (\int_0^{\pi/2} x^r sin(x) dx)/(r\int_0^{\pi/2} x^r cos(x) dx)$?
+
+Options:
+
+A: 0.54321
+B: 0.22222
+C: 0.77777
+D: 0.87654
+E: 0.33333
+F: 0.99999
+G: 0.63662
+H: 1.23456
+I: 0.45678
+J: 0.11111
+
+Answer:
+    <think>
+<think>
+Okay, so I have this limit problem to solve, and I'm a bit nervous because it's about integrals and limits, which I find a bit tricky. But I'll take it step by step.
+
+The problem is the limit as r approaches infinity of the ratio of two integrals. The numerator is the integral from 0 to π/2 of x^r sin(x) dx, and the denominator is r times the integral from 0 to π/2 of x^r cos(x) dx.
+
+Hmm, the first thing that comes to mind is that when r is a large number, x^r behaves differently depending on the value of x. I remember that for x between 0 and 1, as r increases, x^r tends to zero except when x is near 1. So maybe the integrals are dominated by the region where x is close to 1. That's probably because near x=1, x^r isn't negligible, but elsewhere it dies off quickly as r grows.
+
+So both integrals in the numerator and denominator are dominated by the contribution near x=1. That suggests that I can approximate each integral by expanding around x=1. Maybe I can substitute x = 1 - t, where t is small, and expand the functions sin(x) and cos(x) in a Taylor series around x=1.
+
+Let me try that substitution. Let x = 1 - t. Then when x approaches 1, t approaches 0. The limits of integration change: when x=0, t=1, and when x=π/2 (which is approximately 1.5708), t becomes 1 - π/2 ≈ -0.5708. Wait, but t would be negative in that case. Hmm, maybe I should adjust the substitution so that t is positive and small as x approaches 1 from below. Alternatively, perhaps I can extend the integral to a region where t is positive and small, but since we're taking the limit as r approaches infinity, the main contribution comes from t near 0 anyway. So maybe I can approximate the integral by extending the lower limit to t=0 and the upper limit to t approaching negative infinity, but that might complicate things. Alternatively, perhaps it's better to shift the variable so that t is positive around x=1. Let me think.
+
+Wait, maybe a better substitution is x = 1 - t, so when x is near 1, t is near 0. Then dx = -dt. The integral from x=0 to x=π/2 becomes from t=1 to t=1 - π/2. But as r is large, the significant contribution comes from t near 0. So perhaps I can approximate the integral by extending the lower limit to t=0 and upper limit to t=∞, but I'm not sure if that's valid. Alternatively, maybe we can expand the functions around t=0 and keep only the leading terms.
+
+So let's proceed. For the numerator integral:
+
+I_num = ∫₀^{π/2} x^r sin(x) dx
+
+With x = 1 - t, so t = 1 - x, and dx = -dt. When x approaches 1, t approaches 0.
+
+So I_num becomes:
+
+∫_{t=1}^{t=1 - π/2} (1 - t)^r sin(1 - t) (-dt)
+
+Which is the same as:
+
+∫_{t=1 - π/2}^{t=1} (1 - t)^r sin(1 - t) dt
+
+But since we're interested in the region near t=0, perhaps we can expand sin(1 - t) around t=0. Let's compute the Taylor expansion of sin(1 - t) around t=0. So:
+
+sin(1 - t) = sin(1) - t cos(1) + (t²/2) sin(1) + O(t^3)
+
+Similarly, for the denominator integral:
+
+I_den = ∫₀^{π/2} x^r cos(x) dx
+
+Which under substitution becomes:
+
+∫_{t=1 - π/2}^{1} (1 - t)^r cos(1 - t) dt
+
+Expanding cos(1 - t) around t=0:
+
+cos(1 - t) = cos(1) + t sin(1) + (t²/2) cos(1) + O(t^3)
+
+Now, considering that (1 - t)^r can be approximated for large r and small t. Since (1 - t)^r ≈ e^{-r t} when t is small and r is large. Because ln(1 - t) ≈ -t, so (1 - t)^r = e^{r ln(1 - t)} ≈ e^{-r t}.
+
+So now, I can approximate the numerator integral as:
+
+I_num ≈ ∫_{0}^{∞} e^{-r t} [sin(1) - t cos(1) + (t²/2) sin(1)] dt
+
+Wait, but we have to adjust the limits properly. Since t is near 0, and we're extending the integral to t=0 to infinity, but the original substitution would have the lower limit at t=1 - π/2 ≈ -0.5708, which is negative. However, for t negative, e^{-r t} becomes e^{+r|t|}, which grows exponentially as r increases, but since t is negative, (1 - t) would be greater than 1, and (1 - t)^r would blow up. But wait, in our substitution, when x approaches π/2, which is greater than 1, t becomes negative. But for x > 1, (1 - t) is greater than 1, so (1 - t)^r would go to infinity as r increases, which seems problematic. But wait, that can't be right because the original integral is from x=0 to x=π/2. So perhaps I made a mistake in the substitution.
+
+Wait, no. Wait, when x is between 1 and π/2 (since π/2 is about 1.5708), then t = 1 - x would be negative. So for x > 1, t is negative, meaning (1 - t) is greater than 1, and (1 - t)^r becomes very large as r increases. But that would make the integral diverge, which contradicts the fact that the original integral is finite because x^r decreases as x < 1, but for x > 1, x^r increases. Wait, that can't be right because the original integral is from 0 to π/2, which includes x=1 and x>1. So perhaps my initial assumption that the integral is dominated near x=1 is incorrect. Hmm, maybe I should think again.
+
+Wait, no, wait. Because x^r for x < 1 tends to zero as r increases, but for x > 1, x^r tends to infinity. So in the integral from 0 to π/2, the region near x=1 would contribute, but also for x > 1, as r increases, x^r would make the integral diverge. But that can't be, because for any finite r, the integral is finite. But in the limit as r approaches infinity, perhaps the integral behaves differently.
+
+Wait, maybe I should consider Laplace's method for integrals. Laplace's method is used to approximate integrals of the form ∫ e^{r f(x)} dx for large r, where the main contribution comes from the maximum of f(x). But in our case, it's x^r, which can be written as e^{r ln x}, so f(x) = ln x. So the maximum of f(x) in the interval [0, π/2] would be at x=π/2 because ln x is increasing. Wait, no, wait: ln x is maximum at x=π/2, yes. So according to Laplace's method, as r→∞, the integral ∫ x^r g(x) dx from 0 to π/2 is dominated by the region around x=π/2, since that's where ln x is maximum.
+
+Wait, that's different from what I thought earlier. So maybe the main contribution isn't at x=1, but at x=π/2. Hmm, that makes sense because x^r would be largest where x is largest, which is at x=π/2 ≈ 1.5708. So that would mean that as r increases, the integrals are dominated near x=π/2, not x=1. So I think I made a mistake earlier by focusing on x=1; I should have focused on x=π/2.
+
+So, let me adjust my approach. Let me make a substitution where x is near π/2. Let me set x = π/2 - t, where t is small. Then, as x approaches π/2 from below, t approaches 0 from above.
+
+So, for the numerator integral:
+
+I_num = ∫₀^{π/2} x^r sin(x) dx ≈ ∫_{x near π/2} x^r sin(x) dx
+Similarly for the denominator.
+
+Let me perform substitution x = π/2 - t, so t = π/2 - x. Then, dx = -dt. The integral becomes:
+
+I_num ≈ ∫_{t=0}^{t=π/2} (π/2 - t)^r sin(π/2 - t) dt
+
+But sin(π/2 - t) is cos(t), so:
+
+I_num ≈ ∫_{0}^{∞} (π/2 - t)^r cos(t) dt, extending the upper limit to infinity since the main contribution is near t=0.
+
+Similarly, for the denominator:
+
+I_den = ∫₀^{π/2} x^r cos(x) dx ≈ ∫_{x near π/2} x^r cos(x) dx
+
+Substituting x = π/2 - t, cos(x) = cos(π/2 - t) = sin(t), so:
+
+I_den ≈ ∫_{0}^{∞} (π/2 - t)^r sin(t) dt
+
+Wait, but we can also approximate (π/2 - t)^r for small t. Let me write (π/2 - t) as π/2 (1 - (2t)/(π)). So:
+
+(π/2 - t)^r = (π/2)^r (1 - 2t/π)^r ≈ (π/2)^r e^{-2 r t / π}
+
+Because for large r, (1 - a/r)^r ≈ e^{-a}.
+
+So, I_num ≈ (π/2)^r ∫_{0}^{∞} e^{-2 r t / π} cos(t) dt
+
+Similarly, I_den ≈ (π/2)^r ∫_{0}^{∞} e^{-2 r t / π} sin(t) dt
+
+So now, the ratio becomes:
+
+[I_num]/[r I_den] = [ ∫ e^{-2rt/π} cos(t) dt ] / [ r ∫ e^{-2rt/π} sin(t) dt ]
+
+Hmm, let's compute these integrals. Let me denote a = 2r/π, so a is large as r is large.
+
+So,
+
+I_num_integral = ∫_{0}^{∞} e^{-a t} cos(t) dt
+I_den_integral = ∫_{0}^{∞} e^{-a t} sin(t) dt
+
+We can compute these using standard Laplace transforms.
+
+The Laplace transform of cos(t) is s/(s² + 1), and the Laplace transform of sin(t) is 1/(s² + 1), where s = a here.
+
+So,
+
+I_num_integral = a/(a² + 1)
+I_den_integral = 1/(a² + 1)
+
+Thus, the ratio becomes:
+
+[ a/(a² + 1) ] / [ r * 1/(a² + 1) ) ] = [ a/(a² + 1) ] * [ (a² + 1)/r ] = a / r
+
+But a = 2r/π, so substituting:
+
+(a)/r = (2r/π)/r = 2/π ≈ 0.63662
+
+So the limit is 2/π, which is approximately 0.63662.
+
+Looking at the options, option G is 0.63662, so the answer should be G.
+</think>
+
+To evaluate the limit 
+
+\[
+\lim _{r \rightarrow \infty} \frac{\int_0^{\pi/2} x^r \sin(x) \, dx}{r \int_0^{\pi/2} x^r \cos(x) \, dx},
+\]
+
+we analyze the behavior of the integrals in the numerator and denominator as \( r \to \infty \). The key observation is that \( x^r \) decays rapidly for \( x < 1 \) and grows for \( x > 1 \). Therefore, the main contribution to the integrals comes from \( x \) near \( \pi/2 \), where \( x^r \) is maximized.
+
+### Substitution and Approximation
+To simplify the analysis, we use the substitution \( x = \pi/2 - t \), where \( t \) is small. This gives \( dx = -dt \), and the limits of integration change accordingly. For the numerator and denominator, we approximate the integrals near \( t = 0 \), where \( x^r \) is dominated by the behavior near \( \pi/2 \).
+
+1. **Numerator Integral**:  
+   \[
+   \int_0^{\pi/2} x^r \sin(x) \, dx \approx \int_0^\infty (\pi/2 - t)^r \cos(t) \, dt.
+   \]
+   Expanding \( (\pi/2 - t)^r \) for small \( t \), we approximate it as \( (\pi/2)^r e^{-2rt/\pi} \). Thus,  
+   \[
+   \int_0^\infty (\pi/2 - t)^r \cos(t) \, dt \approx (\pi/2)^r \int_0^\infty e^{-2rt/\pi} \cos(t) \, dt.
+   \]
+
+2. **Denominator Integral**:  
+   \[
+   \int_0^{\pi/2} x^r \cos(x) \, dx \approx \int_0^\infty (\pi/2 - t)^r \sin(t) \, dt.
+   \]
+   Similarly,  
+   \[
+   \int_0^\infty (\pi/2 - t)^r \sin(t) \, dt \approx (\pi/2)^r \int_0^\infty e^{-2rt/\pi} \sin(t) \, dt.
+   \]
+
+### Ratio of Integrals
+The ratio of the numerator to the denominator becomes:  
+\[
+\frac{\int_0^\infty e^{-2rt/\pi} \cos(t) \, dt}{r \int_0^\infty e^{-2rt/\pi} \sin(t) \, dt}.
+\]
+Using the standard Laplace transforms:  
+\[
+\int_0^\infty e^{-st} \cos(t) \, dt = \frac{s}{s^2 + 1}, \quad \int_0^\infty e^{-st} \sin(t) \, dt = \frac{1}{s^2 + 1},
+\]
+where \( s = 2r/\pi \). Substituting these results, the ratio becomes:  
+\[
+\frac{\frac{s}{s^2 + 1}}{r \frac{1}{s^2 + 1}} = \frac{s}{r}.
+\]
+Since \( s = 2r/\pi \), we find:  
+\[
+\frac{s}{r} = \frac{2r/\pi}{r} = \frac{2}{\pi}.
+\]
+
+### Final Answer
+The limit evaluates to \( 2/\pi \approx 0.63662 \). Comparing this result with the given options, the correct answer is **G: 0.63662**.
+
+**Answer: G**

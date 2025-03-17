@@ -1,0 +1,180 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+5.8-5. If the distribution of $Y$ is $b(n, 0.25)$, give a lower bound for $P(|Y / n-0.25|<0.05)$ when
+(c) $n=1000$.
+
+Options:
+
+A: $0.980$
+B: $0.850$
+C: $0.950$
+D: $0.860$
+E: $0.875$
+F: $0.800$
+G:  $0.925$
+H: $0.900$
+I: $0.890$
+J: $0.940$
+
+Answer:
+    <think>
+<think>
+Okay, so I have this probability problem to solve. Let me read it again and try to understand what's being asked.
+
+The question says that the distribution of Y is binomial with parameters n and p=0.25. I need to find a lower bound for the probability P(|Y/n - 0.25| < 0.05) when n=1000. The options are given from A to J, each with different probabilities.
+
+Hmm, right. So Y is a binomial random variable, which means it counts the number of successes in n independent trials with success probability p each. Here, p is 0.25, and n is 1000, which is pretty large.
+
+The probability we're looking at is P(|Y/n - p| < 0.05). That is, the probability that the sample proportion Y/n is within 0.05 of the true proportion p=0.25. So this translates to the probability that Y/n is between 0.20 and 0.30.
+
+I remember that for large n, the binomial distribution can be approximated by a normal distribution. So maybe I can use the normal approximation here. The idea is that as n gets large, Y can be approximated as a normal variable with mean np and variance np(1-p).
+
+So first, let me note down the parameters:
+
+p = 0.25
+n = 1000
+μ = np = 1000 * 0.25 = 250
+Var(Y) = np(1-p) = 1000 * 0.25 * 0.75 = 187.5
+So the standard deviation σ is sqrt(187.5) ≈ 13.693.
+
+Wait, actually, when dealing with the sample proportion Y/n, the mean becomes p and the variance is p(1-p)/n. So for Y/n, the mean is 0.25, and the variance is (0.25 * 0.75)/1000 = (0.1875)/1000 ≈ 0.0001875. Taking the square root gives the standard deviation of Y/n as sqrt(0.0001875) ≈ 0.013693.
+
+So, to standardize the probability, I'm looking for P(0.20 < Y/n < 0.30). In terms of Z-scores, where Z = (Y/n - p)/sqrt(p(1-p)/n). Then:
+
+Lower bound: (0.20 - 0.25)/0.013693 ≈ (-0.05)/0.013693 ≈ -3.65
+
+Upper bound: (0.30 - 0.25)/0.013693 ≈ 0.05/0.013693 ≈ 3.65
+
+So the Z-scores are roughly -3.65 and 3.65.
+
+Now, I need to find the probability that Z is between -3.65 and 3.65. That's the same as 1 minus the probability that Z is less than -3.65 or greater than 3.65.
+
+Looking at standard normal distribution tables, the Z value of 3.65 is way beyond the typical 3.0, where the probability in the tail is very small. For Z=3.0, the cumulative probability is about 0.9987, so the upper tail is 1 - 0.9987 = 0.0013. But since 3.65 is larger than 3.0, the tail probability is even smaller. Let me think, for Z=3.65, I might need to interpolate or recall that Z=3.5 is about 0.00047 (or 0.047% in the tail), and Z=3.65 would be even tinier, maybe around 0.00013 or so.
+
+Wait, alternatively, perhaps using a calculator or a more precise method. But since I'm just thinking, I'll proceed with approximate values.
+
+So the total probability in both tails beyond ±3.65 is roughly 2 * (probability Z > 3.65). If Z=3.65 corresponds to about 0.00014 (0.014%), then the total is about 0.00028, so the probability between -3.65 and 3.65 is 1 - 0.00028 = 0.99972.
+
+So P(|Y/n - 0.25| < 0.05) ≈ 0.9997, which is about 0.9997, or 99.97%. But wait, the question is asking for a lower bound, not the exact probability. So maybe I can use an inequality to find a bound without calculating the exact value.
+
+Alternatively, perhaps using the Chebyshev inequality, which provides a lower bound on such probabilities. Chebyshev's inequality states that for any random variable with finite mean and variance, P(|X - μ| ≥ kσ) ≤ 1/k². But here, I want P(|X - μ| < kσ), so it would be at least 1 - 1/k².
+
+Wait, in our case, the deviation is |Y/n - p| < 0.05. Let's express this in terms of the standard deviation of Y/n. The standard deviation of Y/n is sqrt(p(1-p)/n) ≈ sqrt(0.25*0.75/1000) ≈ sqrt(0.1875/1000) ≈ sqrt(0.0001875) ≈ 0.013693, as I calculated earlier.
+
+So 0.05 is how many standard deviations away? It's 0.05 / 0.013693 ≈ 3.65, as before. So k is 3.65.
+
+Using Chebyshev's inequality, the probability that |Y/n - p| ≥ kσ is ≤ 1/k². So the probability that |Y/n - p| < kσ is ≥ 1 - 1/k².
+
+So k is 3.65, so 1/k² ≈ 1/(13.4225) ≈ 0.0745. So 1 - 0.0745 ≈ 0.9255. So the lower bound is at least approximately 0.9255, or 92.55%.
+
+So the probability P(|Y/n - 0.25| < 0.05) is at least 0.9255, which is about 0.926. Looking at the options, option G is 0.925, which is just under that. So the lower bound would be 0.925 or higher. But the question is asking for a lower bound, so any answer above 0.925 would also be a valid lower bound, but the options only go up to 0.98, etc.
+
+Wait, but I think I might have confused the exact approach. Because Chebyshev gives a lower bound, so the actual probability is higher than what Chebyshev gives. So the question is asking for a lower bound, so using Chebyshev gives 0.9255, so the lower bound is at least that. So the correct answer should be the highest option that is less than or equal to 0.9255. But looking at the options, option G is 0.925, which is just below 0.9255, so that would be a correct lower bound.
+
+Alternatively, perhaps I should consider using the Central Limit Theorem (CLT) for a better approximation. Wait, but the question is about a lower bound, so maybe using a method that gives a lower bound without relying on approximations.
+
+Wait, but another approach is the use of the normal approximation to find the exact probability, which I did earlier. So I got about 0.9997, which is much higher than any of the answer options. That can't be right, because the options don't go that high. Wait, looking at the options, the highest is A:0.980. So that suggests that perhaps my initial approach is wrong.
+
+Wait, perhaps I made a mistake in calculating the standard deviation. Let me double-check. The variance of Y is np(1-p) = 1000 * 0.25 * 0.75 = 187.5, so the standard deviation is sqrt(187.5) ≈ 13.693. But when considering Y/n, the variance becomes (np(1-p))/n², which is (187.5)/1000000 = 0.0001875, so the standard deviation is sqrt(0.0001875) ≈ 0.013693, which is correct.
+
+So when I calculated the Z-scores, they were ±3.65. The area between -3.65 and 3.65 in the standard normal is about 0.9997, so the probability is 99.97%. But none of the options are that high. The highest option is A:0.980, which is 98%.
+
+Hmm, perhaps I'm misunderstanding the question. Let me read it again. It says "give a lower bound for P(|Y/n -0.25| <0.05)" when n=1000. So the probability is that Y/n is between 0.20 and 0.30.
+
+Wait, but in the options, the highest is 0.98, so perhaps I'm missing something. Maybe I'm supposed to use a different method that gives a lower bound, not the exact probability. So perhaps using the Chebyshev inequality, which gives a lower bound of approximately 0.9255, which is about 0.926, so the lower bound is 0.925.
+
+Looking at the options, G is 0.925, which matches. So the answer would be G.
+
+But wait, another thought: perhaps using the Poisson approximation or other methods, but n is large here, so normal approximation is more appropriate.
+
+Alternatively, maybe using the De Moivre-Laplace theorem, which is the normal approximation to the binomial distribution. So that's what I did earlier, but perhaps I made a mistake in the Z calculation.
+
+Wait, let me re-express the problem. The event |Y/n - 0.25| < 0.05 is equivalent to Y being between 0.20n and 0.30n. So Y is between 200 and 300.
+
+So, Y ~ Bin(n=1000, p=0.25). To find P(200 ≤ Y ≤ 300).
+
+Using the normal approximation, Y can be approximated as N(μ=250, σ²=187.5). So we can compute P(200 ≤ Y ≤ 300) using the normal distribution.
+
+But Y is discrete, so we might apply continuity correction. So P(199.5 ≤ Y ≤ 300.5) in the normal approximation.
+
+Calculating the Z-scores:
+
+Z1 = (199.5 - 250)/sqrt(187.5) = (-50.5)/13.693 ≈ -3.69
+
+Z2 = (300.5 - 250)/13.693 ≈ 50.5/13.693 ≈ 3.69
+
+So the probability is the area between Z=-3.69 and Z=3.69 in the standard normal distribution.
+
+Looking up Z=3.69 in the standard normal table. Let's see: 
+
+The Z-table gives the cumulative probability up to Z. So for Z=3.69, the table might not have exact values, but we can estimate.
+
+At Z=3.6, the cumulative probability is approximately 0.99991, and at Z=3.7, it's about 0.999935. So Z=3.69 would be very close to 0.99993.
+
+So the area between -3.69 and 3.69 is 2*(0.99993 - 0.5) = 0.99986, so approximately 0.9999 or 99.99%.
+
+Wait, but that's the probability using normal approximation, which is very high. But the options don't go that high. So perhaps the question is asking for a lower bound, so using a method that gives a lower limit without assuming normality.
+
+Alternatively, maybe I should use the Chebyshev inequality correctly. Let's try that.
+
+Chebyshev's inequality says that for any k > 0,
+
+P(|X - μ| ≥ kσ) ≤ 1/k².
+
+So, P(|X - μ| < kσ) ≥ 1 - 1/k².
+
+In our case, X is Y/n, which has mean μ = p = 0.25 and standard deviation σ = sqrt(p(1-p)/n) ≈ 0.013693.
+
+We want to find P(|X - 0.25| < 0.05).
+
+So, 0.05 = kσ → k = 0.05 / σ ≈ 0.05 / 0.013693 ≈ 3.65.
+
+So, using Chebyshev, the probability is ≥ 1 - 1/(3.65)^2 ≈ 1 - 1/13.3225 ≈ 1 - 0.0751 = 0.9249, which is approximately 0.925.
+
+So the lower bound is 0.925, which is option G.
+
+Therefore, the correct answer should be G: 0.925.
+</think>
+
+To solve the problem, we start by noting that \( Y \) follows a binomial distribution \( b(n, 0.25) \) with \( n = 1000 \). We are tasked with finding a lower bound for \( P(|Y/n - 0.25| < 0.05) \), which corresponds to the probability that the sample proportion \( Y/n \) lies between 0.20 and 0.30.
+
+### Key Steps:
+1. **Parameters of the Binomial Distribution**:
+   - Mean of \( Y \): \( \mu = np = 1000 \times 0.25 = 250 \)
+   - Variance of \( Y \): \( \text{Var}(Y) = np(1-p) = 1000 \times 0.25 \times 0.75 = 187.5 \)
+   - Standard deviation of \( Y \): \( \sigma = \sqrt{187.5} \approx 13.693 \)
+
+   For the sample proportion \( Y/n \):
+   - Mean: \( \mu_{Y/n} = 0.25 \)
+   - Variance: \( \text{Var}(Y/n) = \frac{p(1-p)}{n} = \frac{0.25 \times 0.75}{1000} = 0.0001875 \)
+   - Standard deviation: \( \sigma_{Y/n} = \sqrt{0.0001875} \approx 0.013693 \)
+
+2. **Standardization**:
+   The event \( |Y/n - 0.25| < 0.05 \) is equivalent to \( 0.20 < Y/n < 0.30 \). Converting to \( Z \)-scores:
+   \[
+   Z_1 = \frac{0.20 - 0.25}{0.013693} \approx -3.65, \quad Z_2 = \frac{0.30 - 0.25}{0.013693} \approx 3.65
+   \]
+   Thus, the probability corresponds to \( P(-3.65 < Z < 3.65) \), where \( Z \) is the standard normal variable.
+
+3. **Chebyshev's Inequality**:
+   Chebyshev's inequality provides a lower bound for such probabilities. It states:
+   \[
+   P(|X - \mu| \geq k\sigma) \leq \frac{1}{k^2}
+   \]
+   Rearranging, the lower bound for \( P(|X - \mu| < k\sigma) \) is:
+   \[
+   P(|X - \mu| < k\sigma) \geq 1 - \frac{1}{k^2}
+   \]
+   Here, \( k = \frac{0.05}{\sigma_{Y/n}} \approx 3.65 \). Substituting:
+   \[
+   P(|Y/n - 0.25| < 0.05) \geq 1 - \frac{1}{(3.65)^2} \approx 1 - \frac{1}{13.3225} \approx 0.925
+   \]
+
+4. **Conclusion**:
+   Using Chebyshev's inequality, the lower bound for \( P(|Y/n - 0.25| < 0.05) \) is approximately 0.925. Among the given options, the closest match is **G: 0.925**.
+
+ANSWER: G

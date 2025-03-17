@@ -1,0 +1,272 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+Suppose that feedback is used on a binary symmetric channel with parameter $p=0.5$. Each time a $Y$ is received, it becomes the next transmission. Thus $X_1$ is Bern(1/2), $X_2=Y_1$, $X_3=Y_2$, \ldots, X_n=Y_{n-1}. Find $\lim_{n\to\infty} \frac{1}{n} I(X_n;Y_n)$ in bits.
+
+Options:
+
+A: 1.25
+B: 1.0
+C: 2.0
+D: 1.5
+E: 0.5
+F: 0.75
+G: 0.9
+H: 0.0
+I: 0.25
+J: 0.1
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this information theory problem here. Let me try to wrap my head around it. The question is about a binary symmetric channel where feedback is used. I'm a bit rusty on this, but I'll try to think it through.
+
+So, the setup is that each time a Y is received, it becomes the next transmission. That means X₁ is Bernoulli(1/2), X₂ is Y₁, X₃ is Y₂, and so on up to Xₙ which is Y_{n-1}. The channel is a binary symmetric channel with parameter p=0.5. That's important because in a binary symmetric channel, each bit has two possible outputs: 0 or 1, and each is equally likely, but there's a chance of flipping due to noise. Oh wait, no, wait. Actually, in a binary symmetric channel, the probability of a bit being flipped is p. So here p is 0.5, meaning each bit has a 50% chance of flipping. So the channel is symmetric, and the noise is as bad as it gets—so, the noise is like a coin flip, which means the output is equally likely to be 0 or 1 when the input is either 0 or 1.
+
+The question is asking for the limit as n approaches infinity of (1/n) times the mutual information between Xₙ and Yₙ. That is, I(Xₙ; Yₙ) divided by n, and we take the limit as n goes to infinity.
+
+Hmm. I remember that mutual information I(X;Y) is defined as H(Y) - H(Y|X), where H is the entropy function. But here, each X_i depends on the previous Y's. So, X₁ is Bernoulli(1/2), X₂ is Y₁, X₃ is Y₂, and so on. So Xₙ is Y_{n-1}.
+
+Wait, so for each i, X_i is equal to Y_{i-1}. And each Y is the output of the binary symmetric channel from X_i. So, each Y is a Bernoulli(0.5) bit, but maybe with some correlation to the prior bits.
+
+I think this forms a Markov chain, where each X_i depends only on Y_{i-1}, which is the previous Y. So, perhaps the mutual information between Xₙ and Yₙ would involve the correlation between consecutive X's and Y's.
+
+Wait, but for mutual information, I(Xₙ; Yₙ) is the expected value of I(Xₙ; Yₙ) given the previous state. Alternatively, perhaps I can model this as a Markov process. Let me think.
+
+So, for each step, X_i is Bernoulli(1/2), and Y_i is the output of the channel from X_i. Since the channel is symmetric, Y_i is also Bernoulli(1/2), but with some correlation. Since the channel is symmetric, the output Y_i is a Bernoulli(0.5) variable, but also dependent on X_i. So, Y_i = X_i ⊕ Z, where Z is a Bernoulli(0.5) independent noise. So, if X_i is 0, Y_i is 0 with probability 0.5 and 1 with 0.5. Similarly for X_i=1.
+
+But wait, in this problem, each Y is a result of the previous X. So, Y_1 is X_2, then Y_2 is X_3, and so on. Wait, no: the problem says that X_1 is Bernoulli(1/2), X₂ is Y₁, X₃ is Y₂, etc. So, X₂ is Y₁, X₃ is Y₂, and so on, so Y_{n} is X_{n+1}.
+
+Wait, no. Let me read the problem again. It says, "X_1 is Bernoulli(1/2), X₂ = Y₁, X₃ = Y₂, ..., X_n = Y_{n-1}." So, each X_i for i>1 is equal to the previous Y. So, X₂ is Y₁, X₃ is Y₂, X₄ is Y₃, etc. So, Y_{n} is X_{n+1}.
+
+So, the sequence goes X₁, Y₁ (X₂), Y₂ (X₃), Y₃ (X₄), and so on. So, each Y is the previous X.
+
+So, Y_{n} = X_{n+1}.
+
+Now, the mutual information I(X_n; Y_n) is the mutual information between X_n and Y_n.
+
+But since Y_n = X_{n+1}, and X_n is the previous variable. Let me think about the relationship between X_n and Y_n.
+
+Hmm, but X_n is X_{n} = Y_{n-1}, which is X_{n-1} is Y_{n-2}, wait no. Wait, X_n = Y_{n-1}, because Y_{n-1} is X_{n}.
+
+Wait, no: X_2 is Y_1, X_3 is Y_2, so X_n is Y_{n-1}. So, X_n is Y_{n-1}.
+
+But Y_n is X_{n+1}.
+
+So, X_n is Y_{n-1}, and Y_n is X_{n+1}.
+
+So, what's the correlation between X_n and Y_n?
+
+Wait, X_n = Y_{n-1} and Y_n = X_{n+1}.
+
+So, Y_n = X_{n+1}, which is equal to Y_n = X_{n+1} = ?
+
+Wait, but X_{n+1} is Y_n, which is the previous Y.
+
+Wait, perhaps the chain is X₁, Y₁, X₂, Y₂, ..., X_n, Y_n.
+
+Wait, so each X_i for i >=2 is Y_{i-1}.
+
+So, the sequence is X₁, Y₁ (X₂), Y₂ (X₃), Y₃ (X₄), ..., Y_{n} (X_{n+1}).
+
+Wait, no, because according to the problem statement, X_2 = Y_1, X_3 = Y_2, ..., X_n = Y_{n-1}.
+
+So, Y_1 = X_2, Y_2 = X_3, ..., Y_{n-1}= X_n.
+
+But the problem is looking for I(X_n; Y_n). So, X_n is Y_{n-1}, and Y_n is X_{n+1}.
+
+Wait no, wait. Wait, X_n = Y_{n-1}, and Y_n is X_{n+1}.
+
+Wait, so X_n is Y_{n-1}, and Y_n is X_{n+1}.
+
+So, for I(X_n; Y_n) = I(Y_{n-1}; X_{n+1}).
+
+But perhaps that's not the easiest way to model this.
+
+Alternatively, perhaps we can model it as a Markov chain where each X_i depends only on Y_{i-1}.
+
+Wait, maybe it's easier to model the mutual information between X_n and Y_n.
+
+Wait, perhaps I can consider what X_n and Y_n are. X_n is Y_{n-1}, and Y_n is X_{n+1}.
+
+Wait, but that's a bit confusing. Alternatively, perhaps it's better to model the mutual information between consecutive variables.
+
+Wait, perhaps I can model the mutual information between X_n and Y_n as a function of the previous state.
+
+Wait, alternatively, perhaps the mutual information I(X_n; Y_n) can be expressed in terms of the mutual information between Y_{n-1} and X_{n+1}.
+
+But I'm not entirely sure about the exact relationship. Maybe a better approach is to model the mutual information for each step.
+
+Wait, perhaps I can model each step as a transition in a Markov chain.
+
+Alternatively, perhaps each X_i is Y_{i-1}, so X_n = Y_{n-1}, and Y_n = X_{n+1}.
+
+Wait, so X_n is Y_{n-1}, and Y_n is X_{n+1}.
+
+So, the mutual information I(X_n; Y_n) is I(Y_{n-1}; X_{n+1}).
+
+But what's the relationship between Y_{n-1} and X_{n+1}?
+
+Since Y_{n-1} = X_n, and X_{n+1} is the next variable.
+
+Wait, but X_{n+1} is another Bernoulli(1/2) variable, independent of all previous variables except the previous Y.
+
+Wait, so Y_{n-1} is X_n, and X_{n+1} is independent of Y_{n-1} because each X is Bernoulli(1/2) and independent.
+
+Wait, is that correct? Because each X_i is independent of all others. So, Y_{n-1} is X_n, and X_{n+1} is independent of X_n.
+
+Therefore, Y_{n-1} and X_{n+1} are also independent.
+
+Wait, then mutual information I(Y_{n-1}; X_{n+1}) would be zero, which can't be right because that would mean the mutual information between X_n and Y_n is zero for n>1, which can't be the case.
+
+Wait, perhaps I made a mistake in the chain.
+
+Wait, let me think again. The problem says X_1 is Bernoulli(1/2), X_2 = Y_1, X_3 = Y_2, etc., up to X_n = Y_{n-1}.
+
+So, the sequence is X_1, Y_1, X_2, Y_2, ..., X_{n-1}, Y_{n-2}, X_n, Y_{n-1}.
+
+Wait, no, perhaps it's better to note that for each k >=2, X_k = Y_{k-1}.
+
+So, X_2 = Y_1, X_3 = Y_2, ..., X_n = Y_{n-1}.
+
+But Y_n is X_{n+1}, so Y_n = X_{n+1}.
+
+So, the mutual information I(X_n; Y_n) is I(X_n; X_{n+1}).
+
+But X_n is Y_{n-1}, and X_{n+1} is Y_n.
+
+Wait, because X_{n+1} = Y_n.
+
+So, I(X_n; Y_n) = I(Y_{n-1}; Y_n).
+
+But Y_{n-1} and Y_n are consecutive outputs of the channel. Now, in a binary symmetric channel with p=0.5, what's the mutual information between two consecutive Y's?
+
+In a binary symmetric channel, each Y is a Bernoulli(0.5) output. But are the Y's independent?
+
+Wait, no, because each Y is generated from an independent X. So, Y_{n-1} and Y_n are dependent variables. Because Y_{n-1} = X_{n-1}, and Y_n = X_n. Since X_{n-1} and X_n are independent, Y_{n-1} and Y_n are independent.
+
+Wait, wait. No, because X_{n-1} and X_n are independent, so Y_{n-1} = X_{n-1} and Y_n = X_n. So, Y_{n-1} and Y_n are independent Bernoulli(0.5) variables. Therefore, their mutual information I(Y_{n-1}; Y_n) would be zero.
+
+Wait, but that can't be right because then the mutual information between X_n and Y_n would be zero for all n. But that leads to the limit being zero, which is one of the options (option H: 0.0). But I'm not sure if I did that correctly.
+
+Wait, perhaps I should model this as a Markov chain with some dependencies.
+
+Alternatively, perhaps I'm approaching this incorrectly. Let me think about the mutual information between X_n and Y_n.
+
+Since Y_n = X_{n+1}, and X_{n+1} is independent of all other X's except X_n.
+
+Wait, no. Wait, X_{n+1} is another Bernoulli(1/2), independent of all previous X's as well.
+
+So, Y_n = X_{n+1}, which is independent of X_n because X_{n+1} is another independent variable.
+
+Wait, but X_{n+1} is independent of X_n, so Y_n is independent of X_n. Therefore, I(X_n; Y_n) would be I(X_n; X_{n+1}).
+
+But since X_n and X_{n+1} are independent, their mutual information is zero.
+
+Wait, that can't be right because that would imply the limit is zero, but I'm not sure.
+
+Alternatively, perhaps I made a mistake in the way the variables relate. Let me re-examine the problem statement.
+
+The problem says: X₁ is Bernoulli(1/2), X₂ = Y₁, X₃ = Y₂, ..., X_n = Y_{n−1}. So, each X_i is Y_{i−1}.
+
+Wait, so for i >=2, X_i = Y_{i−1}.
+
+Thus, Y_n = X_{n+1}.
+
+Now, X_{n+1} is a Bernoulli(1/2) variable, independent of all previous variables, including X_n.
+
+So, Y_n is independent of X_n, meaning I(X_n; Y_n) = 0.
+
+But that would mean the mutual information between X_n and Y_n is zero for all n, which would make the limit zero.
+
+But I'm not sure if that's correct. Alternatively, perhaps I'm missing something.
+
+Wait, another approach: perhaps model the mutual information as a function of the step. Let me consider the mutual information between X_k and Y_k, for each k.
+
+Wait, for k=1, X₁ is Bernoulli(1/2), Y₁ is X₂, which is also Bernoulli(1/2), but since they are independent, I(X₁; Y₁)=0.
+
+For k=2, X₂=Y₁, Y₂=X₃. So, Y₂ = X₃, which is independent of X₂ since X₃ is independent of X₂.
+
+Thus, I(X₂; Y₂) = 0.
+
+Wait, but that suggests that for all k, I(X_k; Y_k) = 0. So, the limit would be zero.
+
+But that's not possible, because the options include 0.0, which is option H.
+
+Wait, but I'm probably missing something here. Let me think again.
+
+Wait, perhaps the variables are not independent. For example, Y_{n} could be dependent on X_n because Y_{n} = X_{n+1}, which is independent of X_n, but maybe in the chain, X_{n} depends on Y_{n-1}, which is X_{n-1}.
+
+Wait, perhaps the mutual information between X_n and Y_n is not zero. Let's consider for n=2, 3, etc.
+
+Wait, for n=2: X₂ = Y₁, Y₂ = X₃.
+
+So, I(X₂; Y₂) = I(Y₁; X₃). But Y₁ and X₃ are independent, so I is zero.
+
+Similarly, n=3: X₃ = Y₂, Y₃ = X₄. So, I(X₃; Y₃) = I(Y₂; X₄). And Y₂ and X₄ are independent, so I is zero.
+
+Hmm, same for any n, I(X_n; Y_n) would be zero. So the limit would be zero.
+
+Wait, but that's not matching with the options. The options have 0.0 as an option.
+
+But I'm not confident in this conclusion. Let me try to think differently.
+
+Alternatively, perhaps the mutual information isn't zero because the variables are somehow dependent.
+
+Wait, wait. Let me think about the mutual information I(X_n; Y_n).
+
+We can write I(X_n; Y_n) = I(Y_{n-1}; X_{n+1}).
+
+Since Y_{n-1} = X_n, and X_{n+1} is independent of X_n, because each X is independent, so Y_{n-1} and X_{n+1} are independent. So, I(Y_{n-1}; X_{n+1}) = 0. So, I(X_n;Y_n) = 0 for all n.
+
+Wait, but this leads to the limit being zero, which is option H.
+
+But I'm not sure if that's correct because the problem may involve some other dependency.
+
+Wait, perhaps another approach: model the mutual information as the product of the mutual information between each step.
+
+Wait, mutual information is a measure of dependence between two variables. But perhaps for each step, the mutual information between Y_{n-1} and X_{n+1} is non-zero.
+
+Wait, but in a binary symmetric channel, each Y is independent of the X's except the one before it. So, Y_{n-1} is X_n, and X_{n+1} is independent.
+
+So, I(Y_{n-1}; X_{n+1}) = 0.
+
+Thus, the mutual information between X_n and Y_n is zero for all n. So the limit is zero.
+
+But then why is the option H present? Let me double-check.
+
+Alternatively, perhaps I made a mistake in the initial setup. Let me think about the mutual information between X_n and Y_n.
+
+Wait, X_n is Y_{n-1}, and Y_n is X_{n+1}.
+
+So, I(X_n; Y_n) = I(Y_{n-1}; X_{n+1}).
+
+Now, Y_{n-1} = X_{n-1}, and X_{n+1} is another variable. Are Y_{n-1} and X_{n+1} independent?
+
+Wait, each X is independent, so Y_{n-1} and X_{n+1} are independent. So, I(Y_{n-1}; X_{n+1}) = 0.
+
+So again, the mutual information is zero for all n, leading to the limit being zero.
+
+Hmm. So, the answer would be option H: 0.0.
+
+Wait, but wait. Let me think again about the setup. The problem says that X₁ is Bernoulli(1/2), and for i>1, X_i = Y_{i-1}.
+
+But Y_i is the output of the channel from X_i. So, Y_i is a Bernoulli(0.5) variable, but it's also determined by X_i.
+
+Wait, then Y_i is a Bernoulli(0.5) variable, but it's also state-dependent based on X_i.
+
+But perhaps the mutual information between Y_{n-1} and X_{n+1} is the same as the mutual information between Y_{n-1} and X_n, since X_{n+1} is independent.
+
+Hmm, perhaps I'm overcomplicating this.
+
+In conclusion, since each Y_{n} is generated from X_{n+1}, and X_{n} is Y_{n-1}, and each X is independent of all others, including X_{n+1}, the mutual information between X_n and Y_n is zero.
+
+So, the limit is zero, which is option H.
+</think>
+
+The problem involves a binary symmetric channel (BSC) with feedback, where each bit is flipped with probability 0.5. The channel is used in a feedback setup, with each bit generated from the previous output. The mutual information between consecutive bits in this feedback loop is zero because each bit is generated from an independent source, making them uncorrelated. Therefore, the limit of the mutual information divided by the number of bits as the number of bits approaches infinity is zero.
+
+ANSWER: H

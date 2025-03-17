@@ -1,0 +1,595 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+Use Fouriertransformmethods to find the time-domain responseof a network having a system function [(j2\omega) / (1 + 2j\omega)], ifthe input is V(t) =cost (For asinusodialinputcost, the Fourier transform is \pi[\delta (\omega + 1) + \delta (\omega - 1)] ).
+
+Options:
+
+A: (4/5)cost - (2/5) sin t
+B: (3/4)cost - (1/4)sint
+C: (2/5)cost + (4/5) sin t
+D: cost + sint
+E: (3/5)cost + (1/5)sint
+F: (4/5)cost + (2/5) sin t
+G: (1/5)cost - (3/5)sint
+H: (1/2)cost + (1/2)sint
+I: (1/3)cost - (2/3)sint
+J: (2/5)cost - (4/5) sin t
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this problem here about finding the time-domain response of a network using Fourier transforms. Hmm, let me see. The system function is given as H(jω) = (j2ω)/(1 + 2jω). And the input is V(t) = cos(t), which is a sinusoidal input. I remember that to find the response in the time domain, I need to use the inverse Fourier transform of H(jω) multiplied by the Fourier transform of the input.
+
+Wait, the Fourier transform of the input is given as π[δ(ω + 1) + δ(ω - 1)]. Oh right, because the Fourier transform of cos(t) is π[δ(ω + 1) + δ(ω - 1)], I think. Or wait, is that right? Because the Fourier transform of cos(ω₀ t) is (1/(2j)) [δ(ω - ω₀) + δ(ω + ω₀)] multiplied by 2π. So maybe I should double-check that. Let me think: the Fourier transform of e^{jω₀ t} is 2π δ(ω - ω₀), but for cosine, it's the sum of two δ functions at ±ω₀, scaled by 1/2. So the FT of cos(ω₀ t) is π[δ(ω - ω₀) + δ(ω + ω₀)]. Oh wait, yeah, because the Fourier transform of cos(ω₀ t) is (1/(2j))(δ(ω - ω₀) - δ(ω + ω₀)) multiplied by 2π. So 2π * 1/(2j) is π/j, but j is imaginary. Hmm, wait, perhaps I should just proceed with the given FT.
+
+The input signal's Fourier transform is π[δ(ω + 1) + δ(ω - 1)], which would correspond to a frequency of 1 rad/s. So the input's frequency components are at ω = 1 and ω = -1.
+
+The system function H(jω) is (j2ω)/(1 + 2jω). I need to find the Fourier transform of the output, which is H(jω) multiplied by the input's Fourier transform.
+
+So the output Y(jω) would be H(jω) multiplied by the input's FT. So Y(jω) = [ (j2ω)/(1 + 2jω) ] * [ π (delta(ω +1) + delta(ω -1)) ]
+
+But since the delta functions are at ω = 1 and ω = -1, I can evaluate H at these points and multiply by π.
+
+So evaluating H(1) and H(-1):
+
+H(1) = (j2*1)/(1 + 2j*1) = (2j)/(1 + 2j). Let's compute that. Multiply numerator and denominator by (1 - 2j):
+
+(2j)(1-2j) / (1 + (2j)(-2j)) = (2j -4j²) / (1 - (4j²)), but j² = -1, so denominator is 1 - (-4) = 5. Numerator is 2j -4*(-1) = 2j +4. So numerator is 4 + 2j. So H(1) = (4 + 2j)/5. 
+
+Similarly, H(-1) = (j2*(-1))/(1 + 2j*(-1)) = (-2j)/(1 - 2j). Multiply numerator and denominator by (1 + 2j):
+
+(-2j)(1 + 2j) / ( (1)^2 + (2)^2 ) ) = [ -2j -4j² ] / (1 +4 ) = [ -2j +4 ] /5. So H(-1) = (4 - 2j)/5.
+
+Now, Y(jω) is π [ H(1) delta(ω +1) + H(-1) delta(ω-1) ].
+
+So Y(jω) = π [ H(1) delta(ω+1) + H(-1) delta(ω-1) ]
+
+But in the time domain, the output is y(t) = inverse Fourier transform of Y(jω). So each delta function corresponds to a frequency component, so the output will be H(1) e^{jω t} multiplied by delta functions at their respective frequencies. Wait, perhaps more accurately, when you take the inverse Fourier transform of Y(jω), the delta functions will pick out the contributions from each frequency component. So:
+
+y(t) = π [ H(1) e^{j(1) t} * e^{-jω t} evaluated at ω=1, plus H(-1) e^{j(-1) t} evaluated at ω=-1. Wait, I'm getting a bit confused. Let me think again.
+
+Wait, the inverse Fourier transform of Y(jω) is:
+
+y(t) = ∫ Y(jω) e^{-jω t} dω 
+
+But Y(jω) is composed of two delta functions at ω = 1 and ω = -1. So, Y(jω) = π [ H(1) δ(ω+1) + H(-1) δ(ω-1) ]
+
+Thus, the integral becomes π [ H(1) ∫ δ(ω+1) e^{-jω t} dω + H(-1) ∫ δ(ω-1) e^{-jω t} dω ]
+
+Each integral picks out the value at ω = 1 and ω=-1. So:
+
+For the first term, ω=1: e^{-j(1) t}
+
+For the second term, ω=-1: e^{-j(-1) t} = e^{j t}
+
+So:
+
+y(t) = π [ H(1) e^{-j t} + H(-1) e^{j t} ]
+
+Substituting H(1) and H(-1):
+
+= π [ (4+2j)/5 * e^{-j t} + (4-2j)/5 * e^{j t} ]
+
+Factor out 1/5 π:
+
+= (π/5)[ (4 + 2j) e^{-j t} + (4 -2j) e^{j t} ]
+
+Let me compute each term. Let's compute (4 + 2j) e^{-j t} and (4 -2j) e^{j t}.
+
+Expressed in terms of cosine and sine:
+
+Each term can be written as:
+
+(4 + 2j) e^{-j t} = (4 + 2j)( cos t - j sin t )
+
+(4 -2j) e^{j t} = (4 -2j)( cos t + j sin t )
+
+Let me compute each term separately.
+
+First term:
+
+(4 + 2j)(cos t - j sin t) = 4 cos t - 4 j sin t + 2j cos t + 2 j^2 sin t
+
+Since j^2 = -1, 2 j^2 sin t = -2 sin t.
+
+So combining like terms:
+
+Real parts: 4 cos t - 2 sin t
+
+Imaginary parts: (-4j sin t + 2j cos t) = j (2 cos t -4 sin t )
+
+Second term:
+
+(4 -2j)(cos t + j sin t) = 4 cos t + 4j sin t -2j cos t - 2j^2 sin t
+
+Again, j^2 is -1, so -2j^2 sin t = +2 sin t.
+
+Real parts: 4 cos t + 2 sin t
+
+Imaginary parts: (4j sin t - 2j cos t ) = j (4 sin t - 2 cos t )
+
+Adding the two terms together:
+
+Real parts: (4 cos t - 2 sin t) + (4 cos t + 2 sin t) = 8 cos t
+
+Imaginary parts: j (2 cos t -4 sin t) + j (4 sin t - 2 cos t) = j*(2 cos t -4 sin t +4 sin t -2 cos t ) = j*(0) = 0.
+
+So the entire expression becomes:
+
+(π/5) * [8 cos t + 0 j ] = (8 π /5) cos t.
+
+Wait, but wait a minute. The output is this? Let me check the calculations again.
+
+Wait, because when you add the two terms, the sine terms would cancel. So real parts sum to 8 cos t and imaginary parts sum to zero. So the sum is 8 cos t. Then multiply by (π/5). So:
+
+y(t) = (8/5) cos t.
+
+But wait, none of the options match this. Let me look at the options again.
+
+The options are:
+
+A: (4/5)cost - (2/5) sin t
+
+B: (3/4)cost - (1/4)sin t
+
+C: (2/5)cost + (4/5) sin t
+
+D: cost + sint
+
+E: (3/5)cost + (1/5) sin t
+
+F: (4/5)cost + (2/5) sin t
+
+G: (1/5)cost - (3/5) sin t
+
+H: (1/2)cost + (1/2) sin t
+
+I: (1/3)cost - (2/3) sin t
+
+J: (2/5)cost - (4/5) sin t
+
+Hmm, none of these options is (8/5) cos t. So I must have made a mistake somewhere. Let me go back.
+
+Wait, perhaps I messed up the calculation of H(1) and H(-1).
+
+Let me recalculate H(1):
+
+H(1) = (j 2 *1)/(1 +2j *1) = (2j)/(1 + 2j). Multiply numerator and denominator by (1 - 2j):
+
+(2j)(1 -2j) / ( (1)^2 + (2)^2 ) = (2j -4j^2 ) / (1+4) → j^2 is -1, so denominator is 5.
+
+2j -4*(-1) → 2j +4 → numerator is 4 + 2j. So H(1) = (4+2j)/5.
+
+Similarly, H(-1) = (j 2*(-1))/(1 +2j*(-1)) ) = ( -2j ) / (1 -2j )
+
+Multiply numerator and denominator by (1 + 2j):
+
+(-2j)(1 +2j) / ( 1 + (2j)^2 ) → denominator is 1 +4 =5.
+
+Numerator: -2j*(1) = -2j, and -2j*(2j) = -4j² → but j² is -1, so -4*(-1) =4. So numerator is (-2j +4) → 4 -2j.
+
+So H(-1) = (4 -2j)/5.
+
+So that part seems correct.
+
+Then, y(t) = (π/5) [ (4 +2j) e^{-j t} + (4 -2j) e^{j t} ]
+
+As I did earlier, expanding each term:
+
+(4 +2j) e^{-j t} = 4 e^{-j t} + 2j e^{-j t}
+
+(4 -2j) e^{j t} =4 e^{j t} -2j e^{j t}
+
+Now, sum them:
+
+4 e^{-j t} +4 e^{j t} + 2j e^{-j t} -2j e^{j t}
+
+Factor:
+
+4 (e^{j t} + e^{-j t} ) + 2j (e^{-j t} - e^{j t} )
+
+We know that e^{j t} + e^{-j t} = 2 cos t.
+
+And e^{-j t} - e^{j t} = -2j sin t.
+
+So substituting:
+
+4 * 2 cos t + 2j * (-2j sin t ) → 8 cos t + 2j*(-2j sin t )
+
+Wait, 2j*(-2j sin t ) → 2j*(-2j) sin t = ( -4 j² ) sin t. Since j² is -1, this is ( -4*(-1) ) sin t =4 sin t.
+
+So the imaginary part is 4 sin t.
+
+So the total expression is:
+
+(π/5) [8 cos t +4 sin t ]
+
+Which is (8π/5) cos t + (4π/5) sin t.
+
+Hmm, but none of the options match this. Let me look again at the options.
+
+Wait, perhaps I made a mistake in the initial setup. Because the system function is H(jω) = (j2ω) / (1 + 2jω). Let me check that. Wait, perhaps I made a mistake in computing H(1) and H(-1).
+
+Wait, let me recompute H(1) and H(-1), with correct substitution.
+
+H(1) = [j*2*1]/[1 +2j*1] = (2j)/(1 +2j). Multiply numerator and denominator by (1-2j):
+
+(2j)(1-2j) / [ (1)^2 + (2)^2 ] → denominator is 1 +4 =5.
+
+Numerator: 2j*(1) =2j, 2j*(-2j) =-4j² → j² is -1, so -4j² =4.
+
+So numerator is 2j +4 → 4 +2j. So H(1) = (4 +2j)/5.
+
+H(-1) = [j*2*(-1)]/[1 +2j*(-1)] = (-2j)/(1-2j). Multiply numerator and denominator by (1+2j):
+
+(-2j)(1+2j) / (1 + (2j)^2 ) → denominator is 1+4=5.
+
+Numerator: -2j*(1) =-2j, -2j*(2j) = -4j² → which is +4.
+
+So numerator is (-2j +4) →4 -2j. So H(-1) = (4-2j)/5.
+
+So that part is correct.
+
+Then, Y(jω) = H(jω) * FT of input, which is (π)[delta(ω+1)+delta(ω-1)].
+
+So, Y(jω) = π [ H(1) delta(ω+1) + H(-1) delta(ω-1) ]
+
+Then, when taking inverse Fourier transform, each delta picks the respective frequency component.
+
+So the output y(t) is the inverse Fourier transform of Y(jω) which would be H(1) e^{-j t} * π + H(-1) e^{j t} * π.
+
+Wait, perhaps I should have considered that in the inverse Fourier transform, it's multiplied by e^{-j ω t}.
+
+Wait, wait. Let me correct my earlier mistake. The inverse Fourier transform is (1/(2π)) ∫ Y(jω) e^{jω t} dω.
+
+Wait, but wait, the correct formula is:
+
+y(t) = (1/(2π)) ∫ Y(jω) e^{jω t} dω.
+
+So since Y(jω) has only two delta functions at ω=1 and ω=-1, the integral becomes:
+
+y(t) = (1/(2π)) [ H(1) e^{j*1*t} * π + H(-1) e^{j*(-1)*t} * π ]
+
+Simplify:
+
+y(t) = (1/(2π)) * π [ H(1) e^{j t} + H(-1) e^{-j t} ]
+
+The π cancels, so:
+
+y(t) = (1/2) [ H(1) e^{j t} + H(-1) e^{-j t} ]
+
+But wait, this is because the inverse Fourier transform is (1/(2π)) times the integral, and the input's FT is π times delta functions. So perhaps I made a mistake in the initial steps.
+
+Wait, perhaps I should have used the correct formula. Let me re-express this.
+
+The output y(t) is (1/(2π)) ∫ Y(jω) e^{jω t} dω.
+
+Since Y(jω) = π [ H(1) delta(ω+1) + H(-1) delta(ω-1) ]
+
+So the integral becomes:
+
+y(t) = (1/(2π)) [ π H(1) e^{j (-1) t} + π H(-1) e^{j (1) t} ]
+
+Simplify:
+
+= (1/(2π)) * π [ H(1) e^{-j t} + H(-1) e^{j t} ]
+
+The π cancels:
+
+= (1/2) [ H(1) e^{-j t} + H(-1) e^{j t} ]
+
+Now substituting H(1) and H(-1):
+
+= (1/2) [ (4+2j)/5 e^{-j t} + (4-2j)/5 e^{j t} ]
+
+Factor 1/5:
+
+= (1/10) [ (4+2j) e^{-j t} + (4-2j) e^{j t} ]
+
+Now, let's compute each term.
+
+First, (4+2j) e^{-j t} = 4 e^{-j t} + 2j e^{-j t}.
+
+Similarly, (4-2j) e^{j t} =4 e^{j t} -2j e^{j t}.
+
+Summing these terms:
+
+4 e^{-j t} +4 e^{j t} + 2j e^{-j t} -2j e^{j t}
+
+Group real and imaginary parts.
+
+Real parts:
+4 e^{-j t} +4 e^{j t} =4 (e^{-j t} + e^{j t})= 8 cos t.
+
+Imaginary parts:
+2j e^{-j t} -2j e^{j t} = 2j (e^{-j t} - e^{j t}) = 2j * (-2j sin t) = 4 sin t.
+
+So the sum is 8 cos t +4 sin t.
+
+So the entire expression is [8 cos t +4 sin t ] * (1/10) = (8/10) cos t + (4/10) sin t → 4/5 cos t + 2/5 sin t.
+
+Wait, but this would be y(t) = (4/5) cos t + (2/5) sin t.
+
+Looking again at the options, option F is (4/5) cost + (2/5) sin t. So that's an option.
+
+Wait, but earlier I thought that the output was (8/5) cos t. But that must have been a mistake. So this suggests that the correct answer is option F.
+
+But wait, now I'm confused because earlier when I thought it was (8/5) cos t, but that's not an option. Now, after rechecking, I see that the output is (4/5) cos t + (2/5) sin t, which is option F.
+
+Wait, but let me double-check. Did I correctly compute the inverse Fourier transform and the sum of the terms?
+
+Yes, the sum of the real parts is 8 cos t, and the sum of the imaginary parts is 4 sin t. So the output is (8/10) cos t + (4/10) sin t → 4/5 cos t + 2/5 sin t.
+
+Which matches option F.
+
+But looking back, the options I have in the problem statement, perhaps I made a mistake in my calculations.
+
+Wait, perhaps I made a mistake in the inverse Fourier transform steps. Let me rederive it.
+
+The output y(t) is the inverse Fourier transform of Y(jω):
+
+y(t) = (1/(2π)) ∫ [ H(jω) * FT of input ] e^{jω t} dω.
+
+Wait, no, that's not correct. The correct formula is:
+
+y(t) = (1/(2π)) ∫ Y(jω) e^{jω t} dω.
+
+So Y(jω) is pi [ H(1) delta(omega +1) + H(-1) delta(omega -1) ].
+
+So the integral becomes:
+
+y(t) = (1/(2π)) [ pi H(1) e^{j t} + pi H(-1) e^{-j t} ]
+
+Simplify: (pi/(2pi)) [ H(1) e^{j t} + H(-1) e^{-j t} ]
+
+Which is (1/2) [ H(1) e^{j t} + H(-1) e^{-j t} ]
+
+Wait, that's different from what I did earlier. So perhaps I made a mistake in the inverse Fourier transform steps.
+
+Wait, perhaps I should have considered that the inverse Fourier transform is (1/(2π)) ∫ Y(jω) e^{jω t} dω.
+
+But in this case, Y(jω) is composed of two delta functions at ω=1 and ω=-1, so the integral becomes:
+
+(1/(2π)) [ H(1) e^{j t} * pi + H(-1) e^{-j t} * pi ]
+
+Which simplifies to ( pi/(2pi) ) [ H(1) e^{j t} + H(-1) e^{-j t} ]
+
+→ (1/2) [ H(1) e^{j t} + H(-1) e^{-j t} ]
+
+Wait, but now I'm getting a different result than before. Let me compute this.
+
+H(1) = (4 +2j)/5
+
+H(-1) = (4 -2j)/5
+
+So, the expression is:
+
+(1/2) [ (4 +2j)/5 e^{j t} + (4 -2j)/5 e^{-j t} ]
+
+Multiply through:
+
+= (1/10) [ (4 +2j) e^{j t} + (4 -2j) e^{-j t} ]
+
+Now, let me compute each term. Let's compute (4 +2j) e^{j t} and (4 -2j) e^{-j t}.
+
+First term: (4 + 2j) e^{j t} =4 e^{j t} + 2j e^{j t}
+
+Second term: (4 -2j) e^{-j t} =4 e^{-j t} -2j e^{-j t}
+
+Adding these together:
+
+4 e^{j t} +4 e^{-j t} + 2j e^{j t} -2j e^{-j t}
+
+Now, group real and imaginary parts.
+
+Real parts: 4 (e^{j t} + e^{-j t}) = 8 cos t.
+
+Imaginary parts: 2j (e^{j t} - e^{-j t}) = 2j (2j sin t) → because e^{j t} - e^{-j t} = 2j sin t. So 2j * (2j sin t) = 4j² sin t. But j² = -1, so it's -4 sin t.
+
+So the total expression is:
+
+8 cos t -4 sin t.
+
+So the output y(t) is (1/10) (8 cos t -4 sin t) → (8/10) cos t - (4/10) sin t → 4/5 cos t - 2/5 sin t.
+
+Wait, but this is 4/5 cos t -2/5 sin t, which is option F.
+
+But earlier I thought that the output after inverse transform was (4/5) cost + (2/5) sin t, which is option F.
+
+Wait, I'm getting conflicting results. Let me recap.
+
+First approach:
+
+Using the correct inverse Fourier transform formula:
+
+y(t) = (1/(2π)) ∫ Y(jω) e^{jω t} dω.
+
+Y(jω) is composed of delta functions at ω=1 and ω=-1, scaled by pi.
+
+So Y(jω) = pi [ H(1) delta(ω+1) + H(-1) delta(ω-1) ]
+
+Therefore, the integral is:
+
+(1/(2π)) * pi [ H(1) e^{j t} + H(-1) e^{-j t} ] → (1/2) [ H(1) e^{j t} + H(-1) e^{-j t} ]
+
+Substituting H(1)= (4+2j)/5, H(-1)= (4-2j)/5.
+
+So:
+
+(1/2) [ (4+2j)/5 e^{j t} + (4-2j)/5 e^{-j t} ]
+
+Factor 1/5:
+
+(1/5) [ (4+2j) e^{j t} + (4-2j) e^{-j t} ] * (1/2)
+
+Wait, no, the (1/2) is outside the 1/5.
+
+So:
+
+(1/2)(1/5) [ (4+2j) e^{j t} + (4-2j) e^{-j t} ]
+
+= (1/10) [ (4+2j) e^{j t} + (4-2j) e^{-j t} ]
+
+Now, expand each term:
+
+(4+2j) e^{j t} =4 e^{j t} +2j e^{j t}
+
+(4-2j) e^{-j t} =4 e^{-j t} -2j e^{-j t}
+
+Adding them:
+
+4 e^{j t} +4 e^{-j t} +2j e^{j t} -2j e^{-j t}
+
+As before, group real and imaginary parts:
+
+Real: 4 (e^{j t} + e^{-j t}) =8 cos t.
+
+Imaginary: 2j e^{j t} -2j e^{-j t} = 2j (e^{j t} - e^{-j t}) = 2j (2j sin t) =4 j² sin t = -4 sin t.
+
+So, imaginary part is -4 sin t.
+
+Thus, the expression is 8 cos t -4 sin t.
+
+So the output is (8 cos t -4 sin t) / 10 → (4/5) cos t - (2/5) sin t.
+
+Which is option F.
+
+Wait, but earlier I thought that the output was (4/5) cos t + (2/5) sin t, which is option F as well. But that's incorrect because it's minus the sine term.
+
+So the correct output is option F: (4/5) cost - (2/5) sin t.
+
+But wait, I'm getting this, but earlier I thought that the output was (8/5) cos t, which is not an option.
+
+Wait, perhaps I made a mistake in the entire approach. Let me consider another approach.
+
+Alternative approach: Use the property that the output is the convolution of the input with the impulse response.
+
+So y(t) = h(t) * x(t).
+
+But computing convolution might be more involved.
+
+Alternatively, perhaps I should have used the correct formula for the inverse Fourier transform, which is:
+
+y(t) = (1/(2π)) ∫ Y(jω) e^{jω t} dω.
+
+Wait, but perhaps I should have considered that Y(jω) is (π/5) [ H(1) e^{j t} + H(-1) e^{-j t} ].
+
+Wait, no, Y(jω) is (π/5) [ H(1) e^{j t} + H(-1) e^{-j t} ] because Y(jω) = pi [ H(1) delta(omega+1) + H(-1) delta(omega-1) ].
+
+So when we compute the inverse Fourier transform, each delta picks the respective term.
+
+So:
+
+y(t) = (1/(2π)) [ pi H(1) e^{j t} + pi H(-1) e^{-j t} ]
+
+→ (pi/(2pi)) [ H(1) e^{j t} + H(-1) e^{-j t} ]
+
+→ (1/2) [ H(1) e^{j t} + H(-1) e^{-j t} ]
+
+Substituting H(1) and H(-1):
+
+= (1/2) [ (4+2j)/5 e^{j t} + (4-2j)/5 e^{-j t} ]
+
+Factor 1/5:
+
+= (1/10) [ (4+2j) e^{j t} + (4-2j) e^{-j t} ]
+
+Now, let's compute each term:
+
+(4+2j) e^{j t} =4 e^{j t} +2j e^{j t}
+
+(4-2j) e^{-j t} =4 e^{-j t} -2j e^{-j t}
+
+Sum:
+
+4 e^{j t} +4 e^{-j t} + 2j e^{j t} -2j e^{-j t}
+
+Grouping:
+
+Real: 4( e^{j t} + e^{-j t} )=8 cos t.
+
+Imaginary: 2j (e^{j t} - e^{-j t}) = 2j (2j sin t )= 4j² sin t = -4 sin t.
+
+So, the sum is 8 cos t -4 sin t.
+
+Thus, y(t)= (8 cos t -4 sin t)/10 = (4/5) cos t - (2/5) sin t.
+
+Which is option F.
+
+Wait, but earlier I thought that the output was (8/5) cos t, which is not an option, but now I'm getting the correct output as option F.
+
+So, the correct answer is option F: (4/5) cost - (2/5) sin t.
+
+Wait, but I'm getting this now. So, this is the correct answer.
+
+Wait, but I thought earlier that the output was (8/5) cos t, which is not an option. But after rechecking, the correct answer is option F.
+
+So, the answer is option F.
+</think>
+
+To determine the time-domain response of the system, we start by identifying the impulse response and the Fourier transform of the input signal.
+
+1. **Impulse Response**:
+   The system function is given as \( H(j\omega) = \frac{j2\omega}{1 + 2j\omega} \). Evaluating \( H(j\omega) \) at \( \omega = 1 \) and \( \omega = -1 \) gives:
+   \[
+   H(1) = \frac{4 + 2j}{5}, \quad H(-1) = \frac{4 - 2j}{5}.
+   \]
+
+2. **Fourier Transform of the Input Signal**:
+   The input signal's Fourier transform is given as \( \pi \delta(\omega + 1) + \pi \delta(\omega - 1) \).
+
+3. **Output in Frequency Domain**:
+   Using the inverse Fourier transform formula:
+   \[
+   y(t) = \frac{1}{2\pi} \int Y(j\omega) e^{j\omega t} d\omega.
+   \]
+   Substituting \( Y(j\omega) \):
+   \[
+   y(t) = \frac{1}{2\pi} \left[ \pi H(1) e^{j t} + \pi H(-1) e^{-j t} \right].
+   \]
+   Simplifying:
+   \[
+   y(t) = \frac{1}{2} \left[ H(1) e^{j t} + H(-1) e^{-j t} \right].
+   \]
+
+4. **Substitute \( H(1) \) and \( H(-1) \)**:
+   \[
+   y(t) = \frac{1}{2} \left[ \frac{4 + 2j}{5} e^{j t} + \frac{4 - 2j}{5} e^{-j t} \right].
+   \]
+   Factor out \( \frac{1}{5} \):
+   \[
+   y(t) = \frac{1}{10} \left[ (4 + 2j) e^{j t} + (4 - 2j) e^{-j t} \right].
+   \]
+
+5. **Expand and Combine Terms**:
+   Expanding each term:
+   \[
+   (4 + 2j) e^{j t} = 4 e^{j t} + 2j e^{j t},
+   \]
+   \[
+   (4 - 2j) e^{-j t} = 4 e^{-j t} - 2j e^{-j t}.
+   \]
+   Adding them together:
+   \[
+   4 e^{j t} + 4 e^{-j t} + 2j e^{j t} - 2j e^{-j t}.
+   \]
+   Grouping real and imaginary parts:
+   \[
+   \text{Real: } 4 (e^{j t} + e^{-j t}) = 8 \cos t,
+   \]
+   \[
+   \text{Imaginary: } 2j e^{j t} - 2j e^{-j t} = 2j (e^{j t} - e^{-j t}) = 4j^2 \sin t = -4 \sin t.
+   \]
+
+6. **Final Output**:
+   Combining the real and imaginary parts:
+   \[
+   y(t) = \frac{8 \cos t - 4 \sin t}{10} = \frac{4}{5} \cos t - \frac{2}{5} \sin t.
+   \]
+   This matches **Option F**.
+
+ANSWER: F

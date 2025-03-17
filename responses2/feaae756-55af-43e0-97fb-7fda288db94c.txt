@@ -1,0 +1,59 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+MIT’s Kerberos KDC server has a maximum ticket lifetime of 24 hours (for most user principals). What ensures that an expired Kerberos ticket can no longer be used?
+
+Options:
+
+A: When a client connects to a server, the server compares the ticket’s expiration time to the server’s current clock, and refuses to authenticate the user if the ticket expiration time is in the past.
+B: The server maintains a database of all active and expired tickets, and refuses to authenticate the user if the ticket is found in the expired list.
+C: When a client connects to a server, the server sets a 24-hour timer to terminate the connection, which ensures a client cannot remain connected past the ticket’s maximum lifetime.
+D: The client's system automatically disconnects from the server once the ticket lifetime is over.
+E: The client needs to manually disconnect from the server after the ticket's maximum lifetime is reached.
+F: The Kerberos server (KDC) refuses to establish new connections between clients and servers for expired tickets.
+G: The Kerberos server (KDC) sends an alert to the client and server to terminate the connection once the ticket is expired.
+
+Answer:
+    <think>
+<think>
+Okay, let's see. I've got this multiple-choice question about Kerberos. I'm a bit rusty, but I'll try to work through it.
+
+So the question is about what ensures that an expired Kerberos ticket can no longer be used. The options are A through G. Let me think about how Kerberos works.
+
+Kerberos is a security protocol used for authenticating users over a network. There are two main types: client-server and server-server. In this case, the question is about the client-server model, I think.
+
+Each user has a KDC (Key Distribution Center) to get their credentials. The KDC serves as a server for tickets. A ticket is a token that's used to authenticate a client during authentication. So when a client connects to the server, it needs to authenticate itself by presenting a ticket.
+
+Now, the maximum lifetime of a ticket is 24 hours. So if a client's connection is expired, it shouldn't be able to authenticate again. 
+
+Looking at the options:
+
+Option A: The server compares the ticket's expiration time with the server's clock and refuses authentication if the ticket is expired. That sounds right. Because, if the ticket was issued more than a day ago, it's expired, so the client can't use it anymore.
+
+Option B: The server maintains a database of all tickets, including expired ones, and refuses if the ticket is in the expired list. Hmm, but this seems a bit different. Because the client may have a ticket, but it's expired. The server would know about it and refuse. But this option says the server maintains a database. Wait, but isn't the server only handling the new tickets, and older ones are not stored? Or maybe the server doesn't know about expired tickets unless it's part of the system. Not sure. But I'm not certain if this is the correct answer.
+
+Option C: The server sets a 24-hour timer to terminate the connection. No, I think Kerberos doesn't have a timer. The client just has to authenticate, and if the ticket is expired, it's automatically rejected. So this seems incorrect.
+
+Option D: The client disconnects when the ticket's lifetime is over. Wait, no, because that's more about the client. The server's job is to manage the expiration. The client might not disconnect unless it's explicitly told. So this doesn't seem right.
+
+Option E: The client disconnects after the lifetime. That's similar to D. The client would disconnect, but the server isn't forcing it, so the client should be able to authenticate again. So E is incorrect.
+
+Option F: The server refuses new connections for expired tickets. I don't think that's how it works. The server just checks the ticket's expiration. If expired, it's not used, but it doesn't prevent new connections from being made. So F is incorrect.
+
+Option G: The server sends an alert and terminates the connection. I'm not sure about this. Wait, maybe the server sends an alert, but not necessarily terminate the connection. It's more about refusing to use the expired ticket. So G seems incorrect.
+
+Going back to option B. So the server has a list of all tickets, including expired ones. So if the client has a ticket that's expired, the server's database will have it, and the client will refuse to authenticate because it's expired. Alternatively, option A says the server just compares the ticket's expiration time to the current clock and refuses if it's in the past. So in this case, the client's connection is expired, so the server will refuse without checking the list.
+
+Wait, which is correct? Let me think. The client would get a ticket when it connects. The server checks the ticket's expiry time. If it's older than the current time, it's expired. So the server doesn't need to maintain a list because it can just compare the time.
+
+So option A says the server compares the ticket's expiration time to the server's clock, and refuses if it's in the past. That's correct. Because even if the server has a list, the client would just get a ticket and then the server would check its expiration. The server doesn't need to keep track of all expired tickets; it just compares the ticket's expiration time with the current time.
+
+So the correct answer should be A. Because the server only needs to know when a ticket expires. It compares the current time with the ticket's expiration time and if the ticket is older than the current time, it's expired.
+</think>
+
+The correct answer is **A**. The server compares the ticket's expiration time to the server's current clock, and refuses to authenticate the user if the ticket's expiration time is in the past. This ensures that expired tickets are rejected without the need for a list maintained by the server, as the server simply checks the current time against the ticket's validity.
+
+**Answer: A**

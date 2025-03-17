@@ -1,0 +1,118 @@
+Answer the following multiple choice question, selecting from the answer A through to J. After thinking, reply directly with your answer. 
+
+The last character of your response must be the letter you have chosen.
+
+Question:
+
+Let W(t) be the standard Brownian motion. Find P(W(1) + W(2) > 2).
+
+Options:
+
+A: 0.276
+B: 0.042
+C: 0.500
+D: 0.186
+E: 0.158
+F: 0.368
+G: 0.333
+H: 0.458
+I: 0.625
+J: 0.217
+
+Answer:
+    <think>
+<think>
+Okay, so I've got this probability question here about Brownian motion. I'm a bit rusty on this, but let's try to think it through step by step.
+
+The question is asking for P(W(1) + W(2) > 2), where W(t) is a standard Brownian motion. Hmm, Brownian motion has some specific properties. I remember that for standard Brownian motion, the increments are independent and normally distributed. So W(t) is a Gaussian process with mean 0 and variance t. Also, for any s < t, W(t) - W(s) is normally distributed with mean 0 and variance (t - s).
+
+Wait, but here we have W(1) and W(2). So I'm looking at W(1) and W(2). Let me think about their joint distribution. Since Brownian motion has independent increments, the difference W(2) - W(1) is independent of W(1). So W(1) is N(0,1), and W(2) - W(1) is N(0,1) as well because the variance is 2-1=1.
+
+But the problem is about W(1) + W(2). Let me express that as a combination of W(1) and the increment from 1 to 2. So W(2) = W(1) + (W(2) - W(1)). Therefore, W(1) + W(2) = W(1) + [W(1) + (W(2)-W(1))] = 2 W(1) + (W(2)-W(1)).
+
+Wait, that seems a bit complicated. Maybe a better approach is to compute the distribution of W(1) + W(2). Let's denote X = W(1) and Y = W(2). So we need the distribution of X + Y.
+
+Since X and Y are jointly normal (because Brownian motion is a Gaussian process), the sum X + Y will also be normally distributed. Let's find its mean and variance.
+
+The mean is E[X + Y] = E[X] + E[Y] = 0 + 0 = 0.
+
+The variance is Var(X + Y) = Var(X) + Var(Y) + 2 Cov(X,Y). I need to find the covariance between X and Y. Since Cov(W(s), W(t)) = min(s,t) for standard Brownian motion. So here, s=1 and t=2, so Cov(X,Y) = 1.
+
+Var(X) is 1, Var(Y) is 2. So Var(X + Y) = 1 + 2 + 2*(1) = 5? Wait, wait. Wait, no, wait. Var(X) is 1, Var(Y) is 2, and Cov(X,Y) is 1, so Var(X+Y) = 1 + 2 + 2*(1) = 5? Hmm, wait, no. Wait, no, the covariance term is 2*Cov(X,Y). So 1 + 2 + 2*(1) equals 1+2=3 + 2=5. So Var(X+Y) is 5. So X + Y is N(0,5).
+
+Wait, no, wait a second. Let me double-check. If X is W(1) and Y is W(2), then Cov(X,Y) = E[XY] - E[X]E[Y]. Since E[X]=E[Y]=0, it's just E[XY]. Now, E[W(s)W(t)] = min(s,t). So E[XY] = E[W(1)W(2)] = 1. So Cov(X,Y)=1.
+
+So Var(X+Y) is Var(X) + Var(Y) + 2 Cov(X,Y) = 1 + 2 + 2*1 = 5. So the sum is N(0,5), which is a normal distribution with mean 0 and variance 5. So standard deviation is sqrt(5).
+
+So the problem reduces to finding P(N(0,5) > 2). Because W(1) + W(2) has distribution N(0,5), so we're looking for the probability that this variable is greater than 2.
+
+So P(N(0,5) > 2) = 1 - P(N(0,5) <= 2). Let's compute this.
+
+We can standardize it by subtracting the mean and dividing by the standard deviation. So Z = (X + Y - 0)/sqrt(5) = (X+Y)/sqrt(5). So Z is standard normal N(0,1).
+
+So P(X+Y > 2) = P(Z > 2/sqrt(5)).
+
+Compute 2/sqrt(5): sqrt(5) is about 2.236, so 2/2.236 ≈ 0.8944.
+
+So we need P(Z > 0.8944). Looking at standard normal tables, let's see. The Z-table gives the probability that Z is less than a value. So P(Z <= 0.89) is about 0.8106, and P(Z <= 0.90) is about 0.8159. Our value is approximately 0.8944, which is between 0.89 and 0.90.
+
+Wait, wait, let me get more precise. Let me use a calculator for better approximation. Alternatively, maybe I can remember that Z=0.89 is 0.8106, Z=0.8944 is a bit higher. Alternatively, I can use linear approximation between 0.89 and 0.90.
+
+Wait, another approach: 0.8944 is 0.89 + 0.0044. The difference between 0.89 and 0.90 in the Z-table is 0.8159 - 0.8106 = 0.0053. So for each 0.01 in Z, it's an increase of about 0.0053 in probability. So 0.0044 is about 0.0044/0.01 = 0.44 of the way from 0.89 to 0.90. So the cumulative probability at Z=0.8944 is approximately 0.8106 + 0.44 * 0.0053 ≈ 0.8106 + 0.0023 = 0.8129.
+
+So P(Z <= 0.8944) ≈ 0.8129, which means P(Z > 0.8944) is 1 - 0.8129 = 0.1871, approximately 0.187.
+
+Looking at the options, option D is 0.186, which is very close. So the answer should be D.
+
+Wait, but let me double-check my steps to make sure I didn't make a mistake.
+
+1. W(1) and W(2) are jointly normal because Brownian motion is Gaussian.
+
+2. The sum X + Y is normal with mean 0, variance 5.
+
+3. So P(X+Y >2) is equivalent to 1 - Φ(2/sqrt(5)), where Φ is the standard normal CDF.
+
+4. 2/sqrt(5) ≈ 0.8944.
+
+5. Looking up Φ(0.8944), which is approximately 0.8129.
+
+6. So 1 - 0.8129 = 0.1871, which rounds to 0.187, so option D is 0.186, which is very close.
+
+I think that's correct. So the answer is D.
+</think>
+
+To solve the problem, we need to find \( P(W(1) + W(2) > 2) \), where \( W(t) \) is a standard Brownian motion. Here's the breakdown:
+
+1. **Properties of Brownian Motion**:  
+   - \( W(t) \) is a Gaussian process with mean 0 and variance \( t \).  
+   - Increments are independent, so \( W(2) - W(1) \) is independent of \( W(1) \).  
+   - For \( s < t \), \( \text{Cov}(W(s), W(t)) = \min(s, t) \).
+
+2. **Distribution of \( W(1) + W(2) \)**:  
+   Let \( X = W(1) \) and \( Y = W(2) \). Since \( W(t) \) is Gaussian, \( X \) and \( Y \) are jointly normal. The sum \( X + Y \) is also normal.  
+   - Mean: \( E[X + Y] = E[X] + E[Y] = 0 + 0 = 0 \).  
+   - Variance:  
+     \[
+     \text{Var}(X + Y) = \text{Var}(X) + \text{Var}(Y) + 2\text{Cov}(X, Y).
+     \]  
+     Here, \( \text{Var}(X) = 1 \), \( \text{Var}(Y) = 2 \), and \( \text{Cov}(X, Y) = 1 \) (since \( \text{Cov}(W(s), W(t)) = \min(s, t) \)).  
+     Thus,  
+     \[
+     \text{Var}(X + Y) = 1 + 2 + 2(1) = 5.
+     \]  
+   - Therefore, \( X + Y \sim N(0, 5) \).
+
+3. **Probability Calculation**:  
+   We need \( P(X + Y > 2) \), which is equivalent to \( P(N(0, 5) > 2) \). Standardizing:  
+   \[
+   P\left(\frac{X + Y}{\sqrt{5}} > \frac{2}{\sqrt{5}}\right).
+   \]  
+   Let \( Z = \frac{X + Y}{\sqrt{5}} \), so \( Z \sim N(0, 1) \). The problem reduces to finding \( P(Z > \frac{2}{\sqrt{5}}) \).  
+   - Compute \( \frac{2}{\sqrt{5}} \approx 0.8944 \).  
+   - Using the standard normal table, \( P(Z \leq 0.8944) \approx 0.8129 \).  
+   - Thus, \( P(Z > 0.8944) = 1 - 0.8129 = 0.1871 \).
+
+4. **Final Answer**:  
+   The closest option to \( 0.1871 \) is \( 0.186 \), which corresponds to **option D**.
+
+Answer: D
