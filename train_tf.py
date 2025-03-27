@@ -92,6 +92,20 @@ class TransformerEmbed(t.nn.Module):
            
         return out
 
+
+class CausalTransformerEncoderLayer(t.nn.TransformerEncoderLayer):
+    def __init__(self, d_model, nhead, dim_feedforward=2048, dropout=0.1, 
+                 activation="relu", batch_first=True):
+        super().__init__(d_model=d_model, nhead=nhead, 
+                         dim_feedforward=dim_feedforward, 
+                         dropout=dropout, activation=activation,
+                         batch_first=batch_first)
+        
+    def forward(self, src, src_mask=None, src_key_padding_mask=None):
+        # Always use causal attention
+        return super().forward(src, src_mask, src_key_padding_mask, is_causal=True)
+
+
 class TransformerProbe(t.nn.Module):
     def __init__(self, 
                  model, 
@@ -129,7 +143,7 @@ class TransformerProbe(t.nn.Module):
                 ]
 
         for layer in range(full_tf_layers):
-            self.layers += [t.nn.TransformerEncoderLayer(self.residual_dim, self.num_heads, self.mlp_dim, activation=self.act, batch_first=True)]
+            self.layers += [CausalTransformerEncoderLayer(self.residual_dim, self.num_heads, self.mlp_dim, activation=self.act, batch_first=True)]
 
         # Unembed, if necessary
         if self.residual_dim != out_features:
