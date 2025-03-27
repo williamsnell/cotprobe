@@ -70,7 +70,7 @@ class TransformerEmbed(t.nn.Module):
 
     def forward(self, layer_activations: Dict[int, t.Tensor]):
         inputs = t.concat([layer_activations[input_layer].clone().detach() for input_layer in self.input_layers], dim=-1 # [batch, seq_len, 1]
-                          ).to(device)
+                          ).to(device).float()
 
         # Calculate affinity (we have the same query every time)
         kq = self.W_attn(inputs).unsqueeze(-2) # [batch, seq_len, 1, num_heads]
