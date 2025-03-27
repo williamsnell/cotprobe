@@ -128,7 +128,7 @@ class TransformerProbe(t.nn.Module):
                 ]
 
         for layer in range(full_tf_layers):
-            self.layers += [t.nn.TransformerEncoderLayer(self.residual_dim, self.num_heads, self.mlp_dim, self.act)]
+            self.layers += [t.nn.TransformerEncoderLayer(self.residual_dim, self.num_heads, self.mlp_dim, activation=self.act)]
 
         # Unembed, if necessary
         if self.residual_dim != out_features:
@@ -480,8 +480,8 @@ if __name__ == "__main__":
     batch_size = 11
     
     wandb.init(
-            project="deepseek probes",
-            name="5 - broad sweep cont.",
+            project="deepseek tf probes",
+            name="1.",
             config={
                 "batch size": batch_size,
                 "max text length": max_text_length,
