@@ -376,7 +376,7 @@ class Trainer(t.nn.Module):
             total_loss = [0] * len(self.probes)
 
             # Shuffle the training set
-            train_set = train_set.sample(fraction=1.0, shuffle=True)
+            train_set = train_set.sample(fraction=1.0, shuffle=False)
             
             # Start the activation worker for this epoch
             self.activation_manager.start_workers(train_set, batch_size)
@@ -469,7 +469,6 @@ if __name__ == "__main__":
             positions_to_predict=None,
             full_tf_layers=full_tf_layers,
             residual_dim=32,
-            include_MLP=True
         )
 
         for (learning_rate, num_heads, full_tf_layers) in product(
