@@ -129,7 +129,7 @@ class TransformerProbe(t.nn.Module):
                 ]
 
         for layer in range(full_tf_layers):
-            self.layers += [t.nn.TransformerEncoderLayer(self.residual_dim, self.num_heads, self.mlp_dim, activation=self.act)]
+            self.layers += [t.nn.TransformerEncoderLayer(self.residual_dim, self.num_heads, self.mlp_dim, activation=self.act, batch_first=True)]
 
         # Unembed, if necessary
         if self.residual_dim != out_features:
