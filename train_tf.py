@@ -106,6 +106,7 @@ class TransformerProbe(t.nn.Module):
 
         super().__init__()
 
+        self.model = model
         self.input_layers = input_layers
         self.num_heads = num_heads
         self.out_features = out_features
