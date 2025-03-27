@@ -102,6 +102,8 @@ class CausalTransformerEncoderLayer(t.nn.TransformerEncoderLayer):
                          batch_first=batch_first)
         
     def forward(self, src, src_mask=None, src_key_padding_mask=None):
+        if src_mask is None:
+            src_mask = t.nn.Transformer.generate_square_subsequent_mask(src.shape[1], device=src.device, dtype=src.dtype)
         # Always use causal attention
         return super().forward(src, src_mask, src_key_padding_mask, is_causal=True)
 
