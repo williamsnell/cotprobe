@@ -75,7 +75,7 @@ class TransformerEmbed(t.nn.Module):
         # Calculate affinity (we have the same query every time)
         kq = self.W_attn(inputs).unsqueeze(-2) # [batch, seq_len, 1, num_heads]
 
-        seq_len, num_heads = kq.shape[-3:-1]
+        seq_len, num_heads = kq.shape[-3], kq.shape[-1]
 
         # Create attention pattern
         unnormalized_attn = kq.expand(-1, -1, seq_len, -1).permute(0, 3, 1, 2) # [batch, num_heads, seq_len, seq_len]
