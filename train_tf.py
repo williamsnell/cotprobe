@@ -491,7 +491,7 @@ if __name__ == "__main__":
         )
 
         for (learning_rate, num_heads, full_tf_layers) in product(
-            [2e-4, 2e-5, 2e-6], [1, 4, 16], [0, 1, 2],
+            [2e-4, 2e-5, 2e-6], [1, 4], [0, 1, 2],
         )
     ]
     
