@@ -79,7 +79,7 @@ class TransformerEmbed(t.nn.Module):
 
         # Create attention pattern
         unnormalized_attn = kq.expand(-1, -1, seq_len, -1).permute(0, 3, 1, 2) # [batch, num_heads, seq_len, seq_len]
-        mask = t.triu(t.ones(seq_len, seq_len, device=device) * float('-inf'), diagonal=1)
+        mask = t.triu(t.ones(seq_len, seq_len, device=device) * float('-inf'), diagonal=1).to(device=device, dtype=self.model.dtype)
         masked_unnorm_attn = unnormalized_attn + mask # [batch, num_heads, seq_len, seq_len]
         attn_pattern = masked_unnorm_attn.softmax(dim=-1) # [batch, num_heads, seq_len, seq_len]
 
