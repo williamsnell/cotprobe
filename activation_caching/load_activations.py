@@ -43,7 +43,8 @@ def load_tensor(file, df, hidden_size):
 
 
 class SavedActivationDataset(Dataset):
-    def __init__(self, path_to_activations: Union[str, Path], df: pl.DataFrame, positions_to_predict=None, hidden_size=8192):
+    def __init__(self, path_to_activations: Union[str, Path], df: pl.DataFrame, positions_to_predict=None, hidden_size=8192,
+                 trim_to_model_response=False):
         act_dir = Path(path_to_activations).expanduser()
 
         self.activations = {
@@ -53,7 +54,12 @@ class SavedActivationDataset(Dataset):
 
         self.df = df
         self.hidden_size = hidden_size
+        
+        if trim_to_model_response and positions_to_predict is not None:
+            raise ValueError("Can only trim to model response or to 'position_to_predict', not both.")
+
         self.positions_to_predict = -positions_to_predict if positions_to_predict is not None else None
+        self.trim_to_model_response = trim_to_model_response
 
     def __len__(self):
         return len(self.activations)
@@ -63,9 +69,14 @@ class SavedActivationDataset(Dataset):
         inputs = load_tensor(self.activations[index], self.df, self.hidden_size)
         labels = t.ones(inputs.shape[:-1], dtype=t.int) * self.df["numeric label"][label_index]
 
+        if self.trim_to_model_response:
+            trim = self.df["first_think_token"][label_index]
+        else:
+            trim = self.positions_to_predict
+
         return {
-                "inputs": inputs[0, self.positions_to_predict:],
-                "labels": labels[0, self.positions_to_predict:],
+                "inputs": inputs[0, trim:],
+                "labels": labels[0, trim:],
                 }
 
 
